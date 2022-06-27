@@ -16,19 +16,19 @@ export default class Player extends Phaser.GameObjects.Rectangle{
 
     update(time: number, delta: number): void {
         if(this.keys.W.isDown){
-            this.y -= 10
+            this.y -= 1
         }
 
         if(this.keys.A.isDown){
-            this.x -= 10
+            this.x -= 1
         }
 
         if(this.keys.S.isDown){
-            this.y += 10
+            this.y += 1
         }
 
         if(this.keys.D.isDown){
-            this.x += 10
+            this.x += 1
         }
     }
 }
