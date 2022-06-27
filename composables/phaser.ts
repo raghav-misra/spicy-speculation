@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 //Scenes
 import BootScene from "~~/engine/scenes/boot";
+import HubScene from "~~/engine/scenes/hub";
 
 export const usePhaser = ()=> useState<Phaser.Game>("game",()=>null)
 export const createPhaser = ()=>{
@@ -30,6 +31,7 @@ export const createPhaser = ()=>{
     })
 
     game.value.scene.add('Boot',BootScene)
+    game.value.scene.add('Hub',HubScene)
 
     game.value.scene.start('Boot')
 }
