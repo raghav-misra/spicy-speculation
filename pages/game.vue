@@ -5,7 +5,9 @@ game.value.scene.start("Hub");
 </script>
 
 <template>
-    <main id="overlay" class="overlay"></main>
+    <main class="overlay">
+        <InteractionBox />
+    </main>
 </template>
 
 <style>
