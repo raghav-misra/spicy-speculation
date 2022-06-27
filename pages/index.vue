@@ -29,6 +29,11 @@ watchEffect(() => {
                 <button class="text" style="--accent: white;" @click="stage++">
                     Play!
                 </button>
+                <nuxt-link to="/game">
+                    <button class="text" style="--accent: white;">
+                        Debug
+                    </button>
+                </nuxt-link>
             </div>
             <div v-else-if="stage === 1" class="charter content">
                 <h1 class="title center">Charter of {{ info.island }}</h1>
