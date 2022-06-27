@@ -2,7 +2,7 @@
 const router = useRouter();
 
 const info = {
-    country: "Picantestan",
+    country: "Picantia",
     island: "Isla Chipotle",
     ocean: "Ginger Sea"
 };
@@ -97,6 +97,9 @@ watchEffect(() => {
     border-radius: 2rem;
     margin: 2rem;
     max-width: 800px;
+    background: url(~~/assets/charter.jpg);
+    background-position: center;
+    background-size: cover;
 }
 
 .charter .text {
