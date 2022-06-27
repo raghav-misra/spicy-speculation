@@ -9,9 +9,14 @@ const info = {
 
 const stage = ref(0);
 
-watchEffect(() => {
+const isLeavingOnboarding = ref(false);
+
+watchEffect(async () => {
     if (stage.value === 2) {
-        setTimeout(() => router.push("/game"), 11000);
+        await useWait(10000);
+        isLeavingOnboarding.value = true;
+        await useWait(3000);
+        router.push("/game");
     }
 });
 </script>
@@ -66,13 +71,20 @@ watchEffect(() => {
                     animationName: 'waves',
                 }" class="ocean" src="~~/assets/ocean.png">
 
-                <OverlayElement left="0" right="0">
-                    <br>
-                    <h1 class="center white title">Sailing to {{ info.island }}...</h1>
-                </OverlayElement>
-                <OverlayElement>
-                    <div class="ship"></div>
-                </OverlayElement>
+                <div class="loading-text" :class="{ landed: isLeavingOnboarding }">
+                    <h1 class="title white">
+                        <Transition name="list" mode="out-in">
+                            <span v-if="isLeavingOnboarding">
+                                Landed!
+                            </span>
+                            <span v-else>
+                                Sailing to {{ info.island }}...
+                            </span>
+                        </Transition>
+                    </h1>
+                </div>
+
+                <div class="ship"></div>
             </div>
         </Transition>
     </div>
@@ -102,7 +114,9 @@ watchEffect(() => {
     border-radius: 2rem;
     margin: 2rem;
     max-width: 800px;
-    background: url(~~/assets/charter.jpg);
+    background-image: 
+        linear-gradient(#c4a27253, #c4a27296),
+        url(~~/assets/charter.jpg);
     background-position: center;
     background-size: cover;
 }
@@ -138,9 +152,27 @@ watchEffect(() => {
     animation-fill-mode: forwards;
 }
 
+.loading-text {
+    position: fixed;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.loading-text h1 {
+    transition: 0.25s background ease-in-out;
+    background: var(--red);
+    padding: 1rem;
+}
+
+.loading-text.landed h1 {
+    background: var(--green);
+}
+
 .list-enter-active,
 .list-leave-active {
-    transition: all 0.5s ease;
+    transition: all 0.25s ease;
 }
 .list-enter-from,
 .list-leave-to {
@@ -156,11 +188,11 @@ watchEffect(() => {
 
 @keyframes ship-travel {
     0% {
-        right: 100%;
+        left: -200px;
     }
 
     100% {
-        right: 0;
+        left: calc(100% - 200px);
     }
 }
 
