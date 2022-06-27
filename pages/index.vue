@@ -84,7 +84,7 @@ watchEffect(async () => {
                     </h1>
                 </div>
 
-                <div class="ship"></div>
+                <img src="~~/assets/ship.png" class="ship">
             </div>
         </Transition>
     </div>
@@ -140,11 +140,9 @@ watchEffect(async () => {
 
 .ship {
     width: 200px;
-    height: 50px;
-
+    filter: invert(1) brightness(1) drop-shadow(0 0 50px var(--blue));
     top: calc(50% - 25px);
 
-    background: red;
     position: fixed;
     z-index: 70;
 
