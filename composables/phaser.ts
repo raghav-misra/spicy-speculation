@@ -12,17 +12,7 @@ export const createPhaser = ()=>{
         pixelArt: true,
         width: 640,
         height: 360,
-        backgroundColor: "black",
-        physics: {
-            default: "matter",
-            matter: {
-                gravity: {
-                    y: 0
-                },
-                autoUpdate: true,
-                enableSleeping: true,
-            }
-        },
+        backgroundColor: "#0F6463",
         scale: {
             mode: Phaser.Scale.ENVELOP,
             autoCenter: Phaser.Scale.CENTER_BOTH,
