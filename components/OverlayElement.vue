@@ -11,6 +11,7 @@ const props = defineProps<{
 
 <template>
     <div 
+        style="position: fixed;"
         :style="{ top, bottom, left, right, width, height }"
     >
         <slot />
