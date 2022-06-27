@@ -97,7 +97,9 @@ watchEffect(() => {
     border-radius: 2rem;
     margin: 2rem;
     max-width: 800px;
-    background: url(~~/assets/charter.jpg);
+    background-image: 
+        linear-gradient(#c4a27253, #c4a27296),
+        url(~~/assets/charter.jpg);
     background-position: center;
     background-size: cover;
 }
