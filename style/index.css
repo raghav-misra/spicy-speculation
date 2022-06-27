@@ -13,7 +13,7 @@
     --brown: rgb(205, 151, 122);
     --blue: #6290c8ff;
     --red: #eb5959ff;
-    --green: #8cb369ff;
+    --green: rgb(132, 198, 74);
 }
 
 html, body, #__nuxt {
@@ -35,7 +35,11 @@ html {
     z-index: 69;
 }
 
-.content > * {
+.overlay-element {
+    pointer-events: all;
+}
+
+.content > *:not(:last-child) {
     margin-bottom: 1rem;
 }
 
@@ -45,4 +49,8 @@ html {
 
 .white {
     color: white;
+}
+
+.allcaps {
+    text-transform: uppercase;
 }
