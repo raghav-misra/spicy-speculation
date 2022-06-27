@@ -11,9 +11,11 @@ export default class Hub extends Phaser.Scene{
 
     buildLayers(){
         const map = this.make.tilemap({key: 'hubMap'})
+
         const buildingsSet = map.addTilesetImage('CL_Buildings','buildingsTiles',undefined,undefined)
         const islandSet = map.addTilesetImage('CL_MainLev','islandTiles',undefined,undefined)
 
+        map.createLayer("OCEAN", islandSet, 0, 0)
         map.createLayer("ISLAND_1", islandSet, 0, 0)
         map.createLayer("ISLAND_2", islandSet, 0, 0)
 

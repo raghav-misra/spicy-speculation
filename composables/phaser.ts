@@ -8,7 +8,7 @@ export const usePhaser = ()=> useState<Phaser.Game>("game",()=>null)
 export const createPhaser = ()=>{
     const game = usePhaser()
     game.value = new Phaser.Game({
-        type: Phaser.WEBGL,
+        type: Phaser.CANVAS,
         pixelArt: true,
         width: 640,
         height: 360,
