@@ -1,7 +1,9 @@
 import Phaser from "phaser";
 
+//Scenes
+import BootScene from "~~/engine/scenes/boot";
 
-export const usePhaser = ()=> useState("game",()=>null)
+export const usePhaser = ()=> useState<Phaser.Game>("game",()=>null)
 export const createPhaser = ()=>{
     const game = usePhaser()
     game.value = new Phaser.Game({
@@ -26,4 +28,8 @@ export const createPhaser = ()=>{
         },
         canvas: document.querySelector("#canvas"),
     })
+
+    game.value.scene.add('Boot',BootScene)
+
+    game.value.scene.start('Boot')
 }

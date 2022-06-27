@@ -6,3 +6,6 @@ node_modules
 .output
 .env
 dist
+
+art_source/island
+art_source/*.*
