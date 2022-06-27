@@ -3,5 +3,17 @@
 
 <template>
     <NuxtPage />
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas"/>
 </template>
+
+<script setup>
+    onMounted(()=>{
+        createPhaser()
+    })
+</script>
+
+<style>
+body{
+ margin: 0;   
+}
+</style>
