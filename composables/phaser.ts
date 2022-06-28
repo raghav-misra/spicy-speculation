@@ -17,6 +17,16 @@ export const createPhaser = ()=>{
             mode: Phaser.Scale.ENVELOP,
             autoCenter: Phaser.Scale.CENTER_BOTH,
         },
+        physics:{
+            default: 'matter',
+            matter:{
+                gravity: {
+                    y: 0
+                },
+                autoUpdate: true,
+                enableSleeping: false
+            }
+        },
         canvas: document.querySelector("#canvas"),
     })
 

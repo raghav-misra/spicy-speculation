@@ -18,10 +18,15 @@ export default class Hub extends Phaser.Scene{
 
         map.createLayer("OCEAN", islandSet, 0, 0)
         map.createLayer("ISLAND_1", islandSet, 0, 0)
-        map.createLayer("ISLAND_2", islandSet, 0, 0)
+        map.createLayer("ISLAND_2", islandSet, 0, 0).setDepth(5)
 
-        map.createLayer("ISLAND_BUILDINGS_1", buildingsSet, 0, 0)
-        map.createLayer("ISLAND_BUILDINGS_2", buildingsSet, 0, 0)
+        map.createLayer("ISLAND_BUILDINGS_1", buildingsSet, 0, 0).setDepth(5)
+        map.createLayer("ISLAND_BUILDINGS_2", buildingsSet, 0, 0).setDepth(5)
+
+        const collisions = map.createLayer('COLLISIONS', null, 0, 0)
+        collisions.setCollisionByExclusion([-1])
+        this.matter.world.convertTilemapLayer(collisions)
+
     }
 
     update(time: number, delta: number): void {
