@@ -67,6 +67,8 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     buildAllAnimations(scene:Phaser.Scene){
         this.createHumanAnimation(scene,"male","A",0)
+        this.createHumanAnimation(scene,"male","B",24)
+        this.createHumanAnimation(scene,"male","C",48)
         
     }
 
