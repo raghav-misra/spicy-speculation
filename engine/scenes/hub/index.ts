@@ -7,7 +7,7 @@ export default class Hub extends Phaser.Scene{
         this.buildLayers()
         this.cameras.main.roundPixels = true
         this.cameras.main.setBounds(0,0,2464,864)
-        this.player = new Player(this)
+        this.player = new Player(this,803,439)
     }
 
     buildLayers(){
