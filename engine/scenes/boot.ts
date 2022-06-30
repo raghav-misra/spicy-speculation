@@ -12,6 +12,8 @@ export default class BootScene extends Phaser.Scene{
         this.load.image('harborTiles', harborTiles)
 
         this.load.tilemapTiledJSON('hubMap', hubMap)
+
+        this.load.spritesheet('male_1',"/sprites/Male1.png",{frameWidth:32,frameHeight:48})
         
     }
     create(){
