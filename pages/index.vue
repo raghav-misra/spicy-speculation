@@ -13,9 +13,9 @@ const isLeavingOnboarding = ref(false);
 
 watchEffect(async () => {
     if (stage.value === 2) {
-        await useWait(10000);
+        await wait(10000);
         isLeavingOnboarding.value = true;
-        await useWait(3000);
+        await wait(3000);
         router.push("/game");
     }
 });

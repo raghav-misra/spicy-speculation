@@ -1,1 +1,1 @@
-export const useWait = (duration: number) => new Promise(res => setTimeout(res, duration));
+export const wait = (duration: number) => new Promise(res => setTimeout(res, duration));
