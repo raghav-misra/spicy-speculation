@@ -44,3 +44,13 @@ export const showDialog = (newDialogState: Omit<IDialogState, "isShowing">) => {
         dialogCallback.value = resolve;
     });
 };
+
+export const showConversation = async (name: string, text: string[]) => {
+    for (const speech of text) {
+        await showDialog({
+            title: name,
+            text: speech,
+            buttons: [{ text: "Ok", accent: "white", responseType: "TEXT"  }]
+        });
+    }
+}

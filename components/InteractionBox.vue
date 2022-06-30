@@ -14,7 +14,12 @@ function endDialog(responseType: string) {
         <div class="interaction-box content overlay-element" v-if="dialogState.isShowing">
             <h1 class="allcaps">{{ dialogState.title }}</h1>
             <hr style="--accent: white;">
-            <p class="text">{{ dialogState.text }}</p>
+            <p 
+                class="text" 
+                v-if="dialogState.text !== ''"
+            >
+                {{ dialogState.text }}
+            </p>
             <br>
             <div>
                 <button 

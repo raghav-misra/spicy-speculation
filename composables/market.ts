@@ -4,10 +4,10 @@ interface SpicePricing{
     trend:number[]
 }
 
-export const useMarket = ()=> useState<SpicePricing[]>("market",()=>[])
+export const useMarket = () => useState<SpicePricing[]>("market",()=>[])
 
-export const initMarket = ()=>{
-    const market = useMarket()
+export const initMarket = () => {
+    const market = useMarket();
 
     market.value.push({
         name:"Pepper",

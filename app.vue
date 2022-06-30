@@ -7,9 +7,9 @@
 </template>
 
 <script setup>
-    onMounted(()=>{
-        createPhaser()
-    })
+onMounted(() => {
+    createPhaser()
+});
 </script>
 
 <style>
