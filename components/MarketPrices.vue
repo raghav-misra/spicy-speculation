@@ -1,9 +1,10 @@
 <template>
-    <div class="market-price-container">
-        <h1>Spice Market</h1>
+    <div class="market-price-container content">
+        <h2>Spice Market</h2>
+        <hr style="--accent: white;">
         <ul>
             <li v-for="spice in market">
-                {{spice.name}}: {{spice.price}}
+                <h3>{{spice.name}}: ${{spice.price}}</h3>
             </li>
         </ul>
     </div>
@@ -19,6 +20,7 @@ const market = useMarket()
     padding: 2rem;
     position: absolute;
     color:white;
-    right:0
+    right:0;
+    text-align: right;
 }
 </style>

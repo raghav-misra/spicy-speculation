@@ -1,39 +1,32 @@
 <script setup lang="ts">
-const dialogData = {
-    isShowing: true,
-    title: "Renegade Raider",
-    text: "Would you like to purchase the battle pass?",
-    buttons: [
-        {
-            text: "Yes, of course!!",
-            accent: "var(--green)",
-            onClick() {
-                alert("Insufficient funds to purchase the battle pass!");
-            }
-        }, {
-            text: "No bozo",
-            accent: "var(--red)",
-            onClick() {
-                alert("L Ratio bozo!");
-            }
-        }
-    ]
-};
+const dialogState = useDialogState();
+const dialogCallback = useDialogCallback();
+
+function endDialog(responseType: string) {
+    dialogState.value.isShowing = false;
+    dialogCallback.value(responseType);
+    dialogCallback.value = null;
+}
 </script>
 
 <template>
     <div class="interaction-container">
-        <div class="interaction-box content overlay-element" v-if="dialogData.isShowing">
-            <h1 class="allcaps">{{ dialogData.title }}</h1>
+        <div class="interaction-box content overlay-element" v-if="dialogState.isShowing">
+            <h1 class="allcaps">{{ dialogState.title }}</h1>
             <hr style="--accent: white;">
-            <p class="text">{{ dialogData.text}}</p>
+            <p 
+                class="text" 
+                v-if="dialogState.text !== ''"
+            >
+                {{ dialogState.text }}
+            </p>
             <br>
             <div>
                 <button 
-                    v-for="btn in dialogData.buttons"
+                    v-for="btn in dialogState.buttons"
                     :style="`--accent: ${btn.accent};`"
                     class="text"
-                    @click="btn.onClick"
+                    @click="endDialog(btn.responseType)"
                 >
                     {{ btn.text }}
                 </button>

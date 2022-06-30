@@ -11,8 +11,8 @@ export const useMarket = ()=> useState("market",()=>{
     }
 })
 
-export const initMarket = ()=>{
-    const market = useMarket()
+export const initMarket = () => {
+    const market = useMarket();
 
     market.value.prices.push({
         name:"Pepper",

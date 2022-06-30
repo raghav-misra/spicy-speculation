@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const game = usePhaser();
-initMarket()
+initMarket();
 
 game.value.scene.start("Hub");
 </script>
 
 <template>
-    <main class="ovelay" style="pointer-events: none;">
+    <main class="overlay" style="pointer-events: none;">
         <InteractionBox />
         <MarketPrices/>
     </main>
