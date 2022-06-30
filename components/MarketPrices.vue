@@ -3,7 +3,7 @@
         <h2>Spice Market</h2>
         <hr style="--accent: white;">
         <ul>
-            <li v-for="spice in market">
+            <li v-for="spice in market.prices">
                 <h3>{{spice.name}}: ${{spice.price}}</h3>
             </li>
         </ul>
