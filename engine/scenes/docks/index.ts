@@ -2,7 +2,7 @@ import Player from "~~/engine/objects/player"
 import Npc from "~~/engine/objects/npc"
 import Door from "~~/engine/objects/door";
 
-export default class Hub extends Phaser.Scene{
+export default class Docks extends Phaser.Scene{
     player:Player;
     npcs:Npc[] = []
 
@@ -10,45 +10,47 @@ export default class Hub extends Phaser.Scene{
         this.buildLayers()
         this.cameras.main.roundPixels = true
 
-        this.cameras.main.setBounds(0,0,2464,864)
-        this.matter.world.setBounds(0,0,2464,864)
+        this.cameras.main.setBounds(0,0,1472,1456)
+        this.matter.world.setBounds(0,0,1472,1456)
         
-        this.player = new Player(this,803,439)
+        this.player = new Player(this,22.5*32,43*32)
+        this.player.speed = 1.5
+
         this.npcs.push(new Npc({
             scene:this,
-            x:1151,
-            y:270
+            x:1088,
+            y:960
         }))
 
         this.npcs.push(new Npc({
             scene:this,
-            x:1251,
-            y:370
+            x:192,
+            y:768
         }))
 
-        //To Docks
+        //To Hub
         new Door({
             scene:this,
-            x:34 * 32,
-            y:0,
-            width:7*32,
-            height:2*32,
-            to:"Docks"
+            to:"Hub",
+            x:23*32,
+            y:45*32,
+            width:9*32,
+            height:32
         })
     }
 
     buildLayers(){
-        const map = this.make.tilemap({key: 'hubMap'})
+        const map = this.make.tilemap({key: 'docksMap'})
 
-        const buildingsSet = map.addTilesetImage('CL_Buildings','buildingsTiles',undefined,undefined)
+        const harborSet = map.addTilesetImage('Harbor','harborTiles',undefined,undefined)
         const islandSet = map.addTilesetImage('CL_MainLev','islandTiles',undefined,undefined)
 
         map.createLayer("OCEAN", islandSet, 0, 0)
-        map.createLayer("ISLAND_1", islandSet, 0, 0)
-        map.createLayer("ISLAND_TOP", islandSet, 0, 0).setDepth(5)
-
-        map.createLayer("ISLAND_BUILDINGS_1", buildingsSet, 0, 0)
-        map.createLayer("ISLAND_BUILDINGS_TOP", buildingsSet, 0, 0).setDepth(5)
+        map.createLayer("ISLAND", islandSet, 0, 0)
+        map.createLayer("HARBOR_TOP", harborSet, 0, 0).setDepth(5)
+        map.createLayer("HARBOR_STAIRS", harborSet, 0, 0).setDepth(2)
+        map.createLayer("HARBOR", harborSet, 0, 0)
+        
 
         const collisions = map.createLayer('COLLISIONS', null, 0, 0)
         collisions.setCollisionByExclusion([-1])
