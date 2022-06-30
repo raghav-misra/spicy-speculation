@@ -26,6 +26,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.buildAllAnimations(this.scene)
 
         this.setScale(1.5)
+
         //Idle animations
         this.keys.W.on('up',()=>this.anims.play(`${this.gender}_${this.spriteKey}_up_idle`))
         this.keys.A.on('up',()=>this.anims.play(`${this.gender}_${this.spriteKey}_side_idle`))
@@ -33,6 +34,13 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.keys.S.on('up',()=>this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`))
 
         this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`)
+
+        //Tick the market
+        this.scene.time.addEvent({
+            callback: stepMarket,
+            delay:60 * 1000 * 2,
+            loop:true
+        })
         
     }
 
