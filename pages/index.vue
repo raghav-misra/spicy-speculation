@@ -1,11 +1,6 @@
 <script setup lang="ts">
 const router = useRouter();
 
-const info = {
-    country: "Picantia",
-    island: "Isla Chipotle",
-    ocean: "Ginger Sea"
-};
 
 const stage = ref(0);
 

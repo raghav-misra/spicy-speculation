@@ -1,15 +1,20 @@
-interface SpicePricing{
+export interface SpicePricing{
     name:string
     price:number
     trend:number[]
 }
 
-export const useMarket = ()=> useState<SpicePricing[]>("market",()=>[])
+export const useMarket = ()=> useState("market",()=>{
+    return{
+        prices:[] as SpicePricing[],
+        stepsUntilEvent:4
+    }
+})
 
 export const initMarket = ()=>{
     const market = useMarket()
 
-    market.value.push({
+    market.value.prices.push({
         name:"Pepper",
         price:120,
         trend:[]
@@ -24,11 +29,34 @@ export const initMarket = ()=>{
 /** Tick prices of the spice market */
 export const stepMarket = ()=>{
     const market = useMarket()
-    market.value.forEach(spice=>{
-        if(spice.trend.length === 0) spice.trend = generateTrend(spice.price)
+    const event = useEvent()
+    market.value.stepsUntilEvent -= 1
 
-         spice.price = spice.trend.shift()
-    })
+    if(market.value.stepsUntilEvent === 0 || event.value){
+        //If spices still have trends, step it
+        const hasTrend = market.value.prices.some(spice=>spice.trend.length > 0)
+
+        if(!hasTrend){
+            if(event.value.currentPhase?.endsEvent){
+                event.value = null
+                market.value.stepsUntilEvent = 4
+                return
+            }
+            stepEvent()
+        }
+        
+        market.value.prices.forEach(spice=>{
+            if(spice.trend.length > 0){
+                spice.price += spice.trend.shift()
+            }
+        })
+    }else{
+        market.value.prices.forEach(spice=>{
+            if(spice.trend.length === 0) spice.trend = generateTrend(spice.price)
+    
+             spice.price = spice.trend.shift()
+        })
+    }
 }
 
 const generateTrend = (price:number)=>{
@@ -80,11 +108,6 @@ const generateTrend = (price:number)=>{
     }
 }
 
-
-function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function normalizeTrend(trend:number[]){
+export function normalizeTrend(trend:number[]){
     return trend.map(p=>Math.max(5,p))
 }
