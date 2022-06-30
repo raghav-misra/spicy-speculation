@@ -1,7 +1,7 @@
 interface NPCConfig{
-    gender:string,
-    sprite:string,
-    spriteKey:string,
+    gender?:string,
+    sprite?:string,
+    spriteKey?:string,
     x:number,
     y:number,
     scene:Phaser.Scene
@@ -13,8 +13,8 @@ export default class Player extends Phaser.GameObjects.Sprite{
     setVelocityY: (y)=>void
     setVelocityX: (x)=>void
 
-    gender = "male"
-    spriteKey = "B"
+    gender:string;
+    spriteKey:string;
 
     speed = 1.5
 
@@ -25,9 +25,22 @@ export default class Player extends Phaser.GameObjects.Sprite{
     }
     
     constructor({scene,x,y,sprite,spriteKey,gender}:NPCConfig){
-        super(scene,x,y,sprite)
-        this.spriteKey = spriteKey
-        this.gender = gender
+
+        if(sprite && spriteKey && gender){
+            super(scene,x,y,sprite)
+            this.spriteKey = spriteKey
+            this.gender = gender
+        }else{
+            const gender = pickRandom(["male","female"])
+            super(scene,x,y,`${gender}_1`)
+
+            this.gender = gender
+            this.spriteKey = pickRandom(["B","C","D"])
+
+        }
+
+
+
         this.create()
         scene.matter.add.gameObject(this,scene.matter.bodies.rectangle(x,y,16,32,{
             inertia: Infinity,
@@ -43,6 +56,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.keys = this.scene.input.keyboard.addKeys("W,A,S,D,E,space",false) as Record<string,Phaser.Input.Keyboard.Key>
 
         this.setScale(1.5)
+        this.setDepth(3)
 
         //Idle animations
         this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`)
@@ -67,7 +81,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
                 if(direction === 'x'){
                     this.anims.play(`${this.gender}_${this.spriteKey}_side_idle`)
                 }else if(velocitySign === -1){
-                    this.anims.play(`${this.gender}_${this.spriteKey}up`)
+                    this.anims.play(`${this.gender}_${this.spriteKey}_up_idle`)
                 }else{
                     this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`)
                 }
@@ -83,6 +97,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
     }
 
     update(time: number, delta: number): void {
+        if(!this) return
         this.setVelocityY(this.velocity.y)
         this.setVelocityX(this.velocity.x)
 
