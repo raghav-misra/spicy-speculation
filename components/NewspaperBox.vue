@@ -1,5 +1,11 @@
 <script setup lang="ts">
 const isShowing = ref(false);
+
+function closeByOverlayClick(e: MouseEvent) {
+    if ((e.target as HTMLElement).classList.contains("newspaper-container")) {
+        isShowing.value = false;
+    }
+}
 </script>
 
 <template>
@@ -7,7 +13,7 @@ const isShowing = ref(false);
         <h1>Island News 📖</h1>
     </button>
 
-    <div class="overlay newspaper-container" v-if="isShowing">
+    <div class="overlay newspaper-container" v-if="isShowing" @click="closeByOverlayClick">
         <div class="overlay-element newspaper content white">
             <header>
                 <h1 class="allcaps text big">The {{ info.island }} Gazette</h1>
