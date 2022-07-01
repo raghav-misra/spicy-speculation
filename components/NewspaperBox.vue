@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const isShowing = ref(false);
+const newsArticles = useNewsArticles();
 
 function closeByOverlayClick(e: MouseEvent) {
     if ((e.target as HTMLElement).classList.contains("newspaper-container")) {
@@ -27,14 +28,23 @@ function closeByOverlayClick(e: MouseEvent) {
             </header>
             <hr style="--accent: white;">
             <div class="article-container content">
-                <article>
+                <article v-for="article in newsArticles">
                     <h1 class="text">
-                        Fortnite collaboration coming to {{ info.island }}!
-                        — <i class="allcaps">day 0</i>
+                        {{ article.title }}
+                        — <i class="allcaps">day {{ article.day }}</i>
                     </h1>
                     <p class="text small">
-                        Featuring limited edition Fortnite<sup>TM</sup> items, including
-                        Renegade Raider and VBUCKS!!!!!
+                        {{ article.text }}
+                    </p>
+                </article>
+                <article v-if="newsArticles.length === 0">
+                    <h1>
+                        Nothing here yet, keep exploring!
+                    </h1>
+
+                    <p class="text small">
+                        {{ info.country }}'s trusty news reporters and journalist will keep
+                        you and the rest of {{ info.island }} up to date!   
                     </p>
                 </article>
             </div>
