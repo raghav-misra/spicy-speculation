@@ -6,7 +6,8 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     gender = "male"
     spriteKey = "A"
-    
+    speed = 2.5
+
     constructor(scene:Phaser.Scene,x,y){
         super(scene,x,y,"male_1")
         this.create()
@@ -26,6 +27,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.buildAllAnimations(this.scene)
 
         this.setScale(1.5)
+        this.setDepth(3)
 
         //Idle animations
         this.keys.W.on('up',()=>this.anims.play(`${this.gender}_${this.spriteKey}_up_idle`))
@@ -38,7 +40,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
         //Tick the market
         this.scene.time.addEvent({
             callback: stepMarket,
-            delay:60 * 1000 * 2,
+            delay:30 * 1000,
             loop:true
         })
         
@@ -46,20 +48,20 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     update(time: number, delta: number): void {
         if(this.keys.W.isDown){
-            this.setVelocityY(-2.5)
+            this.setVelocityY(-this.speed)
             this.anims.play(`${this.gender}_${this.spriteKey}_up_walk`,true)
         }
         else if(this.keys.A.isDown){
-            this.setVelocityX(-2.5)
+            this.setVelocityX(-this.speed)
             this.anims.play(`${this.gender}_${this.spriteKey}_side_walk`,true)
             this.setFlipX(false)
         }
         else if(this.keys.S.isDown){
-            this.setVelocityY(2.5)
+            this.setVelocityY(this.speed)
             this.anims.play(`${this.gender}_${this.spriteKey}_down_walk`,true)
         }
         else if(this.keys.D.isDown){
-            this.setVelocityX(2.5)
+            this.setVelocityX(this.speed)
             this.anims.play(`${this.gender}_${this.spriteKey}_side_walk`,true)
             this.setFlipX(true)
         }
@@ -77,6 +79,12 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.createHumanAnimation(scene,"male","A",0)
         this.createHumanAnimation(scene,"male","B",24)
         this.createHumanAnimation(scene,"male","C",48)
+        this.createHumanAnimation(scene,"male","D",72)
+
+        this.createHumanAnimation(scene,"female","A",0)
+        this.createHumanAnimation(scene,"female","B",24)
+        this.createHumanAnimation(scene,"female","C",48)
+        this.createHumanAnimation(scene,"female","D",72)
         
     }
 
