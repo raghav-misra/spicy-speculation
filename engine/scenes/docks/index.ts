@@ -19,6 +19,8 @@ export default class Docks extends Phaser.Scene{
 
         const player = usePlayer()
 
+        this.spawnNpcs()
+
         const importPorts = player.value.ports.filter(port=>port.direction === "import")
         const exportPorts = player.value.ports.filter(port=>port.direction === "export")
         
