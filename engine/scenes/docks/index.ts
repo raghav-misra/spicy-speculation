@@ -2,6 +2,7 @@ import Player from "~~/engine/objects/player"
 import Npc from "~~/engine/objects/npc"
 import Door from "~~/engine/objects/door";
 import Port from "~~/engine/objects/port";
+import Builder from "~~/engine/objects/builder";
 
 export default class Docks extends Phaser.Scene{
     player:Player;
@@ -17,19 +18,9 @@ export default class Docks extends Phaser.Scene{
         this.player = new Player(this,22.5*32,43*32)
         this.player.speed = 1.5
 
-        this.npcs.push(new Npc({
-            scene:this,
-            x:1088,
-            y:960
-        }))
-
-        this.npcs.push(new Npc({
-            scene:this,
-            x:192,
-            y:768
-        }))
-
         const player = usePlayer()
+
+        this.spawnNpcs()
 
         const importPorts = player.value.ports.filter(port=>port.direction === "import")
         const exportPorts = player.value.ports.filter(port=>port.direction === "export")
@@ -63,6 +54,30 @@ export default class Docks extends Phaser.Scene{
             width:9*32,
             height:32
         })
+    }
+
+    spawnNpcs(){
+        const ports = usePlayer().value.ports
+        const points = [
+            {x:1088,y:960},
+            {x:192,y:768},
+            {x:709,y:695}
+        ]
+
+        const importPorts = ports.filter(p=>p.direction === "import")
+
+        const numToSpawn = (importPorts.length  * 2) / 2
+
+        for(let i = 0; i < numToSpawn; i++){
+            const point = points[i]
+            this.npcs.push(new Npc({
+                scene:this,
+                x:point.x,
+                y:point.y
+            }))
+        }
+
+        new Builder(this)
     }
 
     buildLayers(){

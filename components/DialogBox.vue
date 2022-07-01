@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const dialogState = useDialogState();
 const buttons = ref<HTMLButtonElement[]>([]);
+const playerLocked = useMovementLocked();
 
 function endDialog(responseType: string) {
     dialogState.value.isShowing = false;
     dialogState.value.callback(responseType);
     dialogState.value.callback = null;
+    playerLocked.value = false;
 }
 
 onMounted(() => {
@@ -16,6 +18,7 @@ onMounted(() => {
 
 watch(() => dialogState.value, () => {
     if (dialogState.value.isShowing) {
+        playerLocked.value = true;
         buttons.value[0]?.focus();
     }
 })

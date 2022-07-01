@@ -34,11 +34,11 @@ export default class NPC extends Phaser.GameObjects.Sprite{
             this.spriteKey = spriteKey
             this.gender = gender
         }else{
-            const gender = pickRandom(["male","female"])
+            const { gender,spriteKey } = createNpc()
             super(scene,x,y,`${gender}_1`)
 
             this.gender = gender
-            this.spriteKey = pickRandom(["B","C","D"])
+            this.spriteKey = spriteKey
 
         }
 
@@ -67,32 +67,43 @@ export default class NPC extends Phaser.GameObjects.Sprite{
         this.randomWalk()
 
         //Interact body
-        this.interactBody = this.scene.matter.add.circle(this.x,this.y,30,{
+        this.interactBody = this.scene.matter.add.circle(this.x,this.y,50,{
             isSensor: true,
             label: "npc"
         })
 
          //Detect if player is near
         this.interactBody.onCollideCallback = (event:any) => {
+            const hint = useState("hint")
             if(event.bodyA.label === "Player"){
                 this.isNearPlayer = true
+                hint.value = "Press T to talk"
             }
         }
         this.interactBody.onCollideEndCallback = (event:any) => {
+            const hint = useState("hint")
             if(event.bodyA.label === "Player"){
                 this.isNearPlayer = false
+                hint.value = null
+                
             }
         }
 
         //Handle interaction
         this.scene.input.keyboard.on("keydown-T", () => {
+            const hint = useState("hint")
             if (!this.isNearPlayer) return;
+            hint.value = null
+            this.facePlayer()
             triggerInteraction(this.gender, this.spriteKey);
         })
         
     }
 
     randomWalk(){
+        const dialogue = useDialogState()
+        if(dialogue.value.isShowing) return
+
         const direction = (Math.random() > 0.5) ? "x" : "y"
         this.velocity[direction] =(Math.random() > 0.5) ? this.speed : -this.speed
 

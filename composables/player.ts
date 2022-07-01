@@ -36,3 +36,9 @@ export const usePlayer = () => useState("playerState", () => ({
         }
     }] as PortState[]
 }));
+
+export const useMovementLocked = () => useState("movementLocked", () => false)
+
+export const setMovementLocked = (locked:boolean) => {
+    useMovementLocked().value = locked
+}

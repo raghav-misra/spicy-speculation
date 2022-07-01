@@ -23,3 +23,28 @@ const npcMap = {
 export function getNpcInfo(gender: string, spriteKey: string) {
     return npcMap[gender][spriteKey];
 }
+
+export let currentNpcs = []
+
+export function createNpc(){
+    const possibleNpcs = []
+    Object.keys(npcMap).forEach(gender=>{
+        const keys = Object.keys(npcMap[gender])
+        keys.forEach(k=>{
+            possibleNpcs.push(`${gender}-${k}`)
+        })
+    })
+    const availableNpcs = possibleNpcs.filter(n=>!currentNpcs.includes(n)) 
+
+    const npc = pickRandom(availableNpcs)
+    currentNpcs.push(npc)
+
+    return{
+        gender:npc.split("-")[0],
+        spriteKey:npc.split("-")[1]
+    }
+}
+
+export function resetNpcs(){
+    currentNpcs=[]
+}

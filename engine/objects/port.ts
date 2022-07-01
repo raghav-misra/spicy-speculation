@@ -11,9 +11,12 @@ interface PortConfig{
 
 export default class Port extends Phaser.GameObjects.Sprite{
     shipObject: Ship|null
+    isNearPlayer: boolean = false
     constructor({x,y,direction,scene,ship}:PortConfig){
         super(scene,x,y,"port")
 
+        const hint = useState("hint")
+        
         this.scene.matter.add.gameObject(this,{
             isSensor: true,
             label:"port"
@@ -27,14 +30,37 @@ export default class Port extends Phaser.GameObjects.Sprite{
         this.scene.add.existing(this)
         //Get anything body is touching
         const body = this.body as MatterJS.BodyType
+
         body.onCollideCallback = (event:any) => {
             if(event.bodyA.label != `Player` && event.bodyA.label != `port`){
                 //Destroy body
                 this.scene.matter.world.remove(event.bodyA)
             }else if(event.bodyA.label === `Player`){
-                //@TODO Trigger import/export ui
+                this.isNearPlayer = true
+                if(!this.shipObject) return
+                if(this.shipObject.ready){
+                    hint.value = `Press T to ${(direction === 'import') ? 'buy' : 'sell'} spices`
+                }else{
+                    hint.value = `This ship has sailed! It will be back tomorrow.`
+                }
             }
         }
+
+        body.onCollideEndCallback = (event:any) => {
+            if(event.bodyA.label === "Player"){
+                this.isNearPlayer = false
+                hint.value = null
+                
+            }
+        }
+
+        //@TODO Trigger import/export ui
+        this.scene.input.keyboard.on("keydown-T", () => {
+            const hint = useState("hint")
+            if (!this.isNearPlayer) return;
+            hint.value = null
+            this.shipObject.sail(direction)
+        })
 
         if (direction === 'import') {
             //Top wall
