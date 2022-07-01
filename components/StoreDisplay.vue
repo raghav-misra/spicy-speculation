@@ -1,20 +1,12 @@
 <script setup lang="ts">
-const storeState = ref({
-    isShowing: true,
-    title: "Fortnite Item Shop",
-    items: [
-        {
-            name: "Renegade Raider",
-            displayPrice: "$100",
-            onPurchase() {}
-        },
-        {
-            name: "Renegade Raider",
-            displayPrice: "$100",
-            onPurchase() {}
-        },
-    ]
-});
+const storeState = useStoreState();
+const storeCallback = useStoreCallback();
+
+function endDialog(responseType: string) {
+    storeState.value.isShowing = false;
+    storeCallback.value(responseType);
+    storeCallback.value = null;
+}
 </script>
 
 <template>
@@ -24,14 +16,17 @@ const storeState = ref({
             <hr style="--accent: white;">
             <div class="store-items">
                 <div class="store-item" v-for="item in storeState.items">
-                    <h2>{{ item.name }}</h2>
-                    <button class="text small" style="--accent: var(--blue)">
+                    <div class="item-info">
+                        <h2 class="text">{{ item.name }}</h2>
+                        <p class="text small">{{ item.description }}</p>
+                    </div>
+                    <button class="text small" style="--accent: var(--green)">
                         deej
                     </button>
                 </div>
             </div>
             <hr style="--accent: white;">
-            <button class="text" style="--accent: var(--green);" @click="storeState.isShowing = false;">
+            <button class="text" style="--accent: var(--blue);" @click="storeState.isShowing = false;">
                 Close
             </button>
         </div>
@@ -65,5 +60,15 @@ const storeState = ref({
 .store-items {
     align-self: stretch;
     text-align: left;
+}
+
+.store-item {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.store-item button {
+    margin-left: 1rem;
 }
 </style>
