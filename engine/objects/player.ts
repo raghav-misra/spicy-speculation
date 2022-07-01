@@ -48,8 +48,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     update(time: number, delta: number): void {
         const player = usePlayer()
-        const isLocked = useMovementLocked().value
-        
+        const isLocked = useMovementLocked().value        
         if(isLocked) return
 
         if(this.keys.W.isDown){
