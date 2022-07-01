@@ -61,6 +61,9 @@ async function purchaseItem(item: IShopItem<any>) {
     bottom: 1rem;
     left: 1.5rem;
     overflow: hidden;
+}
+
+.store-box {
     width: min(max(40vw, 500px), calc(100vw - 3rem));
 }
 
