@@ -1,9 +1,12 @@
 <script setup lang="ts">
 const storeState = useStoreState();
 const storeCallback = useStoreCallback();
+const currentMessage = ref<string | null>(null);
 
-function purchaseItem(responseType: any) {
-    storeCallback.value(responseType);
+async function purchaseItem(responseType: any) {
+    currentMessage.value = storeCallback.value(responseType);
+    await wait(1500);
+    currentMessage.value = null;
 }
 </script>
 
@@ -11,6 +14,8 @@ function purchaseItem(responseType: any) {
     <div class="store-container">
         <div class="store-box content overlay-element" v-if="storeState.isShowing">
             <h1 class="allcaps">{{ storeState.title }}</h1>
+            <hr style="--accent: white;">
+            <p class="text small">{{ currentMessage || "Purchase items to add them to your inventory!" }}</p>
             <hr style="--accent: white;">
             <div class="store-items">
                 <div class="store-item" v-for="item in storeState.items">
@@ -71,7 +76,11 @@ function purchaseItem(responseType: any) {
 .store-item {
     display: flex;
     margin-bottom: 1rem;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.store-item .item-info {
+    flex: 1;
 }
 
 .store-item button {

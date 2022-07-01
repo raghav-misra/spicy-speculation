@@ -1,15 +1,15 @@
-interface IStoreState {
+interface IStoreState<T> {
     isShowing: boolean;
     title: string;
     items: {
         name: string;
         description: string;
         displayPrice: string;
-        responseType: any;
+        responseType: T;
     }[];
 }
 
-export const useStoreState = () => useState<IStoreState>("storeState", () => ({
+export const useStoreState = () => useState<IStoreState<any>>("storeState", () => ({
     isShowing: false,
     title: "Fortnite Item Shop",
     items: [
@@ -28,14 +28,14 @@ export const useStoreState = () => useState<IStoreState>("storeState", () => ({
     ]
 }));
 
-export const useStoreCallback = () => useState<null | ((type: unknown) => unknown)>(
+export const useStoreCallback = () => useState<null | ((type: unknown) => string)>(
     "storeCallback", 
     null
 );
 
 export const showStore = <T = string>(
-    newStoreState: Omit<IStoreState, "isShowing">, 
-    purchasedItemCallback: (res: T) => unknown
+    newStoreState: Omit<IStoreState<T>, "isShowing">, 
+    purchasedItemCallback: (res: T) => string
 ) => {
     const storeState = useStoreState();
     const storeCallback = useStoreCallback();

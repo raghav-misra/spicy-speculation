@@ -9,25 +9,23 @@ try {
     location.href = "/";
 }
 
-await showStore({
-    title: "Fortnite Item Shop",
+showStore({
+    title: "Big Shaq's Item Shop",
     items: [
         {
-            name: "Renegade Raider",
-            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
             displayPrice: "$100",
-            responseType: "RENEGADE"
+            responseType: "yummy syrup"
         },
         {
             name: "Renegade Raider",
             description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
             displayPrice: "$100",
-            responseType: "RENEGADE"
+            responseType: "litty skin"
         },
     ]
-}, (item) => {
-    console.log(item)
-});
+}, (item) => `Thanks for buying the ${item} big man.`);
 </script>
 
 <template>
