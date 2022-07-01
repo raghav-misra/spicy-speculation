@@ -1,6 +1,13 @@
+export interface ShipState{
+    direction: 'import'|'export',
+    prices: {[key:string]:number},
+    type: 'med'|'small',
+    name: string,
+}
+
 interface PortState{
     direction:'import'|'export',
-    hasShip:boolean
+    ship?:ShipState
 }
 
 export const usePlayer = () => useState("playerState", () => ({
@@ -13,9 +20,16 @@ export const usePlayer = () => useState("playerState", () => ({
     },
     ports: [{
         direction: "import",
-        hasShip: false
+        ship: null
     },{
         direction: "export",
-        hasShip: false
-}] as PortState[]
+        ship:{
+            name:"Peptopia Charters",
+            type:"med",
+            prices:{
+                pepper:20,
+                saffron:1000
+            },
+        }
+    }] as PortState[]
 }));

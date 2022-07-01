@@ -1,16 +1,22 @@
+import { ShipState } from "~~/composables/player"
+import Ship from "./ship"
+
 interface PortConfig{
     scene:Phaser.Scene,
     x:number,
     y:number,
-    direction:'import'|'export',
+    direction:"import"|"export",
+    ship?:ShipState
 }
 
 export default class Port extends Phaser.GameObjects.Sprite{
-    constructor({x,y,direction,scene}:PortConfig){
+    shipObject: Ship|null
+    constructor({x,y,direction,scene,ship}:PortConfig){
         super(scene,x,y,"port")
 
         this.scene.matter.add.gameObject(this,{
-            isSensor: true
+            isSensor: true,
+            label:"port"
         })
 
         this.x = this.width/2 + x
@@ -22,9 +28,12 @@ export default class Port extends Phaser.GameObjects.Sprite{
         //Get anything body is touching
         const body = this.body as MatterJS.BodyType
         body.onCollideCallback = (event:any) => {
-            if(event.bodyA.label != `Player`){
+            console.log(event.bodyA.label)
+            if(event.bodyA.label != `Player` && event.bodyA.label != `port`){
                 //Destroy body
                 this.scene.matter.world.remove(event.bodyA)
+            }else if(event.bodyA.label === `Player`){
+                //@TODO Trigger import/export ui
             }
         }
 
@@ -82,5 +91,14 @@ export default class Port extends Phaser.GameObjects.Sprite{
             })
         }
 
+        //Create a ship
+        if(!ship) return
+         
+        this.shipObject = new Ship({
+            scene:this.scene,
+            x:(direction === 'export') ?this.x +  -30 : this.x + 30,
+            y:this.y - 10,
+            ...ship
+        })
     }   
 }
