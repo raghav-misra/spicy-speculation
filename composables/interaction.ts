@@ -71,7 +71,12 @@ export const showShop = <T>(
     };
 };
 
-export const triggerInteraction = (gender: string, spriteKey: string) => {
+export const triggerInteraction = async (gender: string, spriteKey: string) => {
     const name = getNpcInfo(gender, spriteKey);
-    alert(name);
+    
+    await showDialog({
+        title: name,
+        text: "New to these parts are you? Worry not, I'm sure you'll pick up quickly.",
+        buttons: []
+    });
 };
