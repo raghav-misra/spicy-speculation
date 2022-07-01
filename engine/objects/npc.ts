@@ -34,11 +34,11 @@ export default class NPC extends Phaser.GameObjects.Sprite{
             this.spriteKey = spriteKey
             this.gender = gender
         }else{
-            const gender = pickRandom(["male","female"])
+            const { gender,spriteKey } = createNpc()
             super(scene,x,y,`${gender}_1`)
 
             this.gender = gender
-            this.spriteKey = pickRandom(["B","C","D"])
+            this.spriteKey = spriteKey
 
         }
 

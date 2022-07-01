@@ -1,5 +1,7 @@
 export default class NextDayScene extends Phaser.Scene{
     create(){
+        resetNpcs()
+        
         //Stops other scenes
         this.scene.stop("Hub")
         this.scene.stop("Docks")
