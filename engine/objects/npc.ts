@@ -15,8 +15,11 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     gender:string;
     spriteKey:string;
+    interactBody: MatterJS.BodyType;
 
     speed = 1.5
+
+    isNearPlayer = false
 
     allowRoam = true
     velocity = {
@@ -62,6 +65,31 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`)
 
         this.randomWalk()
+
+        //Interact body
+        this.interactBody = this.scene.matter.add.circle(this.x,this.y,30,{
+            isSensor: true,
+            label: "npc"
+        })
+
+         //Detect if player is near
+        this.interactBody.onCollideCallback = (event:any) => {
+            if(event.bodyA.label === "Player"){
+                this.isNearPlayer = true
+            }
+        }
+        this.interactBody.onCollideEndCallback = (event:any) => {
+            if(event.bodyA.label === "Player"){
+                this.isNearPlayer = false
+            }
+        }
+
+        //Handle interaction
+        this.scene.input.keyboard.on("keydown-T",()=>{
+            if(!this.isNearPlayer) return
+
+            //@TODO: Add functions for dialogue
+        })
         
     }
 
@@ -70,7 +98,8 @@ export default class Player extends Phaser.GameObjects.Sprite{
         this.velocity[direction] =(Math.random() > 0.5) ? this.speed : -this.speed
 
         const walkTime = Math.floor(Math.random() * (2000 - 1000 + 1) + 1000)
-        const waitTime = walkTime  + Math.floor(Math.random() * (5000 - 2000 + 1) + 2000)
+        const lookTime = walkTime + Math.floor(Math.random() * (2500 - 2000 + 1) + 2000)
+        const waitTime = lookTime  + Math.floor(Math.random() * (5000 - 2000 + 1) + 2000)
 
         this.scene.time.addEvent({
             delay: walkTime,
@@ -89,6 +118,14 @@ export default class Player extends Phaser.GameObjects.Sprite{
         })
 
         this.scene.time.addEvent({
+            delay:lookTime,
+            callback:()=>{
+                if(this.isNearPlayer) return
+                this.anims.play(pickRandom([`${this.gender}_${this.spriteKey}_side_idle`,`${this.gender}_${this.spriteKey}_up_idle`,`${this.gender}_${this.spriteKey}_down_idle`]))
+            }
+        })
+
+        this.scene.time.addEvent({
             delay:waitTime,
             callback:()=>{
                 this.randomWalk()
@@ -96,8 +133,55 @@ export default class Player extends Phaser.GameObjects.Sprite{
         })
     }
 
+    facePlayer(){
+        const player = usePlayer().value
+
+        //Calculate angle
+        const angle = Math.atan2(player.y - this.y,player.x - this.x)
+        const angleDeg = angle * (180 / Math.PI)
+
+        if(angleDeg < -115){
+            this.anims.play(`${this.gender}_${this.spriteKey}_side_idle`, true)
+            this.setFlipX(false)
+        }else if (angleDeg < 5){
+            this.anims.play(`${this.gender}_${this.spriteKey}_up_idle`, true)
+        }else if(angleDeg < 95){
+            this.anims.play(`${this.gender}_${this.spriteKey}_side_idle`, true)
+            this.setFlipX(true)
+        }else if(angleDeg < 180){
+            this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`, true)
+        }
+        
+    }
+
     update(time: number, delta: number): void {
         if(!this) return
+
+        //Move interact body
+        this.interactBody.position.x = this.x
+        this.interactBody.position.y = this.y
+
+        if(this.isNearPlayer){
+            this.setVelocityX(0)
+            this.setVelocityY(0)
+
+            if(this.velocity.x === 0 && this.velocity.y === 0) return
+
+            const direction = this.velocity.x > 0 ? "x" : "y"
+            const velocitySign = Math.sign(this.velocity[direction])
+
+            if(direction === 'x'){
+                this.anims.play(`${this.gender}_${this.spriteKey}_side_idle`)
+            }else if(velocitySign === -1){
+                this.anims.play(`${this.gender}_${this.spriteKey}_up_idle`)
+            }else{
+                this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`)
+            }
+
+
+            return
+        }
+
         this.setVelocityY(this.velocity.y)
         this.setVelocityX(this.velocity.x)
 
