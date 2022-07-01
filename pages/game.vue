@@ -12,7 +12,8 @@ try {
     <main class="overlay" style="pointer-events: none;">
         <DialogBox />
         <ShopBox />
-        <MarketPrices/>
+        <MarketPriceBox />
+        <NewspaperBox /> 
     </main>
 </template>
 
