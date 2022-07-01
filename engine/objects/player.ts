@@ -40,7 +40,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
         //Tick the market
         this.scene.time.addEvent({
             callback: stepMarket,
-            delay:30 * 1000,
+            delay:5 * 1000,
             loop:true
         })
         

@@ -7,7 +7,7 @@ interface NPCConfig{
     scene:Phaser.Scene
 }
 
-export default class Player extends Phaser.GameObjects.Sprite{
+export default class NPC extends Phaser.GameObjects.Sprite{
 
     keys: Record<string,Phaser.Input.Keyboard.Key> = {}
     setVelocityY: (y)=>void
@@ -155,8 +155,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
     }
 
     update(time: number, delta: number): void {
-        if(!this) return
-
+        if(!this || !this.interactBody) return
         //Move interact body
         this.interactBody.position.x = this.x
         this.interactBody.position.y = this.y

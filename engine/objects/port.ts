@@ -28,7 +28,6 @@ export default class Port extends Phaser.GameObjects.Sprite{
         //Get anything body is touching
         const body = this.body as MatterJS.BodyType
         body.onCollideCallback = (event:any) => {
-            console.log(event.bodyA.label)
             if(event.bodyA.label != `Player` && event.bodyA.label != `port`){
                 //Destroy body
                 this.scene.matter.world.remove(event.bodyA)
