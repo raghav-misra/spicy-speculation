@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { IStoreItem } from '~~/composables/store';
+
 const storeState = useStoreState();
 const storeCallback = useStoreCallback();
+const currentMessage = ref<string | null>(null);
 
-function purchaseItem(responseType: any) {
-    storeCallback.value(responseType);
+async function purchaseItem(item: IStoreItem<any>) {
+    currentMessage.value = storeCallback.value(item);
+    await wait(1500);
+    currentMessage.value = null;
 }
 </script>
 
@@ -11,6 +16,8 @@ function purchaseItem(responseType: any) {
     <div class="store-container">
         <div class="store-box content overlay-element" v-if="storeState.isShowing">
             <h1 class="allcaps">{{ storeState.title }}</h1>
+            <hr style="--accent: white;">
+            <p class="text small">{{ currentMessage || "Purchase items to add them to your inventory!" }}</p>
             <hr style="--accent: white;">
             <div class="store-items">
                 <div class="store-item" v-for="item in storeState.items">
@@ -21,7 +28,7 @@ function purchaseItem(responseType: any) {
                     <button 
                         class="text small" 
                         style="--accent: var(--green)"
-                        @click="purchaseItem(item.responseType)"    
+                        @click="purchaseItem(item)"    
                     >
                         {{ item.displayPrice }}
                     </button>
@@ -52,10 +59,11 @@ function purchaseItem(responseType: any) {
 
 .store-container {
     position: fixed;
-    top: 1rem;
+    top: 1.5rem;
     bottom: 1rem;
-    left: 1rem;
+    left: 1.5rem;
     overflow: hidden;
+    width: min(max(40vw, 500px), calc(100vw - 3rem));
 }
 
 .store-box, .store-items {
@@ -66,12 +74,19 @@ function purchaseItem(responseType: any) {
 .store-items {
     align-self: stretch;
     text-align: left;
+    overflow-y: scroll;
+    margin-bottom: 1rem;
 }
 
 .store-item {
     display: flex;
     margin-bottom: 1rem;
-    align-items: center;
+    margin-right: 1rem;
+    align-items: flex-start;
+}
+
+.store-item .item-info {
+    flex: 1;
 }
 
 .store-item button {

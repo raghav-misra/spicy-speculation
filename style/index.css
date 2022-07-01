@@ -59,3 +59,17 @@ html {
 .allcaps {
     text-transform: uppercase;
 }
+
+::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: white;
+}

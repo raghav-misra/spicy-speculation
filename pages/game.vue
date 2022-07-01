@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const router = useRouter();
-
 try {
     const game = usePhaser();
     initMarket();
@@ -9,25 +7,68 @@ try {
     location.href = "/";
 }
 
-await showStore({
-    title: "Fortnite Item Shop",
+showStore({
+    title: "Big Shaq's Item Shop",
     items: [
         {
             name: "Renegade Raider",
-            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
             displayPrice: "$100",
-            responseType: "RENEGADE"
+            id: "litty skin"
+        },{
+            name: "Renegade Raider",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
+            displayPrice: "$100",
+            id: "litty skin"
+        },{
+            name: "Renegade Raider",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
+            displayPrice: "$100",
+            id: "litty skin"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            id: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            id: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            id: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            id: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            id: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            id: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            id: "yummy syrup"
         },
         {
             name: "Renegade Raider",
-            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
             displayPrice: "$100",
-            responseType: "RENEGADE"
+            id: "litty skin"
         },
     ]
-}, (item) => {
-    console.log(item)
-});
+}, (item) => `Thanks for buying the ${item.id} big man.`);
 </script>
 
 <template>

@@ -5,7 +5,7 @@ interface IDialogState {
     buttons: {
         text: string;
         accent: string;
-        responseType: string;
+        id: string;
     }[];
 }
 
@@ -17,11 +17,11 @@ export const useDialogState = () => useState<IDialogState>("dialogState", () => 
         {
             text: "Yes, of course!!",
             accent: "var(--green)",
-            responseType: "SUCCESS",
+            id: "SUCCESS",
         }, {
             text: "No bozo",
             accent: "var(--red)",
-            responseType: "FAILURE",
+            id: "FAILURE",
         }
     ]
 }));
@@ -50,7 +50,7 @@ export const showConversation = async (name: string, text: string[]) => {
         await showDialog({
             title: name,
             text: speech,
-            buttons: [{ text: "Ok", accent: "white", responseType: "TEXT"  }]
+            buttons: [{ text: "Ok", accent: "white", id: "TEXT" }]
         });
     }
 }
