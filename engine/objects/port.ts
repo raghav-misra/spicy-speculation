@@ -41,7 +41,7 @@ export default class Port extends Phaser.GameObjects.Sprite{
                 if(this.shipObject.ready){
                     hint.value = `Press T to ${(direction === 'import') ? 'buy' : 'sell'} spices`
                 }else{
-                    hint.value = `This ship has sailed! It will be back tommorrow.`
+                    hint.value = `This ship has sailed! It will be back tomorrow.`
                 }
             }
         }
