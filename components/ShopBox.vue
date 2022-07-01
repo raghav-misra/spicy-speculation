@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { IStoreItem } from '~~/composables/store';
 
-const storeState = useStoreState();
-const storeCallback = useStoreCallback();
+const shopState = useShopState();
 const currentMessage = ref<string | null>(null);
 
-async function purchaseItem(item: IStoreItem<any>) {
-    currentMessage.value = storeCallback.value(item);
+async function purchaseItem(item: IShopItem<any>) {
+    currentMessage.value = shopState.value.callback(item);
     await wait(1500);
     currentMessage.value = null;
 }
@@ -14,13 +12,13 @@ async function purchaseItem(item: IStoreItem<any>) {
 
 <template>
     <div class="store-container">
-        <div class="store-box content overlay-element" v-if="storeState.isShowing">
-            <h1 class="allcaps">{{ storeState.title }}</h1>
+        <div class="store-box content overlay-element" v-if="shopState.isShowing">
+            <h1 class="allcaps">{{ shopState.title }}</h1>
             <hr style="--accent: white;">
             <p class="text small">{{ currentMessage || "Purchase items to add them to your inventory!" }}</p>
             <hr style="--accent: white;">
             <div class="store-items">
-                <div class="store-item" v-for="item in storeState.items">
+                <div class="store-item" v-for="item in shopState.items">
                     <div class="item-info">
                         <h2 class="text">{{ item.name }}</h2>
                         <p class="text small">{{ item.description }}</p>
@@ -38,7 +36,7 @@ async function purchaseItem(item: IStoreItem<any>) {
             <button 
                 class="text" 
                 style="--accent: var(--blue);" 
-                @click="storeState.isShowing = null;"
+                @click="shopState.isShowing = null;"
             >
                 Close
             </button>

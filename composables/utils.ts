@@ -19,6 +19,6 @@ const npcMap = {
     }
 };
 
-export function getNpcInfo(gender: "male" | "female", spriteKey: "B" | "C" | "D") {
+export function getNpcInfo(gender: string, spriteKey: string) {
     return npcMap[gender][spriteKey];
 }

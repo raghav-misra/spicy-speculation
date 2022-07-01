@@ -85,10 +85,9 @@ export default class Player extends Phaser.GameObjects.Sprite{
         }
 
         //Handle interaction
-        this.scene.input.keyboard.on("keydown-T",()=>{
-            if(!this.isNearPlayer) return
-
-            //@TODO: Add functions for dialogue
+        this.scene.input.keyboard.on("keydown-T", () => {
+            if (!this.isNearPlayer) return;
+            triggerInteraction(this.gender, this.spriteKey);
         })
         
     }

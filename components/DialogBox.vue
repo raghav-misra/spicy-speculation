@@ -1,11 +1,10 @@
 <script setup lang="ts">
 const dialogState = useDialogState();
-const dialogCallback = useDialogCallback();
 
 function endDialog(responseType: string) {
     dialogState.value.isShowing = false;
-    dialogCallback.value(responseType);
-    dialogCallback.value = null;
+    dialogState.value.callback(responseType);
+    dialogState.value.callback = null;
 }
 </script>
 
@@ -26,7 +25,7 @@ function endDialog(responseType: string) {
                     v-for="btn in dialogState.buttons"
                     :style="`--accent: ${btn.accent};`"
                     class="text"
-                    @click="endDialog(btn.responseType)"
+                    @click="endDialog(btn.id)"
                 >
                     {{ btn.text }}
                 </button>
