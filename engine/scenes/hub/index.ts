@@ -17,17 +17,7 @@ export default class Hub extends Phaser.Scene{
         this.player = new Player(this,803,439)
         new PlayerHouse(this)
 
-        this.npcs.push(new Npc({
-            scene:this,
-            x:1151,
-            y:270
-        }))
-
-        this.npcs.push(new Npc({
-            scene:this,
-            x:1251,
-            y:370
-        }))
+        this.spawnNpcs()
 
         //To Docks
         new Door({
@@ -38,6 +28,28 @@ export default class Hub extends Phaser.Scene{
             height:2*32,
             to:"Docks"
         })
+    }
+
+    spawnNpcs(){
+        const ports = usePlayer().value.ports
+        const points = [
+            {x:1151,y:270},
+            {x:1251,y:370},
+            {x:1526,y:555}
+        ]
+
+        const importPorts = ports.filter(p=>p.direction === "import")
+
+        const numToSpawn = (importPorts.length  * 2) / 2
+
+        for(let i = 0; i < numToSpawn; i++){
+            const point = points[i]
+            this.npcs.push(new Npc({
+                scene:this,
+                x:point.x,
+                y:point.y
+            }))
+        }
     }
 
     buildLayers(){
