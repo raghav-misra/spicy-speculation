@@ -11,7 +11,7 @@ try {
 <template>
     <main class="overlay" style="pointer-events: none;">
         <DialogBox />
-        <StoreBox />
+        <ShopBox />
         <MarketPrices/>
     </main>
 </template>

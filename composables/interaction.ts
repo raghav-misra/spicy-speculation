@@ -33,7 +33,7 @@ export const showConversation = async (name: string, text: string[]) => {
         await showDialog({
             title: name,
             text: speech,
-            buttons: [{ text: "Ok", accent: "white", id: "TEXT" }]
+            buttons: [{ text: "Okay", accent: "white", id: "TEXT" }]
         });
     }
 }
@@ -74,9 +74,50 @@ export const showShop = <T>(
 export const triggerInteraction = async (gender: string, spriteKey: string) => {
     const name = getNpcInfo(gender, spriteKey);
     
-    await showDialog({
+    await showConversation(name, [
+        `
+            New to these parts are you? Worry not, I'm sure you'll pick up quickly. 
+            I'm always here if you're in need of some help.
+        `,
+        `
+            From ${info.island}, huh? My great grandfather Bruhngis Khan conquered that land
+            a few decades ago. If it were 40 years ago, you'd be bowing to me. Anyhow, I'm a
+            trader who stumbled on a new settlement here.
+        `,
+        `
+            Dang, this island is yours? Didn't think you'd have it in you. Regardless, I have the most unique
+            items you can find in these parts of ${info.island}.
+        `
+    ]);
+
+    const doDisplayShop = await showDialog({
         title: name,
-        text: "New to these parts are you? Worry not, I'm sure you'll pick up quickly.",
-        buttons: []
+        text: `
+            So, what do you think? Want to check out what I have to offer?
+            Beware of being totally awestuck by my awesome stuff!
+        `,
+        buttons: [
+            {
+                text: "For sure!",
+                accent: "var(--green)",
+                id: "ACCEPT_SHOP"     
+            }, 
+            {
+                text: "Not really.",
+                accent: "var(--blue)",
+                id: "REJECT_SHOP"
+            }
+        ]
     });
+
+    if (doDisplayShop === "REJECT_SHOP") {
+        await showConversation(name, [
+            `Oh alright, suit yourself. If you change your mind, you know where I'll be.`
+        ]);
+    } else {
+        await showShop({
+            title: `${name}'s Shop`,
+            items: []
+        }, (item) => "Whatever.");
+    }
 };

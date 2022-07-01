@@ -1,11 +1,24 @@
 <script setup lang="ts">
 const dialogState = useDialogState();
+const buttons = ref<HTMLButtonElement[]>([]);
 
 function endDialog(responseType: string) {
     dialogState.value.isShowing = false;
     dialogState.value.callback(responseType);
     dialogState.value.callback = null;
 }
+
+onMounted(() => {
+    if (dialogState.value.isShowing) {
+        buttons.value[0]?.focus();
+    }
+})
+
+watch(() => dialogState.value, () => {
+    if (dialogState.value.isShowing) {
+        buttons.value[0]?.focus();
+    }
+})
 </script>
 
 <template>
@@ -22,7 +35,8 @@ function endDialog(responseType: string) {
             <br>
             <div>
                 <button 
-                    v-for="btn in dialogState.buttons"
+                    v-for="(btn, i) in dialogState.buttons"
+                    :ref="el => buttons.push(el as HTMLButtonElement)"
                     :style="`--accent: ${btn.accent};`"
                     class="text"
                     @click="endDialog(btn.id)"
