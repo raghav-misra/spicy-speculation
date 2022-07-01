@@ -47,6 +47,8 @@ export default class Player extends Phaser.GameObjects.Sprite{
     }
 
     update(time: number, delta: number): void {
+        const player = usePlayer()
+        
         if(this.keys.W.isDown){
             this.setVelocityY(-this.speed)
             this.anims.play(`${this.gender}_${this.spriteKey}_up_walk`,true)
@@ -73,6 +75,9 @@ export default class Player extends Phaser.GameObjects.Sprite{
         if(!this.keys.W.isDown && !this.keys.S.isDown){
             this.setVelocityY(0)
         }
+
+        player.value.x = this.x
+        player.value.y = this.y
     }
 
     buildAllAnimations(scene:Phaser.Scene){

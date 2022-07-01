@@ -11,6 +11,10 @@ export default class BootScene extends Phaser.Scene{
         this.load.image('buildingsTiles', buildingsTiles)
         this.load.image('islandTiles', islandTiles)
         this.load.image('harborTiles', harborTiles)
+        
+        this.load.image('ship_med','/sprites/ship_med.png')
+        this.load.image('ship_small','/sprites/ship_small.png')
+        this.load.image('port','/sprites/port.png')
 
         this.load.tilemapTiledJSON('hubMap', hubMap)
         this.load.tilemapTiledJSON('docksMap', docksMap)

@@ -1,6 +1,7 @@
 import Player from "~~/engine/objects/player"
 import Npc from "~~/engine/objects/npc"
 import Door from "~~/engine/objects/door";
+import Port from "~~/engine/objects/port";
 
 export default class Docks extends Phaser.Scene{
     player:Player;
@@ -27,6 +28,29 @@ export default class Docks extends Phaser.Scene{
             x:192,
             y:768
         }))
+
+        const player = usePlayer()
+
+        const importPorts = player.value.ports.filter(port=>port.direction === "import")
+        const exportPorts = player.value.ports.filter(port=>port.direction === "export")
+        
+        importPorts.forEach((port,i)=>{
+            new Port({
+                scene:this,
+                x:800,
+                y:500 - (200*i),
+                direction:'import'
+            })
+        })
+
+        exportPorts.forEach((port,i)=>{
+            new Port({
+                scene:this,
+                x:256,
+                y:500 - (200*i),
+                direction:'export'
+            })
+        })
 
         //To Hub
         new Door({
