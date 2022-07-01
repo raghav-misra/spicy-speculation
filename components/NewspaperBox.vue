@@ -44,7 +44,7 @@ function closeByOverlayClick(e: MouseEvent) {
 
                     <p class="text small">
                         {{ info.country }}'s trusty news reporters and journalist will keep
-                        you and the rest of {{ info.island }} up to date!   
+                        you and the rest of {{ info.island }} up to date!
                     </p>
                 </article>
             </div>
