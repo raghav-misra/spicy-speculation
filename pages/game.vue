@@ -11,6 +11,21 @@ showStore({
     title: "Big Shaq's Item Shop",
     items: [
         {
+            name: "Renegade Raider",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
+            displayPrice: "$100",
+            responseType: "litty skin"
+        },{
+            name: "Renegade Raider",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
+            displayPrice: "$100",
+            responseType: "litty skin"
+        },{
+            name: "Renegade Raider",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
+            displayPrice: "$100",
+            responseType: "litty skin"
+        },{
             name: "Syrup",
             description: "Yummy syrup!!! Drink up.",
             displayPrice: "$100",
