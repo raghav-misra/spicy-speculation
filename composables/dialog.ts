@@ -50,7 +50,7 @@ export const showConversation = async (name: string, text: string[]) => {
         await showDialog({
             title: name,
             text: speech,
-            buttons: [{ text: "Ok", accent: "white", id: "TEXT"  }]
+            buttons: [{ text: "Ok", accent: "white", id: "TEXT" }]
         });
     }
 }
