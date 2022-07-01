@@ -48,7 +48,10 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     update(time: number, delta: number): void {
         const player = usePlayer()
+        const isLocked = useMovementLocked().value
         
+        if(isLocked) return
+
         if(this.keys.W.isDown){
             this.setVelocityY(-this.speed)
             this.anims.play(`${this.gender}_${this.spriteKey}_up_walk`,true)

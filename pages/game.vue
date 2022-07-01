@@ -14,6 +14,7 @@ try {
         <ShopBox />
         <MarketPriceBox />
         <NewspaperBox /> 
+        <Hint/>
     </main>
 </template>
 
