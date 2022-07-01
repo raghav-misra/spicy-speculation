@@ -61,6 +61,7 @@ async function purchaseItem(responseType: any) {
     bottom: 1rem;
     left: 1.5rem;
     overflow: hidden;
+    width: min(max(40vw, 500px), calc(100vw - 3rem));
 }
 
 .store-box, .store-items {
@@ -71,11 +72,14 @@ async function purchaseItem(responseType: any) {
 .store-items {
     align-self: stretch;
     text-align: left;
+    overflow-y: scroll;
+    margin-bottom: 1rem;
 }
 
 .store-item {
     display: flex;
     margin-bottom: 1rem;
+    margin-right: 1rem;
     align-items: flex-start;
 }
 

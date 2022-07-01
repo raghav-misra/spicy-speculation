@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const router = useRouter();
-
 try {
     const game = usePhaser();
     initMarket();
@@ -13,6 +11,36 @@ showStore({
     title: "Big Shaq's Item Shop",
     items: [
         {
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            responseType: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            responseType: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            responseType: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            responseType: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            responseType: "yummy syrup"
+        },{
+            name: "Syrup",
+            description: "Yummy syrup!!! Drink up.",
+            displayPrice: "$100",
+            responseType: "yummy syrup"
+        },{
             name: "Syrup",
             description: "Yummy syrup!!! Drink up.",
             displayPrice: "$100",
