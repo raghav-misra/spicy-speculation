@@ -52,11 +52,30 @@ export const stepMarket = ()=>{
         })
     }else{
         market.value.prices.forEach(spice=>{
-            if(spice.trend.length === 0) spice.trend = generateTrend(spice.price)
+            const isFad = info.fadSpices.includes(spice.name)
+            if(spice.trend.length === 0) spice.trend = (isFad) ? generateFadTrend(spice.price) : generateTrend(spice.price)
     
              spice.price = spice.trend.shift()
         })
     }
+}
+
+export const nextDay = ()=>{
+    discoverNewSpice()
+
+    //Restock the import ships
+    const market = useMarket()
+    const importPorts = usePlayer().value.ports.filter(port=>port.direction === "import")
+
+    importPorts.forEach(port=>{
+        const size = pickRandom(["med","small"])
+
+        port.ship.inventory = {}
+
+        const spiceName = pickRandom(market.value.prices.map(spice=>spice.name))
+        port.ship.inventory[spiceName] = (size === "med") ? 10000 : 1000
+
+    })
 }
 
 const generateTrend = (price:number)=>{
@@ -108,6 +127,49 @@ const generateTrend = (price:number)=>{
     }
 }
 
+const generateFadTrend = (price:number)=>{
+    const price1 = price + randomInteger(-100,500)
+    const price2 = price1 + randomInteger(-20,50)
+    const price3 = price1 + randomInteger(-5000,5000)
+    const price4 = price1 + randomInteger(-1000,1000)
+    return normalizeTrend([price1, price2,price3,price4])
+}
+
 export function normalizeTrend(trend:number[]){
     return trend.map(p=>Math.max(5,p))
+}
+
+function discoverNewSpice(){
+    const market = useMarket()
+    const disoveredSpices = market.value.prices.map(spice=>spice.name)
+
+    const stableSpices = info.stableSpices.filter(spice=>!disoveredSpices.includes(spice))
+    const fadSpices = info.fadSpices.filter(spice=>!disoveredSpices.includes(spice))
+
+    const potentialNext = [
+        {type:"stable",name:pickRandom(stableSpices)},
+        {type:"fad",name:pickRandom(fadSpices)}
+    ].filter(s=>s != null)
+
+    if(potentialNext.length === 0) return
+
+    const spice = pickRandom(potentialNext)
+
+    if(spice.type === "stable"){
+        const price = randomInteger(100,200)
+        market.value.prices.push({
+            name:spice.name,
+            price,
+            trend:[]
+        })
+    }else{
+        const price = randomInteger(200,6000)
+        market.value.prices.push({
+            name:spice.name,
+            price,
+            trend:[]
+        })
+    }
+    
+
 }

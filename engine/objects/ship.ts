@@ -5,6 +5,14 @@ interface ShipConfig{
     y:number
 }
 
+export interface ShipState{
+    direction: 'import'|'export',
+    prices: {[key:string]:number},
+    type: 'med'|'small',
+    name: string,
+    inventory: {[key:string]:number}
+}
+
 export default class Ship extends Phaser.GameObjects.Sprite{
     constructor({type,scene,x,y}:ShipConfig){
             super(scene,x,y,`ship_${type}`)

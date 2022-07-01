@@ -1,13 +1,8 @@
-export interface ShipState{
-    direction: 'import'|'export',
-    prices: {[key:string]:number},
-    type: 'med'|'small',
-    name: string,
-}
+import type { ShipState } from "../engine/objects/ship";
 
 interface PortState{
     direction:'import'|'export',
-    ship?:ShipState
+    ship:ShipState
 }
 
 export const usePlayer = () => useState("playerState", () => ({

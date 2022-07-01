@@ -1,4 +1,4 @@
-import { ShipState } from "~~/composables/player"
+import { ShipState } from "./ship"
 import Ship from "./ship"
 
 interface PortConfig{
