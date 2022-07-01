@@ -1,13 +1,19 @@
 <script setup lang="ts">
-const game = usePhaser();
-initMarket();
+const router = useRouter();
 
-game.value.scene.start("Hub");
+try {
+    const game = usePhaser();
+    initMarket();
+    game.value.scene.start("Hub");
+} catch (error) {
+    location.href = "/";
+}
 </script>
 
 <template>
     <main class="overlay" style="pointer-events: none;">
-        <InteractionBox />
+        <DialogBox />
+        <StoreDisplay />
         <MarketPrices/>
     </main>
 </template>

@@ -6,6 +6,10 @@
     font-size: 1.75rem;
 }
 
+.text.small {
+    font-size: 1.25rem;
+}
+
 .big {
     font-size: 3rem;
 }
@@ -14,6 +18,7 @@ hr {
     height: 0;
     border: none;
     border-bottom: 3px var(--accent, var(--black)) solid;
+    align-self: stretch;
 }
 
 button {
@@ -26,6 +31,10 @@ button {
     border-radius: 25px;
     cursor: pointer;
     color: var(--accent);
+}
+
+button.small {
+    padding: 0.25rem 0.75rem;
 }
 
 button:hover {

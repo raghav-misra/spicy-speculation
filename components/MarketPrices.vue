@@ -1,12 +1,10 @@
 <template>
-    <div class="market-price-container content">
-        <h2>Spice Market</h2>
+    <div class="market-price-container content overlay-element">
+        <h2 class="allcaps">Spice Market</h2>
         <hr style="--accent: white;">
-        <ul>
-            <li v-for="spice in market">
-                <h3>{{spice.name}}: ${{spice.price}}</h3>
-            </li>
-        </ul>
+        <div>
+            <h3 v-for="spice in market">{{spice.name}}: ${{spice.price}}</h3>
+        </div>
     </div>
 </template>
 
@@ -16,11 +14,16 @@ const market = useMarket()
 
 <style scoped>
 .market-price-container{
-    background-color: #342E37;
-    padding: 2rem;
+    background-color: var(--black);
+    border-width: 5px;
     position: absolute;
     color:white;
-    right:0;
-    text-align: right;
+    right: 1.5rem;
+    top: 1.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 </style>

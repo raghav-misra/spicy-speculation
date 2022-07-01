@@ -54,11 +54,6 @@ function endDialog(responseType: string) {
 .interaction-box {
     flex: 1;
     margin: 0 7.5rem;
-    border: 10px white solid, 10px var(--black) solid;
-    padding: 2rem;
-    border-radius: 5px;
-    background: var(--black);
-    box-shadow: 0 -10px 50px var(--black);
 }
 
 button {

@@ -9,10 +9,10 @@
 }
 
 :root {
-    --black: #342e37ff;
+    --black: #342e37;
     --brown: rgb(205, 151, 122);
-    --blue: #6290c8ff;
-    --red: #eb5959ff;
+    --blue: #6290c8;
+    --red: #eb5959;
     --green: rgb(132, 198, 74);
 }
 
@@ -37,6 +37,11 @@ html {
 
 .overlay-element {
     pointer-events: all;
+    border: 5px white solid, 10px var(--black) solid;
+    padding: 2rem;
+    border-radius: 5px;
+    background: var(--black);
+    box-shadow: 0 -10px 50px var(--black);
 }
 
 .content > *:not(:last-child) {
