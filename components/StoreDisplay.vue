@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { IStoreItem } from '~~/composables/store';
+
 const storeState = useStoreState();
 const storeCallback = useStoreCallback();
 const currentMessage = ref<string | null>(null);
 
-async function purchaseItem(responseType: any) {
-    currentMessage.value = storeCallback.value(responseType);
+async function purchaseItem(item: IStoreItem<any>) {
+    currentMessage.value = storeCallback.value(item);
     await wait(1500);
     currentMessage.value = null;
 }
@@ -26,7 +28,7 @@ async function purchaseItem(responseType: any) {
                     <button 
                         class="text small" 
                         style="--accent: var(--green)"
-                        @click="purchaseItem(item.responseType)"    
+                        @click="purchaseItem(item)"    
                     >
                         {{ item.displayPrice }}
                     </button>

@@ -1,12 +1,14 @@
-interface IStoreState<T> {
+export interface IStoreState<T> {
     isShowing: boolean;
     title: string;
-    items: {
-        name: string;
-        description: string;
-        displayPrice: string;
-        responseType: T;
-    }[];
+    items: IStoreItem<T>[];
+}
+
+export interface IStoreItem<T> {
+    name: string;
+    description: string;
+    displayPrice: string;
+    id: T;
 }
 
 export const useStoreState = () => useState<IStoreState<any>>("storeState", () => ({
@@ -17,13 +19,13 @@ export const useStoreState = () => useState<IStoreState<any>>("storeState", () =
             name: "Renegade Raider",
             description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
             displayPrice: "$100",
-            responseType: "RENEGADE"
+            id: "RENEGADE"
         },
         {
             name: "Renegade Raider",
             description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
             displayPrice: "$100",
-            responseType: "RENEGADE"
+            id: "RENEGADE"
         },
     ]
 }));
@@ -33,9 +35,9 @@ export const useStoreCallback = () => useState<null | ((type: unknown) => string
     null
 );
 
-export const showStore = <T = string>(
+export const showStore = <T>(
     newStoreState: Omit<IStoreState<T>, "isShowing">, 
-    purchasedItemCallback: (res: T) => string
+    purchasedItemCallback: (res: IStoreItem<T>) => string
 ) => {
     const storeState = useStoreState();
     const storeCallback = useStoreCallback();
