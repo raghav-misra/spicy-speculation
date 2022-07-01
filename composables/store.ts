@@ -5,11 +5,11 @@ interface IStoreState {
         name: string;
         description: string;
         displayPrice: string;
-        responseType: string;
+        responseType: any;
     }[];
 }
 
-export const useStoreState = () => useState<IStoreState>("dialogState", () => ({
+export const useStoreState = () => useState<IStoreState>("storeState", () => ({
     isShowing: false,
     title: "Fortnite Item Shop",
     items: [
@@ -28,12 +28,15 @@ export const useStoreState = () => useState<IStoreState>("dialogState", () => ({
     ]
 }));
 
-export const useStoreCallback = () => useState<null | ((type: string) => any)>(
+export const useStoreCallback = () => useState<null | ((type: unknown) => unknown)>(
     "storeCallback", 
     null
 );
 
-export const showStore = <T = string>(newStoreState: Omit<IStoreState, "isShowing">) => {
+export const showStore = <T = string>(
+    newStoreState: Omit<IStoreState, "isShowing">, 
+    purchasedItemCallback: (res: T) => unknown
+) => {
     const storeState = useStoreState();
     const storeCallback = useStoreCallback();
 
@@ -42,7 +45,5 @@ export const showStore = <T = string>(newStoreState: Omit<IStoreState, "isShowin
         isShowing: true,
     };
 
-    return new Promise<T>(resolve => {
-        storeCallback.value = resolve as any;
-    });
+    storeCallback.value = purchasedItemCallback;
 };

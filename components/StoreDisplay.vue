@@ -2,10 +2,8 @@
 const storeState = useStoreState();
 const storeCallback = useStoreCallback();
 
-function endDialog(responseType: string) {
-    storeState.value.isShowing = false;
+function purchaseItem(responseType: any) {
     storeCallback.value(responseType);
-    storeCallback.value = null;
 }
 </script>
 
@@ -20,13 +18,21 @@ function endDialog(responseType: string) {
                         <h2 class="text">{{ item.name }}</h2>
                         <p class="text small">{{ item.description }}</p>
                     </div>
-                    <button class="text small" style="--accent: var(--green)">
-                        deej
+                    <button 
+                        class="text small" 
+                        style="--accent: var(--green)"
+                        @click="purchaseItem(item.responseType)"    
+                    >
+                        {{ item.displayPrice }}
                     </button>
                 </div>
             </div>
             <hr style="--accent: white;">
-            <button class="text" style="--accent: var(--blue);" @click="storeState.isShowing = false;">
+            <button 
+                class="text" 
+                style="--accent: var(--blue);" 
+                @click="storeState.isShowing = null;"
+            >
                 Close
             </button>
         </div>
