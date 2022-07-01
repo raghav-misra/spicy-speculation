@@ -71,10 +71,11 @@ export const nextDay = ()=>{
         const size = pickRandom(["med","small"])
 
         port.ship.inventory = {}
+        port.ship.prices = {}
 
         const spiceName = pickRandom(market.value.prices.map(spice=>spice.name))
         port.ship.inventory[spiceName] = (size === "med") ? 10000 : 1000
-
+        port.ship.prices[spiceName] = market.value.prices.find(spice=>spice.name === spiceName).price + randomInteger(-10,10)
     })
 }
 
@@ -160,14 +161,14 @@ function discoverNewSpice(){
         market.value.prices.push({
             name:spice.name,
             price,
-            trend:[]
+            trend:generateTrend(price)
         })
     }else{
         const price = randomInteger(200,6000)
         market.value.prices.push({
             name:spice.name,
             price,
-            trend:[]
+            trend:generateFadTrend(price)
         })
     }
     

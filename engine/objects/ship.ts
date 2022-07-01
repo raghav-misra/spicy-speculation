@@ -7,7 +7,7 @@ interface ShipConfig{
 
 export interface ShipState{
     direction: 'import'|'export',
-    prices: {[key:string]:number},
+    prices?: {[key:string]:number},
     type: 'med'|'small',
     name: string,
     inventory: {[key:string]:number}

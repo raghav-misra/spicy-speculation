@@ -14,16 +14,24 @@ export const usePlayer = () => useState("playerState", () => ({
         vbucks: 420
     },
     ports: [{
-        direction: "import",
-        ship: null
-    },{
         direction: "export",
         ship:{
             name:"Peptopia Charters",
             type:"med",
+            direction:"export",
+            inventory:{}
+        }
+    },{
+        direction: "import",
+        ship:{
+            name:"Trader's Union",
+            type:"small",
+            direction:"export",
+            inventory:{
+                pepper:1000,
+            },
             prices:{
-                pepper:20,
-                saffron:1000
+                pepper:100
             },
         }
     }] as PortState[]
