@@ -39,7 +39,8 @@ export default class Docks extends Phaser.Scene{
                 scene:this,
                 x:800,
                 y:500 - (200*i),
-                direction:'import'
+                direction:'import',
+                ship:port.ship
             })
         })
 
@@ -48,7 +49,8 @@ export default class Docks extends Phaser.Scene{
                 scene:this,
                 x:256,
                 y:500 - (200*i),
-                direction:'export'
+                direction:'export',
+                ship:port.ship
             })
         })
 
@@ -71,7 +73,7 @@ export default class Docks extends Phaser.Scene{
 
         map.createLayer("OCEAN", islandSet, 0, 0)
         map.createLayer("ISLAND", islandSet, 0, 0)
-        map.createLayer("HARBOR_TOP", harborSet, 0, 0).setDepth(5)
+        map.createLayer("HARBOR_TOP", harborSet, 0, 0).setDepth(6)
         map.createLayer("HARBOR_STAIRS", harborSet, 0, 0).setDepth(2)
         map.createLayer("HARBOR", harborSet, 0, 0)
         

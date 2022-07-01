@@ -1,6 +1,8 @@
+import type { ShipState } from "../engine/objects/ship";
+
 interface PortState{
     direction:'import'|'export',
-    hasShip:boolean
+    ship:ShipState
 }
 
 export const usePlayer = () => useState("playerState", () => ({
@@ -12,10 +14,25 @@ export const usePlayer = () => useState("playerState", () => ({
         vbucks: 420
     },
     ports: [{
-        direction: "import",
-        hasShip: false
-    },{
         direction: "export",
-        hasShip: false
-}] as PortState[]
+        ship:{
+            name:"Peptopia Charters",
+            type:"med",
+            direction:"export",
+            inventory:{}
+        }
+    },{
+        direction: "import",
+        ship:{
+            name:"Trader's Union",
+            type:"small",
+            direction:"export",
+            inventory:{
+                pepper:1000,
+            },
+            prices:{
+                pepper:100
+            },
+        }
+    }] as PortState[]
 }));
