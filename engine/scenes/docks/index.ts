@@ -2,6 +2,7 @@ import Player from "~~/engine/objects/player"
 import Npc from "~~/engine/objects/npc"
 import Door from "~~/engine/objects/door";
 import Port from "~~/engine/objects/port";
+import Builder from "~~/engine/objects/builder";
 
 export default class Docks extends Phaser.Scene{
     player:Player;
@@ -75,6 +76,8 @@ export default class Docks extends Phaser.Scene{
                 y:point.y
             }))
         }
+
+        new Builder(this)
     }
 
     buildLayers(){
