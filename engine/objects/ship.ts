@@ -14,6 +14,8 @@ export interface ShipState{
 }
 
 export default class Ship extends Phaser.GameObjects.Sprite{
+    ready = true
+
     constructor({type,scene,x,y}:ShipConfig){
             super(scene,x,y,`ship_${type}`)
             this.scene.add.existing(this)
@@ -22,6 +24,7 @@ export default class Ship extends Phaser.GameObjects.Sprite{
     }
 
     sail(direction:"import"|"export"){
+        this.ready = false
         //Tween away from port
         this.scene.tweens.add({
             targets: this,
