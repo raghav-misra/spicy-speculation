@@ -1,6 +1,7 @@
 import Player from "~~/engine/objects/player"
 import Npc from "~~/engine/objects/npc"
 import Door from "~~/engine/objects/door";
+import PlayerHouse from "~~/engine/objects/playerHouse";
 
 export default class Hub extends Phaser.Scene{
     player:Player;
@@ -14,6 +15,8 @@ export default class Hub extends Phaser.Scene{
         this.matter.world.setBounds(0,0,2464,864)
         
         this.player = new Player(this,803,439)
+        new PlayerHouse(this)
+
         this.npcs.push(new Npc({
             scene:this,
             x:1151,
