@@ -57,9 +57,9 @@ async function purchaseItem(responseType: any) {
 
 .store-container {
     position: fixed;
-    top: 1rem;
+    top: 1.5rem;
     bottom: 1rem;
-    left: 1rem;
+    left: 1.5rem;
     overflow: hidden;
 }
 

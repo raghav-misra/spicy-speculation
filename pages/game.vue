@@ -20,7 +20,7 @@ showStore({
         },
         {
             name: "Renegade Raider",
-            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
+            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race!!!!",
             displayPrice: "$100",
             responseType: "litty skin"
         },
