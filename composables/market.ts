@@ -7,7 +7,7 @@ export interface SpicePricing{
 export const useMarket = ()=> useState("market",()=>{
     return{
         prices:[] as SpicePricing[],
-        stepsUntilEvent:4
+        stepsUntilEvent:8
     }
 })
 
@@ -31,23 +31,24 @@ export const stepMarket = ()=>{
     const market = useMarket()
     const event = useEvent()
     market.value.stepsUntilEvent -= 1
-
-    if(market.value.stepsUntilEvent === 0 || event.value){
+    if(market.value.stepsUntilEvent === 0){
+        stepEvent()
+    }else if(event.value){
         //If spices still have trends, step it
         const hasTrend = market.value.prices.some(spice=>spice.trend.length > 0)
-
         if(!hasTrend){
             if(event.value.currentPhase?.endsEvent){
                 event.value = null
-                market.value.stepsUntilEvent = 4
+                market.value.stepsUntilEvent = 8
                 return
             }
             stepEvent()
+
         }
         
         market.value.prices.forEach(spice=>{
             if(spice.trend.length > 0){
-                spice.price += spice.trend.shift()
+                spice.price = spice.trend.shift()
             }
         })
     }else{
@@ -70,13 +71,19 @@ export const nextDay = ()=>{
     importPorts.forEach(port=>{
         const size = pickRandom(["med","small"]) as "med" | "small"
 
-        port.ship.inventory = {}
-        port.ship.prices = {}
+        port.ship.shopItems = []
 
         const spiceName = pickRandom(market.value.prices.map(spice=>spice.name))
         port.ship.type = size
-        port.ship.inventory[spiceName] = (size === "med") ? 10000 : 1000
-        port.ship.prices[spiceName] = market.value.prices.find(spice=>spice.name === spiceName).price + randomInteger(-10,10)
+        const stock = (size === "med") ? 10000 : 1000
+        const price = market.value.prices.find(spice=>spice.name === spiceName).price + randomInteger(100,500)
+
+        port.ship.shopItems.push({
+            name:spiceName,
+            price,
+            stock,
+            description:info.spiceDescriptions[spiceName]
+        })
     })
 }
 

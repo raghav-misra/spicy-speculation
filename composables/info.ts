@@ -12,5 +12,18 @@ export const info = {
         "Kibuseed",
         "Vanilla"
     ],
-    stableSpices: ["Pepper","Saffron","Cardamon","Cayenne"]
+    stableSpices: ["Pepper","Saffron","Cardamon","Cayenne"],
+    spiceDescriptions:{
+        "Pepper": "A spicy pepper, reguarded as a stable and common spice.",
+        "Saffron": "A rare and expensive spice, often used in the making of medicine.",
+        "Cardamon": "A spice that is said to warm the soul,",
+        "Cayenne": "A highly versatile spice. It's extreme spiciness can used in many different ways.",
+        "Ginger": "A unique spice that is sought after for it's unique flavor and digestive properties.",
+        "Wolf’s Spice": "An extremely unique spice. It is said to have the best flavor of any spice.",
+        "Cinnamon": "A common spice that is both delicious and healthy.",
+        "Dragon Petals": "A spice that is said to be a source of great power. Legends say it came from a dragon's scales.",
+        "Queen’s Herb": "A very rare herb that is said to be a source of great power.",
+        "Kibuseed": "A mysterious spice that packs a wild flavor.",
+        "Vanilla": "A luxurious spice enjoyed by the rich and powerful."
+    }
 };

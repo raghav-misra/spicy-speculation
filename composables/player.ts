@@ -20,7 +20,7 @@ export const usePlayer = () => useState("playerState", () => ({
             name:"Peptopia Charters",
             type:"med",
             direction:"export",
-            inventory:{}
+            shopItems:[]
         }
     },{
         direction: "import",
@@ -28,12 +28,12 @@ export const usePlayer = () => useState("playerState", () => ({
             name:"Trader's Union",
             type:"small",
             direction:"export",
-            inventory:{
-                pepper:1000,
-            },
-            prices:{
-                pepper:100
-            },
+            shopItems:[{
+                price:200,
+                name:"Pepper",
+                stock:1000,
+                description:info.spiceDescriptions.Pepper
+            }]
         }
     }] as PortState[]
 }));

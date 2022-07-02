@@ -1,5 +1,8 @@
 export default class NextDayScene extends Phaser.Scene{
     create(){
+        const player = usePlayer()
+        player.value.days += 1
+        
         resetNpcs()
         
         //Stops other scenes
