@@ -1,6 +1,9 @@
 <template>
     <div class="money-box overlay-element small">
-        <h2 class="allcaps">Money: ${{ player.money.toLocaleString() }}</h2>
+        <h2 class="allcaps">
+            Money: ${{ player.money.toLocaleString() }}
+            <span class="text small">💰</span>
+        </h2>
     </div>
 </template>
 

@@ -1,6 +1,9 @@
 <template>
     <div class="inventory-box content overlay-element small">
-        <h2 class="allcaps">Inventory</h2>
+        <h2 class="allcaps">
+            Inventory
+            <span class="text small">🌶️</span>
+        </h2>
         <hr style="--accent: white;">
         <div>
             <template v-for="(amount, spice) in player.inventory">

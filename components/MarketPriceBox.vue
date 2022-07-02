@@ -1,6 +1,9 @@
 <template>
     <div class="market-price-box content overlay-element small">
-        <h2 class="allcaps">Spice Market</h2>
+        <h2 class="allcaps">
+            Spice Market
+            <a href="" class="text small">📈</a>
+        </h2>
         <hr style="--accent: white;">
         <div>
             <h3 v-for="spice in market.prices">{{spice.name}}: ${{spice.price}}</h3>
