@@ -10,7 +10,7 @@ export const usePlayer = () => useState("playerState", () => ({
     days: 0,
     x:null,
     y:null,
-    inventory: {},
+    inventory: {} as Record<string, number>,
     ports: [{
         direction: "export",
         ship:{

@@ -22,7 +22,7 @@ try {
 
         <div class="overlay-edge left-edge">
             <NewsOpenBox style="--z: 3;" />
-            <InventoryOpenBox style="--z: 3;" />
+            <InventoryBox style="--z: 3;" />
         </div>
 
         <div class="overlay-edge right-edge">
