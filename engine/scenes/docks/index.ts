@@ -37,7 +37,8 @@ export default class Docks extends Phaser.Scene{
                 x:800,
                 y:500 - (200*i),
                 direction:'import',
-                ship:port.ship
+                ship:port.ship,
+                index:i
             })
         })
 
@@ -47,7 +48,8 @@ export default class Docks extends Phaser.Scene{
                 x:256,
                 y:500 - (200*i),
                 direction:'export',
-                ship:port.ship
+                ship:port.ship,
+                index:i
             })
         })
 

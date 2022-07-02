@@ -6,13 +6,14 @@ interface PortConfig{
     x:number,
     y:number,
     direction:"import"|"export",
-    ship?:ShipState
+    ship?:ShipState,
+    index:number
 }
 
 export default class Port extends Phaser.GameObjects.Sprite{
     shipObject: Ship|null
     isNearPlayer: boolean = false
-    constructor({x,y,direction,scene,ship}:PortConfig){
+    constructor({x,y,direction,scene,ship,index}:PortConfig){
         super(scene,x,y,"port")
 
         const hint = useState("hint")
@@ -144,5 +145,6 @@ export default class Port extends Phaser.GameObjects.Sprite{
             y:this.y - 10,
             ...ship
         })
+        this.shipObject.setDepth(5-index)
     }   
 }
