@@ -6,7 +6,7 @@ const player = usePlayer()
 const playerLocked = useMovementLocked();
 
 const stocks = ref<Record<string, number>>({});
-const amount = ref(5);
+const amount = ref(1);
 
 async function purchaseItem(item: IShopItem) {
     audio.purchase.play();
