@@ -19,6 +19,14 @@ const nextPortCost = computed(() =>
     10000 * Math.pow(5, playerState.value.ports.length - 2)
 );
 
+watchEffect(()=>{
+    if(portSettings.value.isShowing){
+        audio.openShop.play();
+    }else{
+        audio.close.play();
+    }
+})
+
 async function buyPort(type: "import" | "export") {
     const portCount = type === "export" ? exportingPortsCount : importingPortsCount;
 
@@ -38,6 +46,7 @@ async function buyPort(type: "import" | "export") {
         });
 
         portSettings.value.message = `You'll have a new port tomorrow!`;
+        audio.purchase.play();
     } else {
         portSettings.value.message = `Ah shucks, you're broke bozo!`;
     }

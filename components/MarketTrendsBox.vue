@@ -12,8 +12,15 @@ function closeByOverlayClick(e: MouseEvent) {
 
 function close() {
     isShowing.value = false;
-    // audio.close.play()
 }
+
+watchEffect(()=>{
+    if(isShowing.value){
+        audio.openNews.play()
+    }else{
+        audio.close.play()
+    }
+})
 
 let chart: Chart | null = null;
 const canvas = ref<HTMLCanvasElement>(null);
@@ -78,6 +85,13 @@ onMounted(async () => {
 <template>
     <div class="overlay trends-container" v-show="isShowing" @click="closeByOverlayClick">
         <div class="chart overlay-element">
+            <button 
+                    style="--accent: var(--red);"
+                    class="text small"
+                    @click="close"
+                >
+                    close
+            </button>
             <h1 class="allcaps white">Market Trends:</h1>
             <canvas ref="canvas" :height="187 * 2.5" :width="375 * 2.5"></canvas>
         </div>

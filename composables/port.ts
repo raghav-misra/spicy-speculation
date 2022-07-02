@@ -27,8 +27,10 @@ export const useExportDisplayState = () => useState<IExportDisplayState>("export
 
 export const showExportDisplay = (port: Port, ship: ShipState) => {
     const exportSettings = useExportDisplayState();
+    const lockPlayer = useMovementLocked();
     const market = useMarket();
     market.value.isEnabled = false;
+    lockPlayer.value = true;
     exportSettings.value = {
         isShowing: true,
         port,

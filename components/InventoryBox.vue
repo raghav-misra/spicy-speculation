@@ -11,7 +11,7 @@
                     <h3 v-if="amount > 0" class="price">
                         <span class="spice-name">{{ spice }}:</span> 
                         <span class="price-amount">
-                            ${{ amount }}
+                            {{ amount.toLocaleString() }}
                         </span>
                     </h3>
                 </template>
