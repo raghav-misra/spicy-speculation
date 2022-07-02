@@ -21,12 +21,12 @@ try {
         <ExportBox style="--z: 4;" />
 
         <div class="overlay-edge left-edge">
-            <NewsOpenBox style="--z: 3;" />
+            <MoneyBox style="--z: 3;" />
             <InventoryBox style="--z: 3;" />
         </div>
 
         <div class="overlay-edge right-edge">
-            <MoneyBox style="--z: 3;" />
+            <NewsOpenBox style="--z: 3;" />
             <MarketPriceBox style="--z: 2;" />
         </div>
     </main>
@@ -39,24 +39,22 @@ try {
     display: flex;
     flex-direction: column;
     overflow: visible;
+    top: 0;
+    bottom: 0;
 }
 
 .right-edge {
-    top: 0;
     right: 0;
-    bottom: 0;
 }
 
 .left-edge {
-    top: 0;
     left: 0;
-    bottom: 0;
 }
 
 .overlay-edge > .overlay-element {
     margin: 2rem;
     margin-bottom: 0;
-    width: 13.75rem;
+    width: 15rem;
     text-align: center;
 }
 </style>

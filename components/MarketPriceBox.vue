@@ -1,5 +1,5 @@
 <template>
-    <div class="market-price-box content overlay-element">
+    <div class="market-price-box content overlay-element small">
         <h2 class="allcaps">Spice Market</h2>
         <hr style="--accent: white;">
         <div>
