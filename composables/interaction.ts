@@ -104,10 +104,20 @@ export const triggerInteraction = async (npc: NPC) => {
             `Oh alright, suit yourself. If you change your mind, you know where I'll be.`
         ]);
     } else {
+        const player = usePlayer();
+
         await showShop({
             title: `${name}'s Shop`,
             //@ts-ignore
             items: npc.shopItems || []
-        }, (item) => "Whatever.");
+        }, item => {
+            if (item.price > player.value.money) {
+                player.value.money -= item.price;
+                player.value.inventory[item.name] += 5;
+                return "Thanks for that.";
+            } else {
+                return "Aw shucks, you're broke bozo!"
+            }
+        });
     }
 };
