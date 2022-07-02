@@ -1,5 +1,15 @@
+<script setup lang="ts">
+const market = useMarket();
+const isTrendsShowing = useIsMarketTrendDisplaying();
+const overlayState = useOverlayState();
+</script>
+
 <template>
-    <div class="market-price-box content overlay-element small">
+    <div 
+        class="market-price-box content overlay-element small"
+        :class="{ 'is-pulsing': overlayState.marketPriceBox.isPulsing }"
+        v-show="overlayState.marketPriceBox.isShowing"
+    >
         <h2 class="allcaps">
             Spice Market
             <span class="text small">📈</span>
@@ -18,11 +28,6 @@
         </h3>
     </div>
 </template>
-
-<script setup lang="ts">
-const market = useMarket();
-const isTrendsShowing = useIsMarketTrendDisplaying();
-</script>
 
 <style scoped>
 .market-price-box { 

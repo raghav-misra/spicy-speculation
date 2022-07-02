@@ -48,3 +48,31 @@ export function createNpc(){
 export function resetNpcs(){
     currentNpcs=[]
 }
+
+export function saveGame(){
+    const market = useMarket().value
+    const player = usePlayer().value
+    const history = useMarketHistory().value
+
+    localStorage.setItem("market", JSON.stringify(market))
+    localStorage.setItem("player", JSON.stringify(player))
+    localStorage.setItem("history", JSON.stringify(history))
+
+}
+
+export function loadGame(){
+    const market = localStorage.getItem("market")
+    const player = localStorage.getItem("player")
+    const history = localStorage.getItem("history")
+
+    if(market){
+        useMarket().value = JSON.parse(market)
+    }
+    if(player){
+        usePlayer().value = JSON.parse(player)
+    }
+    if(history){
+        useMarketHistory().value = JSON.parse(history)
+    }
+}
+

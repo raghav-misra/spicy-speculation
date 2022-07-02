@@ -20,6 +20,47 @@ interface Event {
     currentPhase?: EventPhase
 }
 
+export function stepEvent(){
+    const event = useEvent()
+    const market = useMarket()
+
+    //@TODO: Add in a random chance for diff events to occur
+    if(!event.value) event.value = genWarEvent(pickRandom(info.rivalNations))
+
+    event.value.currentStep++
+
+    const nextSteps = event.value.phases.filter(p=>p.step === event.value.currentStep)
+
+    const nextStep = weightedRandom(nextSteps)
+
+    event.value.currentPhase = nextStep
+    if(nextStep){
+        //Add to news
+        addNewsArticle({
+            title:event.value.currentPhase.headline,
+            text:"bruh",
+        })
+        //Add trend to spices
+        market.value.prices.forEach(p=>{
+            p.trend = nextStep.genTrend(p)
+        })
+    }
+}
+
+
+
+function weightedRandom(choices: EventPhase[]) {
+    const random = Math.random()
+    const sortedChoices = choices.sort((a, b) => b.chance - a.chance);
+    
+    let total = 0;
+    for (const choice of sortedChoices) {
+        total += choice.chance;
+      if (random <= total) {
+        return choice;
+      } 
+    }
+  }
 
 
 //War Event
@@ -209,44 +250,4 @@ function genWarEvent(enemyName:string){
 
 }
 
-export function stepEvent(){
-    const event = useEvent()
-    const market = useMarket()
-
-    //@TODO: Add in a random chance for diff events to occur
-    if(!event.value) event.value = genWarEvent(pickRandom(info.rivalNations))
-
-    event.value.currentStep++
-
-    const nextSteps = event.value.phases.filter(p=>p.step === event.value.currentStep)
-
-    const nextStep = weightedRandom(nextSteps)
-
-    event.value.currentPhase = nextStep
-    if(nextStep){
-        //Add to news
-        addNewsArticle({
-            title:event.value.currentPhase.headline,
-            text:"bruh",
-        })
-        //Add trend to spices
-        market.value.prices.forEach(p=>{
-            p.trend = nextStep.genTrend(p)
-        })
-    }
-}
-
-
-
-function weightedRandom(choices: EventPhase[]) {
-    const random = Math.random()
-    const sortedChoices = choices.sort((a, b) => b.chance - a.chance);
-    
-    let total = 0;
-    for (const choice of sortedChoices) {
-        total += choice.chance;
-      if (random <= total) {
-        return choice;
-      } 
-    }
-  }
+//Blizzard event

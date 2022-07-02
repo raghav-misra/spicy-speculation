@@ -12,7 +12,7 @@ export default class Docks extends Phaser.Scene{
         audio.waves.stop()
     }
 
-    create(triggerTutorial:boolean = false){
+    create(){
         audio.waves.play()
         audio.waves.fade(0,0.2,1000)
         this.buildLayers()
@@ -21,7 +21,9 @@ export default class Docks extends Phaser.Scene{
         this.cameras.main.setBounds(0,0,1472,1456)
         this.matter.world.setBounds(0,0,1472,1456)
         
-        if(triggerTutorial){
+        const playerState = usePlayer();
+
+        if(playerState.value.isTutorial){
             this.player = new Player(this,709,48)
             this.startTutorial()
         }else{
@@ -121,12 +123,17 @@ export default class Docks extends Phaser.Scene{
 
     async startTutorial(){
         const lockPlayer = useMovementLocked()
-        const market = useMarket()
+        const market = useMarket() 
+        const overlayState = useOverlayState();
+
+        for (const key in overlayState.value) {
+            overlayState.value[key].isShowing = false;
+        }
 
         market.value.isEnabled = false
         lockPlayer.value = true
 
-        await showConversation("Tutorial",[
+        await showConversation(info.tutorialName,[
             "Welcome to Isla Chipotle! This island is located in the center of the spice trade, and you will turn it into a prosperous trading hub!",
             "You can use the W,A,S,D keys to move around.",
         ])
@@ -138,7 +145,7 @@ export default class Docks extends Phaser.Scene{
         }
 
         lockPlayer.value = true
-        await showConversation("Tutorial",[
+        await showConversation(info.tutorialName,[
             "These are the ports you can import and export spices from.",
             "Ports on the LEFT are for exporting. You can sell spices here!",
             "Ports on the RIGHT are for importing. You can buy spices here!",
@@ -151,8 +158,9 @@ export default class Docks extends Phaser.Scene{
         }
 
         lockPlayer.value = true
-        await showConversation("Tutorial",[
-            "We anticipate that Isla Chipotle will be a popular destination for spice traders",
+        await showConversation(info.tutorialName,[
+            `We anticipate that Isla Chipotle will be a popular destination for spice traders, 
+            as it's dead center in the ${info.ocean}.`,
             "You can talk to other traders to hear the latest news and conduct business!",
             "As you expand and build your port, more people will stop by to trade with you!",
         ])
@@ -165,7 +173,7 @@ export default class Docks extends Phaser.Scene{
         }
 
         lockPlayer.value = true
-        await showConversation("Tutorial",[
+        await showConversation(info.tutorialName,[
             "To your left, you can find our trusty construction company!",
             "If you ever want to expand your operation, you can purchase a new dock here.",
             "If you continue walking, you will reach this island's hub!",

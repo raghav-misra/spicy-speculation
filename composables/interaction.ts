@@ -62,57 +62,62 @@ export const showShop = (
 
 export const triggerInteraction = async (npc: NPC) => {
     const name = getNpcInfo(npc.gender, npc.spriteKey);
+    const player = usePlayer();
+    const market = useMarket()
     const event = useEvent()
 
     if(event.value?.currentPhase){
         await showConversation(name,[pickRandom(event.value.currentPhase.dialogBank),"Anyways, here's what I brought with me today."])
-    }else{
+    }else if(market.value.isEnabled === false){
         await showConversation(name,[
             `
                 New to these parts are you? Worry not, I'm sure you'll pick up quickly. 
                 I'm always here if you're in need of some help.
             `,
             `
-                From ${info.island}, huh? My great grandfather Bruhngis Khan conquered that land
+                From ${info.country}, huh? My great grandfather Bruhngis Khan conquered that land
                 a few decades ago. If it were 40 years ago, you'd be bowing to me. Anyhow, I'm a
                 trader who stumbled on a new settlement here.
             `,
             `
                 Dang, this island is yours? Didn't think you'd have it in you. Regardless, I have the most unique
                 items you can find in these parts of ${info.island}.
-            `
+            `,
+            `I'm still getting setup though, so I'm not sure what I'll be selling yet. I'll be ready soon though so come back later!`,
         ]);
-    }
 
-
-    
-
-    const doDisplayShop = await showDialog({
-        title: name,
-        text: `
-            So, what do you think? Want to check out what I have to offer?
-            Beware of being totally awestuck by my awesome stuff!
-        `,
-        buttons: [
-            {
-                text: "For sure!",
-                accent: "var(--green)",
-                id: "ACCEPT_SHOP"     
-            }, 
-            {
-                text: "Not really.",
-                accent: "var(--blue)",
-                id: "REJECT_SHOP"
-            }
+       return;
+    }else{
+        //Generic conversations
+        const dialogBank = [
+            `Finally decided to stop by ${info.island} again! I have a ton of great spices for you!`,
+            `Ah I've been looking for you. Just restocked my inventory with some new spices. Take a look!`,
+            `${info.island} is paradise. Fresh sea breeze and warm water. A ton of traders as well! What can I do for you?`,
+            `I have an insider tip: the price of ${pickRandom(Object.keys(player.value.inventory))} is going TO THE MOON! Now's your chance to buy it from me!`,
         ]
-    });
-
-    if (doDisplayShop === "REJECT_SHOP") {
-        await showConversation(name, [
-            `Oh alright, suit yourself. If you change your mind, you know where I'll be.`
-        ]);
-    } else {
-        const player = usePlayer();
+        await showConversation(name, [pickRandom(dialogBank)]);
+        const doDisplayShop = await showDialog({
+            title: "Trading Opportunity",
+            text: `
+               View Shop?
+            `,
+            buttons: [
+                {
+                    text: "Yes!",
+                    accent: "var(--green)",
+                    id: "ACCEPT_SHOP"     
+                }, 
+                {
+                    text: "Next time.",
+                    accent: "var(--blue)",
+                    id: "REJECT_SHOP"
+                }
+            ]
+        });
+        if (doDisplayShop === "REJECT_SHOP") {
+            return;
+        }
+    }
 
         showShop({
             title: `${name}'s Shop`,
@@ -129,5 +134,4 @@ export const triggerInteraction = async (npc: NPC) => {
                 return "Aw shucks, you're broke bozo!"
             }
         });
-    }
 };

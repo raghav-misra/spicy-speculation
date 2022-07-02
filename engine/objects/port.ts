@@ -55,16 +55,27 @@ export default class Port extends Phaser.GameObjects.Sprite{
             }
         }
 
-        //@TODO Trigger import/export ui
         this.scene.input.keyboard.on("keydown-T", () => {
             const player = usePlayer()
             const hint = useState("hint")
+            const market = useMarket()
+
             if (!this.isNearPlayer) return;
             hint.value = null
 
             if(!this.shipObject.ready) return;
             
             if(ship.direction === 'import'){
+                //If doing tutorial do not allow import
+                if(!market.value.isEnabled){
+                    showConversation("The Trader's Union",[
+                        "Hey! I'm sorry, but this ship is closed right now.",
+                        "I mean literally closed... the captain accidently dropped the key somewhere in our pepper pile.",
+                        "So until we find it, we can't leave the ship to trade.",
+                        "It probably won't take long... I hope."
+                    ])
+                    return
+                }
                 showShop({
                     title: `Ship Of ${ship.name}`,
                     items:ship.shopItems
@@ -80,6 +91,13 @@ export default class Port extends Phaser.GameObjects.Sprite{
                     }
                 })
             } else {
+                 //If doing tutorial do not allow export
+                 if(!market.value.isEnabled){
+                    showConversation(ship.name,[
+                        "We will be ready for you when you want to sell spices!"
+                    ])
+                    return
+                 }
                 showExportDisplay(this, ship);
             }
         })

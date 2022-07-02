@@ -1,7 +1,16 @@
+<script setup lang="ts">
+const player = usePlayer()
+const overlayState = useOverlayState();
+</script>
+
 <template>
-    <div class="inventory-box content overlay-element small">
+    <div 
+        class="inventory-box content overlay-element small" 
+        :class="{ 'is-pulsing': overlayState.inventoryBox.isPulsing }"
+        v-show="overlayState.inventoryBox.isShowing"
+    >
         <h2 class="allcaps">
-            Inventory
+            Spice Rack
             <span class="text small">🌶️</span>
         </h2>
         <hr style="--accent: white;">
@@ -22,10 +31,6 @@
         </div>
     </div>
 </template>
-
-<script setup lang="ts">
-const player = usePlayer()
-</script>
 
 <style scoped>
 .inventory-box { 

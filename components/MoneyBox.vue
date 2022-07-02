@@ -1,15 +1,20 @@
+<script setup lang="ts">
+const player = usePlayer()
+const overlayState = useOverlayState();
+</script>
+
 <template>
-    <div class="money-box overlay-element small">
+    <div 
+        class="money-box overlay-element small"
+        :class="{ 'is-pulsing': overlayState.moneyBox.isPulsing }"
+        v-show="overlayState.moneyBox.isShowing"
+    >
         <h2 class="allcaps">
             Money: ${{ player.money.toLocaleString() }}
             <span class="text small">💰</span>
         </h2>
     </div>
 </template>
-
-<script setup lang="ts">
-const player = usePlayer()
-</script>
 
 <style scoped>
 .money-box {

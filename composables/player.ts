@@ -6,11 +6,14 @@ export interface PortState{
 }
 
 export const usePlayer = () => useState("playerState", () => ({
-    money: 1000000,
+    money: 10000,
+    isTutorial: true,
     days: 0,
     x:null,
     y:null,
-    inventory: {} as Record<string, number>,
+    inventory: {
+        Pepper: 2,
+    } as Record<string, number>,
     ports: [{
         direction: "export",
         ship:{

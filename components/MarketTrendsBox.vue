@@ -84,15 +84,21 @@ onMounted(async () => {
 
 <template>
     <div class="overlay trends-container" v-show="isShowing" @click="closeByOverlayClick">
-        <div class="chart overlay-element">
-            <button 
-                    style="--accent: var(--red);"
-                    class="text small"
-                    @click="close"
-                >
-                    close
-            </button>
-            <h1 class="allcaps white">Market Trends:</h1>
+        <div class="chart overlay-element content">
+            <header>
+                <h1 class="allcaps text big white">Market Trends</h1>
+                
+                <button 
+                        style="--accent: var(--red);"
+                        class="text small"
+                        @click="close"
+                    >
+                        close
+                </button>
+            </header>
+
+            <hr style="--accent: white;">
+
             <canvas ref="canvas" :height="187 * 2.5" :width="375 * 2.5"></canvas>
         </div>
     </div>
@@ -103,6 +109,7 @@ onMounted(async () => {
     background: rgba(0, 0, 0, 0.45);
     pointer-events: all;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -112,10 +119,19 @@ onMounted(async () => {
     overflow-x: scroll;
 }
 
+header {
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    flex: 1;
+}
+
 canvas {
     aspect-ratio: 2;
     width: 100% !important;
-    height: calc(35vw - 2rem) !important;
+    /* height: calc(35vw - 2rem) !important; */
     pointer-events: none;
     filter: invert(1);
 }

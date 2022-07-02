@@ -7,7 +7,7 @@ export default class Hub extends Phaser.Scene{
     player:Player;
     npcs:Npc[] = []
 
-    create(triggerTutorial:boolean = false){
+    create(){
         this.buildLayers()
         this.cameras.main.roundPixels = true
 
@@ -19,6 +19,12 @@ export default class Hub extends Phaser.Scene{
 
         this.spawnNpcs()
 
+        const playerState = usePlayer();
+        
+        if (playerState.value.isTutorial) {
+            this.startTutorial();
+        } 
+
         //To Docks
         new Door({
             scene:this,
@@ -28,6 +34,80 @@ export default class Hub extends Phaser.Scene{
             height:2*32,
             to:"Docks"
         })
+    }
+
+    async startTutorial() {
+        const player = usePlayer();
+        const lockPlayer = useMovementLocked();
+        const overlayState = useOverlayState();
+
+        lockPlayer.value = true;
+        await showConversation(info.tutorialName, [
+            `Welcome to your island's hub! 
+            This is where you can trade with 
+            merchants and rest after a spicy day's work.`,
+            `Before I send you off to explore, let's go over the
+            ever-competitive global spice economy that ${info.country}
+            needs ${info.country}'s help to dominate.
+            `
+        ]);
+
+        overlayState.value.moneyBox = {
+            isShowing: true,
+            isPulsing: true,
+        }
+
+        await showConversation(info.tutorialName, [
+            `In the top left, is the balance in ${info.island}'s official colony bank account.
+            As the generous minister I am, I've given you $${player.value.money.toLocaleString()} to start off.`
+        ]);
+
+        overlayState.value.inventoryBox = {
+            isShowing: true,
+            isPulsing: true,
+        }
+
+        await showConversation(info.tutorialName, [
+            `Right under your account balance, is your island's spice rack.
+            This displays how much of each spice you have available to sell.`,
+            `Right now, you have 2 peppers, provided complimentary by the spiciest minister alive.
+            You have two sources to increase the spices in your rack: by importing from foreign trade ships, 
+            or trading with merchants on the island.`,
+            `As the days go by, ${info.country}'s top economists will find you more spices, 
+            increasing the diversity of your sales and creating more revenue sources.`,
+        ]);
+
+        overlayState.value.newsOpenBox = {
+            isShowing: true,
+            isPulsing: true,
+        }
+
+        await showConversation(info.tutorialName, [
+            `You see that? In the top right? That's your goto source for updates on the state of the island and the world!`,
+            `Keep an eye on your newspaper, as spice prices tend to change based on the state of the world.`
+        ]);
+
+        overlayState.value.marketPriceBox = {
+            isShowing: true,
+            isPulsing: true,
+        }
+
+        await showConversation(info.tutorialName, [
+            `Lastly but most importantly, are your market prices. 
+            These show the current prices of individual spices in the market.`,
+            `As more spices are discovered, they'll add to the market. 
+            You'll buy and sell all your spices at their market price, 
+            so rule of thumb: buy low & sell high.`,
+            `We have just begun the process of transforming this island into a globally dominant trade center!`,
+            `Your MISSION: Build FOUR more ports & make $1,000,000 to cement ${info.country}'s stance as a economic powerhouse!`,
+            `We're rooting for you and ${info.island}.
+            Make your nation proud!`,
+        ]);
+
+        const market = useMarket();
+        market.value.isEnabled = true;
+        lockPlayer.value = false;
+        player.value.isTutorial = false;
     }
 
     spawnNpcs(){

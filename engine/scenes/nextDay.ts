@@ -37,6 +37,7 @@ export default class NextDayScene extends Phaser.Scene{
             audio.bg.seek(0)
             audio.bg.fade(0,0.1,2000)
             nextDay()
+            saveGame()
             this.scene.start("Hub")
         })
     }

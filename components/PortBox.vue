@@ -16,7 +16,7 @@ const exportingPortsCount = computed(
 );
 
 const nextPortCost = computed(() => 
-    10000 * Math.pow(5, playerState.value.ports.length - 2)
+    15000 * Math.pow(4, playerState.value.ports.length - 2)
 );
 
 watchEffect(()=>{
