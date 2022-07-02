@@ -48,6 +48,8 @@ watchEffect(() => {
             <hr style="--accent: white;">
             <div class="store-items">
                 <div class="store-item" v-for="item in shopState.items">
+                    <SpiceIcon :name="item.name" />
+
                     <div class="item-info">
                         <h2 class="text">
                             <span>{{ item.name }}</span>

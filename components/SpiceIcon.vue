@@ -23,3 +23,11 @@ defineProps<{
 }>()
 
 </script>
+
+<style scoped>
+img {
+    height: 50px;
+    margin-right: 0.5rem;
+    align-self: center;
+}
+</style>
