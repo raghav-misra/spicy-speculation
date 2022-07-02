@@ -29,7 +29,7 @@ function genWarEvent(enemyName:string){
         name: "War",
         phases: [
             {
-                headline:  `Soldiers from ${info.country} held hostage in ${enemyName}'s camp.`,
+                headline:  `${enemyName} CAPTURES soldiers from ${info.country}! Held HOSTAGE`,
                 step: 1,
                 chance: 1,
                 dialogBank: [
@@ -41,17 +41,17 @@ function genWarEvent(enemyName:string){
                     //Slighty up the price of spice
                     const price = spice.price
 
-                    const price1 = price + randomInteger(1,5)
-                    const price2 = price1 + randomInteger(1,5)
-                    const price3 = price1 + randomInteger(1,5)
-                    const price4 = price1 + randomInteger(1,5)
+                    const price1 = price + randomInteger(5,10)
+                    const price2 = price1 + randomInteger(5,10)
+                    const price3 = price2 + randomInteger(5,10)
+                    const price4 = price3 + randomInteger(5,10)
 
 
-                    spice.trend = normalizeTrend([price1, price2,price3,price4])
+                    return normalizeTrend([price1, price2,price3,price4])
                 }
             },
             {
-                headline:  `${info.country} and ${enemyName} to open talks about captured soldiers.`,
+                headline:  `${info.country} and ${enemyName} agree to open talks about captured soldiers.`,
                 step: 2,
                 chance: 1,
                 dialogBank: [
@@ -66,13 +66,13 @@ function genWarEvent(enemyName:string){
                     //Slighty up the price of spice
                     const price = spice.price
 
-                    const price1 = price + randomInteger(1,10)
-                    const price2 = price1 + randomInteger(1,10)
-                    const price3 = price1 + randomInteger(1,10)
-                    const price4 = price1 + randomInteger(1,10)
+                    const price1 = price + randomInteger(5,10)
+                    const price2 = price1 + randomInteger(5,10)
+                    const price3 = price2 + randomInteger(5,10)
+                    const price4 = price3 + randomInteger(5,10)
 
 
-                    spice.trend = normalizeTrend([price1, price2,price3,price4])
+                    return normalizeTrend([price1, price2,price3,price4])
                 }
             },{
                 headline: `${enemyName} agree to release captured ${info.country} soldiers!`,
@@ -88,15 +88,15 @@ function genWarEvent(enemyName:string){
                 //Slightly drop the price of spice
                 genTrend(spice){
                     const price = spice.price
-                    const price1 = price - randomInteger(1,20)
-                    const price2 = price1 - randomInteger(1,5)
-                    const price3 = price1 - randomInteger(1,5)
-                    const price4 = price1 - randomInteger(1,5)
+                    const price1 = price - randomInteger(8,15)
+                    const price2 = price1 - randomInteger(8,15)
+                    const price3 = price2 - randomInteger(8,15)
+                    const price4 = price3 - randomInteger(8,15)
 
-                    spice.trend = normalizeTrend([price1, price2,price3,price4])
+                    return normalizeTrend([price1, price2,price3,price4])
                 }
             },{
-                headline: `${enemyName} refuses to release ${info.country} soldiers. ${info.country} begins preparing for war!`,
+                headline: `${enemyName} REFUSES to release ${info.country} soldiers. ${info.country} begins preparing for WAR!`,
                 step:3,
                 chance: 0.6,
                 dialogBank: [
@@ -111,20 +111,20 @@ function genWarEvent(enemyName:string){
                     const price = spice.price
                     const warSurge = ["Cayenne","Saffron"]
                     const isWarSpice = warSurge.includes(spice.name)
-                    const min = (isWarSpice) ? 10 : 1
-                    const max = (isWarSpice) ? 20 : 5
+                    const min = (isWarSpice) ? 100 : 10
+                    const max = (isWarSpice) ? 200 : 25
 
                     const price1 = price + randomInteger(min,max)
                     const price2 = price1 + randomInteger(min,max)
-                    const price3 = price1 + randomInteger(min,max)
-                    const price4 = price1 + randomInteger(min,max)
+                    const price3 = price2 + randomInteger(min,max)
+                    const price4 = price3 + randomInteger(min,max)
 
-                    spice.trend = normalizeTrend([price1, price2,price3,price4])
+                    return normalizeTrend([price1, price2,price3,price4])
                 }
             },{
                 step: 4,
                 chance: 0.7,
-                headline: `${info.country} and ${enemyName} are fully engaged in a bloody conflict.`,
+                headline: `${info.country} and ${enemyName} are fully engaged in a BLOODY conflict.`,
                 dialogBank: [
                     `${info.country} and ${enemyName} are fighting for their lives.`,
                     `${enemyName} got what they deserved...`,
@@ -134,25 +134,24 @@ function genWarEvent(enemyName:string){
                     `Both nations will need a ton of medicine to win this war. Lucky me, I have a lot of Saffron to sell.`,
                 ],
                 //Up prices of spice, surge war spices
-                //Up prices of spice, surge war spices
                 genTrend(spice){
                     const price = spice.price
                     const warSurge = ["Saffron"]
                     const isWarSpice = warSurge.includes(spice.name)
-                    const min = (isWarSpice) ? 10 : 1
-                    const max = (isWarSpice) ? 20 : 5
+                    const min = (isWarSpice) ? 100 : 10
+                    const max = (isWarSpice) ? 500 : 25
 
                     const price1 = price + randomInteger(min,max)
                     const price2 = price1 + randomInteger(min,max)
-                    const price3 = price1 + randomInteger(min,max)
-                    const price4 = price1 + randomInteger(min,max)
+                    const price3 = price2 + randomInteger(min,max)
+                    const price4 = price3 + randomInteger(min,max)
 
-                    spice.trend = normalizeTrend([price1, price2,price3,price4])
+                    return normalizeTrend([price1, price2,price3,price4])
                 }
             },{
                 step: 4,
                 chance: 0.3,
-                headline:`${info.country} and ${enemyName} are fully engaged in a battle. Very little casualties have been reported.`,
+                headline:`${info.country} and ${enemyName} are fully engaged in BATTLE. Very little casualties have been reported.`,
                 dialogBank: [
                     "What kind of battle is this? There's no way anyone is acutally fighting.",
                     `This war is a true display of tactics. They are fighting very efficiently with little losses.`,
@@ -164,20 +163,20 @@ function genWarEvent(enemyName:string){
                     const warCrash = ["Saffron"]
                     const isWarSpice = warCrash.includes(spice.name)
 
-                    const min = (isWarSpice) ? -10 : 1
-                    const max = (isWarSpice) ? -20 : 5
+                    const min = (isWarSpice) ? -100 : 10
+                    const max = (isWarSpice) ? -200 : 25
 
                     const price1 = price + randomInteger(min,max)
                     const price2 = price1 + randomInteger(min,max)
-                    const price3 = price1 + randomInteger(min,max)
-                    const price4 = price1 + randomInteger(min,max)
+                    const price3 = price2 + randomInteger(min,max)
+                    const price4 = price3 + randomInteger(min,max)
 
-                    spice.trend = normalizeTrend([price1, price2,price3,price4])
+                    return normalizeTrend([price1, price2,price3,price4])
                 }
                     
             },{
                 step: 5,
-                headline: `${info.country} frees hostages from ${enemyName}! ${info.country} is victorious!`,
+                headline: `${info.country} SAVES hostages from ${enemyName}! ${info.country} is VICTORIOUS!`,
                 chance: 1,
                 endsEvent: true,
                 dialogBank: [
@@ -190,15 +189,15 @@ function genWarEvent(enemyName:string){
                     const warCrash = ["Saffron","Cayenne"]
                     const isWarSpice = warCrash.includes(spice.name)
 
-                    const min = (isWarSpice) ? -10 : -1
-                    const max = (isWarSpice) ? -10 : -5
+                    const min = (isWarSpice) ? -20 : -20
+                    const max = (isWarSpice) ? -100 : -50
 
                     const price1 = price + randomInteger(min,max)
                     const price2 = price1 + randomInteger(min,max)
-                    const price3 = price1 + randomInteger(min,max)
-                    const price4 = price1 + randomInteger(min,max)
+                    const price3 = price2 + randomInteger(min,max)
+                    const price4 = price3 + randomInteger(min,max)
 
-                    spice.trend = normalizeTrend([price1, price2,price3,price4])
+                    return normalizeTrend([price1, price2,price3,price4])
                 }
 
 
@@ -212,9 +211,10 @@ function genWarEvent(enemyName:string){
 
 export function stepEvent(){
     const event = useEvent()
+    const market = useMarket()
 
     //@TODO: Add in a random chance for diff events to occur
-    if(!event) event.value = genWarEvent(pickRandom(info.rivalNations))
+    if(!event.value) event.value = genWarEvent(pickRandom(info.rivalNations))
 
     event.value.currentStep++
 
@@ -223,18 +223,28 @@ export function stepEvent(){
     const nextStep = weightedRandom(nextSteps)
 
     event.value.currentPhase = nextStep
+    if(nextStep){
+        //Add to news
+        addNewsArticle({
+            title:event.value.currentPhase.headline,
+            text:"bruh",
+        })
+        //Add trend to spices
+        market.value.prices.forEach(p=>{
+            p.trend = nextStep.genTrend(p)
+        })
+    }
 }
 
 
 
 function weightedRandom(choices: EventPhase[]) {
-    const random = (Math.random() * 100) + 1;
+    const random = Math.random()
     const sortedChoices = choices.sort((a, b) => b.chance - a.chance);
     
     let total = 0;
     for (const choice of sortedChoices) {
         total += choice.chance;
-        console.log({ choice, random, total })
       if (random <= total) {
         return choice;
       } 

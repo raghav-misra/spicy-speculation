@@ -31,11 +31,12 @@ export const stepMarket = ()=>{
     const market = useMarket()
     const event = useEvent()
     market.value.stepsUntilEvent -= 1
-
-    if(market.value.stepsUntilEvent === 0 || event.value){
+    console.log("time until ",market.value.stepsUntilEvent )
+    if(market.value.stepsUntilEvent === 0){
+        stepEvent()
+    }else if(event.value){
         //If spices still have trends, step it
         const hasTrend = market.value.prices.some(spice=>spice.trend.length > 0)
-
         if(!hasTrend){
             if(event.value.currentPhase?.endsEvent){
                 event.value = null
@@ -43,11 +44,12 @@ export const stepMarket = ()=>{
                 return
             }
             stepEvent()
+
         }
         
         market.value.prices.forEach(spice=>{
             if(spice.trend.length > 0){
-                spice.price += spice.trend.shift()
+                spice.price = spice.trend.shift()
             }
         })
     }else{
