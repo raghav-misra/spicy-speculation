@@ -40,7 +40,7 @@ export const showConversation = async (name: string, text: string[]) => {
     }
 }
 
-export const useShopState = () => useState<IShopState<any>>("ShopState", () => ({
+export const useShopState = () => useState<IShopState>("ShopState", () => ({
     isShowing: false,
     callback: null,
     title: "Fortnite Item Shop",
@@ -60,9 +60,9 @@ export const useShopState = () => useState<IShopState<any>>("ShopState", () => (
     ]
 }));
 
-export const showShop = <T>(
-    newStoreState: Omit<Omit<IShopState<T>, "isShowing">, "callback">, 
-    purchasedItemCallback: (res: IShopItem<T>) => string
+export const showShop = (
+    newStoreState: Omit<Omit<IShopState, "isShowing">, "callback">, 
+    purchasedItemCallback: (res: IShopItem) => string
 ) => {
     const shopState = useShopState();
 
@@ -119,7 +119,8 @@ export const triggerInteraction = async (npc: NPC) => {
     } else {
         await showShop({
             title: `${name}'s Shop`,
-            items: []
+            //@ts-ignore
+            items: npc.shopItems || []
         }, (item) => "Whatever.");
     }
 };

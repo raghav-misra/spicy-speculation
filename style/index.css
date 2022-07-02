@@ -60,6 +60,10 @@ html {
     text-transform: uppercase;
 }
 
+.underline {
+    text-decoration: underline solid 2px white;
+}
+
 ::-webkit-scrollbar {
     width: 0.25rem;
 }

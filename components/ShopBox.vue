@@ -3,7 +3,7 @@
 const shopState = useShopState();
 const currentMessage = ref<string | null>(null);
 
-async function purchaseItem(item: IShopItem<any>) {
+async function purchaseItem(item: IShopItem) {
     currentMessage.value = shopState.value.callback(item);
     await wait(1500);
     currentMessage.value = null;
@@ -15,7 +15,9 @@ async function purchaseItem(item: IShopItem<any>) {
         <div class="store-box content overlay-element" v-if="shopState.isShowing">
             <h1 class="allcaps">{{ shopState.title }}</h1>
             <hr style="--accent: white;">
-            <p class="text small">{{ currentMessage || "Purchase items to add them to your inventory!" }}</p>
+            <p class="text small">
+                {{ currentMessage || "Purchase items to add them to your inventory!" }}
+            </p>
             <hr style="--accent: white;">
             <div class="store-items">
                 <div class="store-item" v-for="item in shopState.items">
@@ -28,7 +30,7 @@ async function purchaseItem(item: IShopItem<any>) {
                         style="--accent: var(--green)"
                         @click="purchaseItem(item)"    
                     >
-                        {{ item.displayPrice }}
+                        ${{ item.price }}
                     </button>
                 </div>
             </div>
