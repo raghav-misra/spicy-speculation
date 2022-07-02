@@ -71,13 +71,19 @@ export const nextDay = ()=>{
     importPorts.forEach(port=>{
         const size = pickRandom(["med","small"]) as "med" | "small"
 
-        port.ship.inventory = {}
-        port.ship.prices = {}
+        port.ship.shopItems = []
 
         const spiceName = pickRandom(market.value.prices.map(spice=>spice.name))
         port.ship.type = size
-        port.ship.inventory[spiceName] = (size === "med") ? 10000 : 1000
-        port.ship.prices[spiceName] = market.value.prices.find(spice=>spice.name === spiceName).price + randomInteger(-10,10)
+        const stock = (size === "med") ? 10000 : 1000
+        const price = market.value.prices.find(spice=>spice.name === spiceName).price + randomInteger(100,500)
+
+        port.ship.shopItems.push({
+            name:spiceName,
+            price,
+            stock,
+            description:info.spiceDescriptions[spiceName]
+        })
     })
 }
 

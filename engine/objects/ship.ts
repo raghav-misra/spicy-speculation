@@ -7,10 +7,9 @@ interface ShipConfig{
 
 export interface ShipState{
     direction: 'import'|'export',
-    prices?: {[key:string]:number},
     type: 'med'|'small',
     name: string,
-    inventory: {[key:string]:number}
+    shopItems:IShopItem[]
 }
 
 export default class Ship extends Phaser.GameObjects.Sprite{

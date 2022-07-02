@@ -18,7 +18,7 @@ export default class NPC extends Phaser.GameObjects.Sprite{
     interactBody: MatterJS.BodyType;
 
     speed = 1.5
-
+    shopItems: IShopItem[] = []
     isNearPlayer = false
 
     allowRoam = true
@@ -61,6 +61,8 @@ export default class NPC extends Phaser.GameObjects.Sprite{
         this.setScale(1.5)
         this.setDepth(3)
 
+        this.generateShop()
+
         //Idle animations
         this.anims.play(`${this.gender}_${this.spriteKey}_down_idle`)
 
@@ -95,7 +97,8 @@ export default class NPC extends Phaser.GameObjects.Sprite{
             if (!this.isNearPlayer) return;
             hint.value = null
             this.facePlayer()
-            triggerInteraction(this);
+            this.updateShopPrices()
+            triggerInteraction(this)
         })
         
     }
@@ -209,6 +212,36 @@ export default class NPC extends Phaser.GameObjects.Sprite{
             this.anims.play(`${this.gender}_${this.spriteKey}_side_walk`,true)
             this.setFlipX(true)
         }
+    }
+
+    generateShop(){
+        const market = useMarket()
+
+        //Generate stock
+        const discoveredSpices = market.value.prices.map(p=>p.name)
+        const spiceStock = {} as Record<string, number>
+        discoveredSpices.forEach(s=>{
+            spiceStock[s] = randomInteger(10,100)
+        })
+
+        //Map to shop
+        this.shopItems =  Object.entries(spiceStock).map(([spiceName,stock])=>{
+            const price = market.value.prices.find(spice => spice.name === spiceName).price
+                return{
+                    name: spiceName,
+                    price: price,
+                    stock: stock,
+                    description:info.spiceDescriptions[spiceName]
+                }
+        }) as IShopItem[]
+    }
+
+    //Update shop prices based on market prices
+    updateShopPrices(){
+        this.shopItems.forEach(spice=>{
+            const marketPrice = useMarket().value.prices.find(p=>p.name === spice.name).price
+            spice.price = marketPrice + randomInteger(10,20)
+        })
     }
 }
 
