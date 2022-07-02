@@ -14,14 +14,7 @@ onMounted(() => {
     if (dialogState.value.isShowing) {
         buttons.value[0]?.focus();
     }
-})
-
-watch(() => dialogState.value, () => {
-    if (dialogState.value.isShowing) {
-        playerLocked.value = true;
-        buttons.value[0]?.focus();
-    }
-})
+});
 </script>
 
 <template>

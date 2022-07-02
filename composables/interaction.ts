@@ -1,3 +1,5 @@
+import NPC from "~~/engine/objects/npc";
+
 export const useDialogState = () => useState<IDialogState>("dialogState", () => ({
     isShowing: false,
     callback: null,
@@ -71,8 +73,8 @@ export const showShop = <T>(
     };
 };
 
-export const triggerInteraction = async (gender: string, spriteKey: string) => {
-    const name = getNpcInfo(gender, spriteKey);
+export const triggerInteraction = async (npc: NPC) => {
+    const name = getNpcInfo(npc.gender, npc.spriteKey);
     
     await showConversation(name, [
         `

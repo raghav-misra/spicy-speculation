@@ -52,9 +52,11 @@ export default class Builder extends Phaser.GameObjects.Sprite{
 
         //Handle interaction
         this.scene.input.keyboard.on("keydown-T", () => {
-            const hint = useState("hint")
+            const hint = useState("hint");
+            const isPortBoxShowing = useState("isPortBoxShowing");
             if (!this.isNearPlayer) return;
-            hint.value = null
+            hint.value = null;
+            isPortBoxShowing.value = true;
         })
         
     }

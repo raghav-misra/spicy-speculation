@@ -95,7 +95,7 @@ export default class NPC extends Phaser.GameObjects.Sprite{
             if (!this.isNearPlayer) return;
             hint.value = null
             this.facePlayer()
-            triggerInteraction(this.gender, this.spriteKey);
+            triggerInteraction(this);
         })
         
     }
