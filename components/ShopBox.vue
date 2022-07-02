@@ -1,7 +1,9 @@
 <script setup lang="ts">
-
+const market = useMarket()
 const shopState = useShopState();
 const currentMessage = ref<string | null>(null);
+const player = usePlayer()
+const playerLocked = useMovementLocked();
 
 const stocks = ref<Record<string, number>>({});
 
@@ -19,12 +21,23 @@ watch(() => shopState.value, () => {
 
     stocks.value = newStocks;
 });
+watchEffect(() => {
+    if(shopState.value.isShowing){
+        market.value.isEnabled  = false;
+        playerLocked.value = true;
+    }else{
+        market.value.isEnabled  = true;
+        playerLocked.value = false;
+    }
+})
 </script>
 
 <template>
     <div class="store-container">
         <div class="store-box content overlay-element" v-if="shopState.isShowing">
             <h1 class="allcaps">{{ shopState.title }}</h1>
+            {{player.inventory}}
+            {{player.money}}
             <hr style="--accent: white;">
             <p class="text small">
                 {{ currentMessage || "Purchase items to add them to your inventory!" }}

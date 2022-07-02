@@ -111,8 +111,9 @@ export const triggerInteraction = async (npc: NPC) => {
             //@ts-ignore
             items: npc.shopItems || []
         }, item => {
-            if (item.price > player.value.money) {
+            if (item.price < player.value.money) {
                 player.value.money -= item.price;
+                if(!player.value.inventory[item.name]) player.value.inventory[item.name] = 0
                 player.value.inventory[item.name] += 5;
                 return "Thanks for that.";
             } else {

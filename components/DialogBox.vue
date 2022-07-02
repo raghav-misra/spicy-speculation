@@ -7,7 +7,6 @@ function endDialog(responseType: string) {
     dialogState.value.isShowing = false;
     dialogState.value.callback(responseType);
     dialogState.value.callback = null;
-    playerLocked.value = false;
 }
 
 onMounted(() => {
@@ -15,6 +14,14 @@ onMounted(() => {
         buttons.value[0]?.focus();
     }
 });
+
+watchEffect(()=>{
+    if(dialogState.value.isShowing){
+       playerLocked.value = true;
+    }else{
+       playerLocked.value = false;
+    }
+})
 </script>
 
 <template>

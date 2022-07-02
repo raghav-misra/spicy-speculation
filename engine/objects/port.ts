@@ -56,10 +56,26 @@ export default class Port extends Phaser.GameObjects.Sprite{
 
         //@TODO Trigger import/export ui
         this.scene.input.keyboard.on("keydown-T", () => {
+            const player = usePlayer()
             const hint = useState("hint")
             if (!this.isNearPlayer) return;
             hint.value = null
-            this.shipObject.sail(direction)
+            
+            if(ship.direction === 'import'){
+                showShop({
+                    title: `Ship Of ${ship.name}`,
+                    items:ship.shopItems
+                }, item => {
+                    if (item.price < player.value.money) {
+                        player.value.money -= item.price;
+                        if(!player.value.inventory[item.name]) player.value.inventory[item.name] = 0
+                        player.value.inventory[item.name] += 5;
+                        return "Thanks for that.";
+                    } else {
+                        return "Aw shucks, you're broke bozo!"
+                    }
+                })
+            }
         })
 
         if (direction === 'import') {

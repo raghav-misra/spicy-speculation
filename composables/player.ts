@@ -6,14 +6,11 @@ interface PortState{
 }
 
 export const usePlayer = () => useState("playerState", () => ({
-    money: 0,
+    money: 10000,
     days: 0,
     x:null,
     y:null,
-    inventory: {
-        pepper: 69,
-        vbucks: 420
-    },
+    inventory: {},
     ports: [{
         direction: "export",
         ship:{
@@ -27,7 +24,7 @@ export const usePlayer = () => useState("playerState", () => ({
         ship:{
             name:"Trader's Union",
             type:"small",
-            direction:"export",
+            direction:"import",
             shopItems:[{
                 price:200,
                 name:"Pepper",
