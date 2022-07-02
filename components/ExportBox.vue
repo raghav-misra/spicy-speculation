@@ -12,6 +12,7 @@ const exportAmounts = ref<[string, number][]>([
 function closeByOverlayClick(e: MouseEvent) {
     if ((e.target as HTMLElement).classList.contains("port-container")) {
         exportSettings.value.isShowing = false;
+        market.value.isEnabled = true;
     }
 }
 
@@ -85,7 +86,7 @@ async function startExport() {
                 <button 
                     style="--accent: var(--red);"
                     class="text small"
-                    @click="exportSettings.isShowing = false;"
+                    @click="exportSettings.isShowing = false; market.isEnabled = true;"
                 >
                     close
                 </button>

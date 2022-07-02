@@ -4,12 +4,14 @@ export interface SpicePricing{
     trend:number[]
 }
 
+export const useIsMarketTrendDisplaying = () => useState("isMarketTrendDisplaying", () => false);
+
 export const useMarketHistory = () =>{
     return useState("marketHistory",()=>{
         return {
             tick:0,
             labels:[],
-            datasets:[]
+            datasets:[],
         }
     })
 }

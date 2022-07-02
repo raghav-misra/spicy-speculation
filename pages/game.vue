@@ -19,6 +19,7 @@ try {
         <NewspaperBox style="--z: 4;" /> 
         <PortBox style="--z: 4;" />
         <ExportBox style="--z: 4;" />
+        <MarketTrendsBox style="--z: 4;" />
 
         <div class="overlay-edge left-edge">
             <MoneyBox style="--z: 3;" />
