@@ -7,7 +7,7 @@ export interface SpicePricing{
 export const useMarket = ()=> useState("market",()=>{
     return{
         prices:[] as SpicePricing[],
-        stepsUntilEvent:4
+        stepsUntilEvent:8
     }
 })
 
@@ -31,7 +31,6 @@ export const stepMarket = ()=>{
     const market = useMarket()
     const event = useEvent()
     market.value.stepsUntilEvent -= 1
-    console.log("time until ",market.value.stepsUntilEvent )
     if(market.value.stepsUntilEvent === 0){
         stepEvent()
     }else if(event.value){
@@ -40,7 +39,7 @@ export const stepMarket = ()=>{
         if(!hasTrend){
             if(event.value.currentPhase?.endsEvent){
                 event.value = null
-                market.value.stepsUntilEvent = 4
+                market.value.stepsUntilEvent = 8
                 return
             }
             stepEvent()
