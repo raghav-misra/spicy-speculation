@@ -6,6 +6,7 @@
     overflow: hidden;
     font-weight: 400;
     box-sizing: border-box;
+    z-index: calc(69 + var(--z));
 }
 
 :root {

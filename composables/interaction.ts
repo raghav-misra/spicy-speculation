@@ -44,20 +44,7 @@ export const useShopState = () => useState<IShopState>("ShopState", () => ({
     isShowing: false,
     callback: null,
     title: "Fortnite Item Shop",
-    items: [
-        {
-            name: "Renegade Raider",
-            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
-            displayPrice: "$100",
-            id: "RENEGADE"
-        },
-        {
-            name: "Renegade Raider",
-            description: "Oh what a rare skin, only been in Fortnite once, get it in Spice Race",
-            displayPrice: "$100",
-            id: "RENEGADE"
-        },
-    ]
+    items: []
 }));
 
 export const showShop = (
