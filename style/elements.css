@@ -37,6 +37,11 @@ button.small {
     padding: 0.25rem 0.75rem;
 }
 
-button:hover {
+button:hover:not(:disabled) {
     text-decoration: underline;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }

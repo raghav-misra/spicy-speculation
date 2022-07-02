@@ -8,6 +8,7 @@ const playerLocked = useMovementLocked();
 const stocks = ref<Record<string, number>>({});
 
 async function purchaseItem(item: IShopItem) {
+    stocks.value[item.name]--;
     currentMessage.value = shopState.value.callback(item);
     await wait(1500);
     currentMessage.value = null;
@@ -36,8 +37,6 @@ watchEffect(() => {
     <div class="store-container">
         <div class="store-box content overlay-element" v-if="shopState.isShowing">
             <h1 class="allcaps">{{ shopState.title }}</h1>
-            {{player.inventory}}
-            {{player.money}}
             <hr style="--accent: white;">
             <p class="text small">
                 {{ currentMessage || "Purchase items to add them to your inventory!" }}
@@ -53,10 +52,11 @@ watchEffect(() => {
                     </div>
                     <button 
                         class="text small" 
-                        style="--accent: var(--green)"
-                        @click="purchaseItem(item)"    
+                        :style="`--accent: var(--${stocks[item.name] === 0? 'red' : 'green'})`"
+                        @click="purchaseItem(item)"
+                        :disabled="stocks[item.name] === 0"    
                     >
-                        ${{ item.price }}
+                        {{ stocks[item.name] === 0 ? "all out!" : `$${item.price}` }}
                     </button>
                 </div>
             </div>
