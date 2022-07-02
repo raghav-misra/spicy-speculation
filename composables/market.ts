@@ -190,7 +190,7 @@ function discoverNewSpice(){
     const potentialNext = [
         {type:"stable",name:pickRandom(stableSpices)},
         {type:"fad",name:pickRandom(fadSpices)}
-    ].filter(s=>s != null)
+    ].filter(s=>s.name != null)
 
     if(potentialNext.length === 0) return
 
