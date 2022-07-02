@@ -4,7 +4,7 @@ const shopState = useShopState();
 try {
     const game = usePhaser();
     initMarket();
-    game.value.scene.start("Hub");
+    game.value.scene.start("Start");
     audio.bg.play()
     audio.bg.fade(0,0.1,2000)
 } catch (error) {

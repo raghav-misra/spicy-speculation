@@ -7,14 +7,14 @@ export default class Hub extends Phaser.Scene{
     player:Player;
     npcs:Npc[] = []
 
-    create(){
+    create(triggerTutorial:boolean = false){
         this.buildLayers()
         this.cameras.main.roundPixels = true
 
         this.cameras.main.setBounds(0,0,2464,864)
         this.matter.world.setBounds(0,0,2464,864)
         
-        this.player = new Player(this,803,439)
+        this.player = new Player(this,1071,82)
         new PlayerHouse(this)
 
         this.spawnNpcs()

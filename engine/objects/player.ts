@@ -6,7 +6,7 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     gender = "male"
     spriteKey = "A"
-    speed = 2.5
+    speed = 1.5
 
     constructor(scene:Phaser.Scene,x,y){
         super(scene,x,y,"male_1")

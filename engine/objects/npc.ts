@@ -48,7 +48,7 @@ export default class NPC extends Phaser.GameObjects.Sprite{
         scene.matter.add.gameObject(this,scene.matter.bodies.rectangle(x,y,16,32,{
             inertia: Infinity,
             mass:100,
-            label: "NPC",
+            label: "npc",
         }))
         this.originY = 0.6
 
