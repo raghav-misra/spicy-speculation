@@ -61,6 +61,8 @@ export default class Port extends Phaser.GameObjects.Sprite{
             const hint = useState("hint")
             if (!this.isNearPlayer) return;
             hint.value = null
+
+            if(!this.shipObject.ready) return;
             
             if(ship.direction === 'import'){
                 showShop({
