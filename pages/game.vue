@@ -10,12 +10,12 @@ try {
 
 <template>
     <main class="overlay" style="pointer-events: none;">
-        <DialogBox :z="0" />
-        <Hint :z="0" />
-        <ShopBox :z="1" />
-        <MarketPriceBox :z="1" />
-        <NewspaperBox :z="2"  /> 
-        <PortBox :z="3" />
+        <DialogBox style="--z: 1;" />
+        <Hint style="--z: 1;" />
+        <ShopBox style="--z: 2;" />
+        <MarketPriceBox style="--z: 2;" />
+        <NewspaperBox style="--z: 3;"  /> 
+        <PortBox style="--z: 3;" />
     </main>
 </template>
 
