@@ -1,5 +1,5 @@
 <template>
-    <div class="market-price-container content overlay-element">
+    <div class="market-price-box content overlay-element">
         <h2 class="allcaps">Spice Market</h2>
         <hr style="--accent: white;">
         <div>
@@ -13,13 +13,8 @@ const market = useMarket()
 </script>
 
 <style scoped>
-.market-price-container{
-    background-color: var(--black);
-    border-width: 5px;
-    position: absolute;
+.market-price-box { 
     color:white;
-    right: 1.5rem;
-    top: 1.5rem;
     text-align: center;
     display: flex;
     justify-content: center;

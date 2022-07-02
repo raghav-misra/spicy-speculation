@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const isShowing = ref(false);
+const isShowing = useIsNewspaperOpen();
 const newsArticles = useNewsArticles();
 
 function closeByOverlayClick(e: MouseEvent) {
@@ -8,12 +8,6 @@ function closeByOverlayClick(e: MouseEvent) {
     }
 }
 
-function open(){
-    isShowing.value = true;
-    audio.openNews.play()
-}
-
-
 function close(){
     isShowing.value = false;
     audio.close.play()
@@ -21,10 +15,6 @@ function close(){
 </script>
 
 <template>
-    <button class="overlay-element allcaps small white" @click="open">
-        <h1>Island News 📖</h1>
-    </button>
-
     <div class="overlay newspaper-container" v-if="isShowing" @click="closeByOverlayClick">
         <div class="overlay-element newspaper content white">
             <header>

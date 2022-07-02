@@ -29,8 +29,11 @@ button, input, select {
     border-left: 2px var(--accent) solid;
     border-right: 2px var(--accent) solid;
     border-radius: 25px;
-    cursor: pointer;
     color: var(--accent);
+}
+
+button, [role=button] {
+    cursor: pointer;
 }
 
 button.small, input.small, select.small {
