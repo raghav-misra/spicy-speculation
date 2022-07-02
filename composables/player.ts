@@ -24,7 +24,7 @@ export const usePlayer = () => useState("playerState", () => ({
         ship:{
             name:"Trader's Union",
             type:"small",
-            direction:"export",
+            direction:"import",
             shopItems:[{
                 price:200,
                 name:"Pepper",
