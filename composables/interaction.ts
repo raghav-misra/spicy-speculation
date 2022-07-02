@@ -62,22 +62,30 @@ export const showShop = (
 
 export const triggerInteraction = async (npc: NPC) => {
     const name = getNpcInfo(npc.gender, npc.spriteKey);
+    const event = useEvent()
+
+    if(event.value?.currentPhase){
+        await showConversation(name,[pickRandom(event.value.currentPhase.dialogBank),"Anyways, here's what I brought with me today."])
+    }else{
+        await showConversation(name,[
+            `
+                New to these parts are you? Worry not, I'm sure you'll pick up quickly. 
+                I'm always here if you're in need of some help.
+            `,
+            `
+                From ${info.island}, huh? My great grandfather Bruhngis Khan conquered that land
+                a few decades ago. If it were 40 years ago, you'd be bowing to me. Anyhow, I'm a
+                trader who stumbled on a new settlement here.
+            `,
+            `
+                Dang, this island is yours? Didn't think you'd have it in you. Regardless, I have the most unique
+                items you can find in these parts of ${info.island}.
+            `
+        ]);
+    }
+
+
     
-    await showConversation(name, [
-        `
-            New to these parts are you? Worry not, I'm sure you'll pick up quickly. 
-            I'm always here if you're in need of some help.
-        `,
-        `
-            From ${info.island}, huh? My great grandfather Bruhngis Khan conquered that land
-            a few decades ago. If it were 40 years ago, you'd be bowing to me. Anyhow, I'm a
-            trader who stumbled on a new settlement here.
-        `,
-        `
-            Dang, this island is yours? Didn't think you'd have it in you. Regardless, I have the most unique
-            items you can find in these parts of ${info.island}.
-        `
-    ]);
 
     const doDisplayShop = await showDialog({
         title: name,
