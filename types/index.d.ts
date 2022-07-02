@@ -15,16 +15,16 @@ declare interface IDialogState {
     }[];
 }
 
-declare interface IShopState<T> {
+declare interface IShopState {
     isShowing: boolean;
-    callback: null | ((item: IShopItem<T>) => string);
+    callback: null | ((item: IShopItem) => string);
     title: string;
-    items: IShopItem<T>[];
+    items: IShopItem[];
 }
 
-declare interface IShopItem<T> {
+declare interface IShopItem {
     name: string;
+    price: number;
+    stock: number;
     description: string;
-    displayPrice: string;
-    id: T;
 }

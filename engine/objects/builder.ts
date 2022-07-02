@@ -1,3 +1,5 @@
+import { usePortDisplayState } from "~~/composables/port";
+
 export default class Builder extends Phaser.GameObjects.Sprite{
 
     isNearPlayer = false
@@ -53,10 +55,10 @@ export default class Builder extends Phaser.GameObjects.Sprite{
         //Handle interaction
         this.scene.input.keyboard.on("keydown-T", () => {
             const hint = useState("hint");
-            const isPortBoxShowing = useState("isPortBoxShowing");
+            const isPortBoxShowing = usePortDisplayState();
             if (!this.isNearPlayer) return;
             hint.value = null;
-            isPortBoxShowing.value = true;
+            isPortBoxShowing.value.isShowing = true;
         })
         
     }
