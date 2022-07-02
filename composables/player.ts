@@ -1,6 +1,6 @@
 import type { ShipState } from "../engine/objects/ship";
 
-interface PortState{
+export interface PortState{
     direction:'import'|'export',
     ship:ShipState
 }

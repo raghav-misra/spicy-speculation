@@ -15,13 +15,48 @@ try {
         <DialogBox style="--z: 1;" />
         <HintBox style="--z: 1;" />
         <ShopBox style="--z: 2;" />
-        <MarketPriceBox style="--z: 2;" />
-        <NewspaperBox style="--z: 3;"  /> 
-        <PortBox style="--z: 3;" />
-        <ExportBox style="--z: 3;" />
+        
+        <NewspaperBox style="--z: 4;" /> 
+        <PortBox style="--z: 4;" />
+        <ExportBox style="--z: 4;" />
+
+        <div class="overlay-edge left-edge">
+            <NewsOpenBox style="--z: 3;" />
+            <InventoryOpenBox style="--z: 3;" />
+        </div>
+
+        <div class="overlay-edge right-edge">
+            <MoneyBox style="--z: 3;" />
+            <MarketPriceBox style="--z: 2;" />
+        </div>
     </main>
 </template>
 
 <style>
+.overlay-edge {
+    pointer-events: none;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
 
+.right-edge {
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.left-edge {
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.overlay-edge > .overlay-element {
+    margin: 2rem;
+    margin-bottom: 0;
+    width: 13.75rem;
+    text-align: center;
+}
 </style>

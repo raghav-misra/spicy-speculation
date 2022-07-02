@@ -45,6 +45,10 @@ html {
     box-shadow: 0 -10px 50px var(--black);
 }
 
+.overlay-element.small {
+    padding: 1rem;
+}
+
 .content > *:not(:last-child) {
     margin-bottom: 1rem;
 }

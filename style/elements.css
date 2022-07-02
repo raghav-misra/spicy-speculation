@@ -21,7 +21,7 @@ hr {
     align-self: stretch;
 }
 
-button, input {
+button, input, select {
     background: none;
     display: inline-block;
     border: none;
@@ -29,11 +29,14 @@ button, input {
     border-left: 2px var(--accent) solid;
     border-right: 2px var(--accent) solid;
     border-radius: 25px;
-    cursor: pointer;
     color: var(--accent);
 }
 
-button.small, input {
+button, [role=button] {
+    cursor: pointer;
+}
+
+button.small, input.small, select.small {
     padding: 0.25rem 0.75rem;
 }
 
@@ -44,4 +47,8 @@ button:hover:not(:disabled) {
 button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+option {
+    color: var(--black);
 }
