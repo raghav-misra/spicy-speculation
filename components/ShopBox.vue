@@ -10,7 +10,7 @@ const amount = ref(5);
 
 async function purchaseItem(item: IShopItem) {
     audio.purchase.play();
-    stocks.value[item.name]--;
+    stocks.value[item.name] -= amount.value;
     currentMessage.value = shopState.value.callback(item, amount.value);
     await wait(1500);
     currentMessage.value = null;
