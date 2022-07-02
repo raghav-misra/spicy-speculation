@@ -7,7 +7,8 @@ export interface SpicePricing{
 export const useMarket = ()=> useState("market",()=>{
     return{
         prices:[] as SpicePricing[],
-        stepsUntilEvent:8
+        stepsUntilEvent:8,
+        isEnabled:true
     }
 })
 
@@ -30,6 +31,8 @@ export const initMarket = () => {
 export const stepMarket = ()=>{
     const market = useMarket()
     const event = useEvent()
+    if(!market.value.isEnabled) return
+    
     market.value.stepsUntilEvent -= 1
     if(market.value.stepsUntilEvent === 0){
         stepEvent()

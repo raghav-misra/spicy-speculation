@@ -1,19 +1,29 @@
 <script setup lang="ts">
-
+const market = useMarket()
 const shopState = useShopState();
 const currentMessage = ref<string | null>(null);
-
+const player = usePlayer()
 async function purchaseItem(item: IShopItem) {
     currentMessage.value = shopState.value.callback(item);
     await wait(1500);
     currentMessage.value = null;
 }
+
+watchEffect(()=>{
+    if(shopState.value.isShowing){
+        market.value.isEnabled  = false;
+    }else{
+        market.value.isEnabled  = true;
+    }
+})
 </script>
 
 <template>
     <div class="store-container">
         <div class="store-box content overlay-element" v-if="shopState.isShowing">
             <h1 class="allcaps">{{ shopState.title }}</h1>
+            {{player.inventory}}
+            {{player.money}}
             <hr style="--accent: white;">
             <p class="text small">
                 {{ currentMessage || "Purchase items to add them to your inventory!" }}
