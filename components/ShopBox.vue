@@ -3,11 +3,22 @@
 const shopState = useShopState();
 const currentMessage = ref<string | null>(null);
 
+const stocks = ref<Record<string, number>>({});
+
 async function purchaseItem(item: IShopItem) {
     currentMessage.value = shopState.value.callback(item);
     await wait(1500);
     currentMessage.value = null;
 }
+
+watch(() => shopState.value, () => {
+    const newStocks = Object.create(null);
+    shopState.value.items.map(item => {
+        newStocks[item.name] = item.stock;
+    });
+
+    stocks.value = newStocks;
+});
 </script>
 
 <template>
@@ -22,7 +33,9 @@ async function purchaseItem(item: IShopItem) {
             <div class="store-items">
                 <div class="store-item" v-for="item in shopState.items">
                     <div class="item-info">
-                        <h2 class="text">{{ item.name }}</h2>
+                        <h2 class="text">
+                            {{ item.name }} ({{ item.stock - stocks[item.name] }}/{{ item.stock }})
+                        </h2>
                         <p class="text small">{{ item.description }}</p>
                     </div>
                     <button 

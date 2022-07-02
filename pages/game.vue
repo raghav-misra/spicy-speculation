@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import ImportBox from '~~/components/ImportBox.vue';
 try {
     const game = usePhaser();
     initMarket();
@@ -17,7 +16,6 @@ try {
         <MarketPriceBox style="--z: 2;" />
         <NewspaperBox style="--z: 3;"  /> 
         <PortBox style="--z: 3;" />
-        <ImportBox style="--z: 3;" />
         <ExportBox style="--z: 3;" />
     </main>
 </template>
