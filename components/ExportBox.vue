@@ -2,6 +2,7 @@
 const exportSettings = useExportDisplayState();
 const playerState = usePlayer();
 const market = useMarket();
+const lockPlayer = useMovementLocked()
 
 const canExport = computed(() => Object.keys(playerState.value.inventory).length > 0);
 
@@ -15,6 +16,15 @@ function closeByOverlayClick(e: MouseEvent) {
         market.value.isEnabled = true;
     }
 }
+
+watchEffect(()=>{
+    if(exportSettings.value.isShowing){
+        audio.openShop.play()
+    }else{
+        audio.close.play()
+        lockPlayer.value = false
+    }
+})
 
 async function startExport() {
     // Determine the maximum # of spices the ship can hold:
@@ -70,10 +80,13 @@ async function startExport() {
     exportSettings.value.isShowing = false;
     exportSettings.value.port.shipObject.sail("export");
     market.value.isEnabled = true;
+    lockPlayer.value = false;
+
+    audio.purchase.play()
 
     // Show money earned:
     showConversation("Atticus of the Shipyard", [
-        `Congratulations on a fine expedition! You have earned $${moneyEarned}!`
+        `Congratulations on a fine expedition! You have earned $${moneyEarned.toLocaleString()}!`
     ]);
 }
 </script>
