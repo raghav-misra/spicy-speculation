@@ -7,6 +7,7 @@ interface PortState{
 
 export const usePlayer = () => useState("playerState", () => ({
     money: 0,
+    days: 0,
     x:null,
     y:null,
     inventory: {

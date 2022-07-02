@@ -7,8 +7,9 @@ interface INewsArticle {
 export const useNewsArticles = () => useState<INewsArticle[]>("newsArticles", () => []);
 export const addNewsArticle = (article: Omit<INewsArticle, "day">) => {
     const newsArticles = useNewsArticles();
+    const day = usePlayer().value.days
     newsArticles.value.unshift({
         ...article,
-        day: Math.random() /* TODO: actual current day expression */
+        day:day
     })
 };
