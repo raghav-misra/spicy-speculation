@@ -6,10 +6,11 @@ const player = usePlayer()
 const playerLocked = useMovementLocked();
 
 const stocks = ref<Record<string, number>>({});
+const amount = ref(5);
 
 async function purchaseItem(item: IShopItem) {
     stocks.value[item.name]--;
-    currentMessage.value = shopState.value.callback(item);
+    currentMessage.value = shopState.value.callback(item, amount.value);
     await wait(1500);
     currentMessage.value = null;
 }
@@ -46,7 +47,28 @@ watchEffect(() => {
                 <div class="store-item" v-for="item in shopState.items">
                     <div class="item-info">
                         <h2 class="text">
-                            {{ item.name }} ({{ item.stock - stocks[item.name] }}/{{ item.stock }})
+                            <span>{{ item.name }}</span>
+
+                            <span class="text small">
+                                ({{ item.stock - stocks[item.name] }}/{{ item.stock }})
+                            </span>
+
+                            <span class="text">|</span>
+
+                            <span class="text small">
+                                Amount:
+                            </span>
+
+                            <input 
+                                v-model.number="amount"
+                                class="text small"
+                                type="number" 
+                                min="1"
+                                :max="stocks[item.name]"
+                                style="--accent: white; width: 5rem;"
+                            />
+
+                            
                         </h2>
                         <p class="text small">{{ item.description }}</p>
                     </div>
@@ -56,7 +78,11 @@ watchEffect(() => {
                         @click="purchaseItem(item)"
                         :disabled="stocks[item.name] === 0"    
                     >
-                        {{ stocks[item.name] === 0 ? "all out!" : `$${item.price}` }}
+                        {{ 
+                            stocks[item.name] === 0 ? 
+                                "all out!" : 
+                                `$${(item.price * amount).toLocaleString()}`
+                        }}
                     </button>
                 </div>
             </div>
@@ -116,6 +142,15 @@ watchEffect(() => {
 
 .store-item .item-info {
     flex: 1;
+}
+
+.store-item h2 {
+    display: flex;
+    align-items: center;
+}
+
+.store-item h2 > * {
+    margin-right: 0.5rem;
 }
 
 .store-item button {

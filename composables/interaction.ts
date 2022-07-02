@@ -49,7 +49,7 @@ export const useShopState = () => useState<IShopState>("ShopState", () => ({
 
 export const showShop = (
     newStoreState: Omit<Omit<IShopState, "isShowing">, "callback">, 
-    purchasedItemCallback: (res: IShopItem) => string
+    purchasedItemCallback: (res: IShopItem, amount: number) => string
 ) => {
     const shopState = useShopState();
 
@@ -106,15 +106,16 @@ export const triggerInteraction = async (npc: NPC) => {
     } else {
         const player = usePlayer();
 
-        await showShop({
+        showShop({
             title: `${name}'s Shop`,
             //@ts-ignore
             items: npc.shopItems || []
-        }, item => {
-            if (item.price < player.value.money) {
-                player.value.money -= item.price;
+        }, (item, amount) => {
+            const totalPrice = (item.price * amount);
+            if (totalPrice < player.value.money) {
+                player.value.money -= totalPrice;
                 if(!player.value.inventory[item.name]) player.value.inventory[item.name] = 0
-                player.value.inventory[item.name] += 5;
+                player.value.inventory[item.name] += amount;
                 return "Thanks for that.";
             } else {
                 return "Aw shucks, you're broke bozo!"
