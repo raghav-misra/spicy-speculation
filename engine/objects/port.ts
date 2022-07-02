@@ -65,11 +65,12 @@ export default class Port extends Phaser.GameObjects.Sprite{
                 showShop({
                     title: `Ship Of ${ship.name}`,
                     items:ship.shopItems
-                }, item => {
-                    if (item.price < player.value.money) {
-                        player.value.money -= item.price;
+                }, (item, amount) => {
+                    const totalPrice = (item.price * amount);
+                    if (totalPrice < player.value.money) {
+                        player.value.money -= totalPrice;
                         if(!player.value.inventory[item.name]) player.value.inventory[item.name] = 0
-                        player.value.inventory[item.name] += 5;
+                        player.value.inventory[item.name] += amount;
                         return "Thanks for that.";
                     } else {
                         return "Aw shucks, you're broke bozo!"

@@ -21,7 +21,7 @@ hr {
     align-self: stretch;
 }
 
-button {
+button, input {
     background: none;
     display: inline-block;
     border: none;
@@ -33,10 +33,15 @@ button {
     color: var(--accent);
 }
 
-button.small {
+button.small, input {
     padding: 0.25rem 0.75rem;
 }
 
-button:hover {
+button:hover:not(:disabled) {
     text-decoration: underline;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }

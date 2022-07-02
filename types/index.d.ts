@@ -17,7 +17,7 @@ declare interface IDialogState {
 
 declare interface IShopState {
     isShowing: boolean;
-    callback: null | ((item: IShopItem) => string);
+    callback: null | ((item: IShopItem, amount: number) => string);
     title: string;
     items: IShopItem[];
 }

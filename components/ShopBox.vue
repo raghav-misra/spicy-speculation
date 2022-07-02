@@ -5,14 +5,26 @@ const currentMessage = ref<string | null>(null);
 const player = usePlayer()
 const playerLocked = useMovementLocked();
 
+const stocks = ref<Record<string, number>>({});
+const amount = ref(5);
+
 async function purchaseItem(item: IShopItem) {
-    currentMessage.value = shopState.value.callback(item);
     audio.purchase.play();
+    stocks.value[item.name]--;
+    currentMessage.value = shopState.value.callback(item, amount.value);
     await wait(1500);
     currentMessage.value = null;
 }
 
-watchEffect(()=>{
+watch(() => shopState.value, () => {
+    const newStocks = Object.create(null);
+    shopState.value.items.map(item => {
+        newStocks[item.name] = item.stock;
+    });
+
+    stocks.value = newStocks;
+});
+watchEffect(() => {
     if(shopState.value.isShowing){
         market.value.isEnabled  = false;
         playerLocked.value = true;
@@ -29,8 +41,6 @@ watchEffect(()=>{
     <div class="store-container">
         <div class="store-box content overlay-element" v-if="shopState.isShowing">
             <h1 class="allcaps">{{ shopState.title }}</h1>
-            {{player.inventory}}
-            {{player.money}}
             <hr style="--accent: white;">
             <p class="text small">
                 {{ currentMessage || "Purchase items to add them to your inventory!" }}
@@ -39,15 +49,43 @@ watchEffect(()=>{
             <div class="store-items">
                 <div class="store-item" v-for="item in shopState.items">
                     <div class="item-info">
-                        <h2 class="text">{{ item.name }}</h2>
+                        <h2 class="text">
+                            <span>{{ item.name }}</span>
+
+                            <span class="text small">
+                                ({{ item.stock - stocks[item.name] }}/{{ item.stock }})
+                            </span>
+
+                            <span class="text">|</span>
+
+                            <span class="text small">
+                                Amount:
+                            </span>
+
+                            <input 
+                                v-model.number="amount"
+                                class="text small"
+                                type="number" 
+                                min="1"
+                                :max="stocks[item.name]"
+                                style="--accent: white; width: 5rem;"
+                            />
+
+                            
+                        </h2>
                         <p class="text small">{{ item.description }}</p>
                     </div>
                     <button 
                         class="text small" 
-                        style="--accent: var(--green)"
-                        @click="purchaseItem(item)"    
+                        :style="`--accent: var(--${stocks[item.name] === 0? 'red' : 'green'})`"
+                        @click="purchaseItem(item)"
+                        :disabled="stocks[item.name] === 0"    
                     >
-                        ${{ item.price }}
+                        {{ 
+                            stocks[item.name] === 0 ? 
+                                "all out!" : 
+                                `$${(item.price * amount).toLocaleString()}`
+                        }}
                     </button>
                 </div>
             </div>
@@ -107,6 +145,15 @@ watchEffect(()=>{
 
 .store-item .item-info {
     flex: 1;
+}
+
+.store-item h2 {
+    display: flex;
+    align-items: center;
+}
+
+.store-item h2 > * {
+    margin-right: 0.5rem;
 }
 
 .store-item button {
