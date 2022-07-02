@@ -4,6 +4,16 @@ export interface SpicePricing{
     trend:number[]
 }
 
+export const useMarketHistory = () =>{
+    return useState("marketHistory",()=>{
+        return {
+            tick:0,
+            labels:[],
+            datasets:[]
+        }
+    })
+}
+
 export const useMarket = ()=> useState("market",()=>{
     return{
         prices:[] as SpicePricing[],
@@ -31,8 +41,10 @@ export const initMarket = () => {
 export const stepMarket = ()=>{
     const market = useMarket()
     const event = useEvent()
+    const history = useMarketHistory()
+
     if(!market.value.isEnabled) return
-    
+
     market.value.stepsUntilEvent -= 1
     if(market.value.stepsUntilEvent === 0){
         stepEvent()
@@ -62,6 +74,23 @@ export const stepMarket = ()=>{
              spice.price = spice.trend.shift()
         })
     }
+
+    //Add prices to history
+    history.value.tick += 1
+    history.value.labels = Array.from({length:history.value.tick},(v,i)=>i)
+    market.value.prices.forEach(spice=>{
+        const exists = history.value.datasets.find(d=>d.label === spice.name)
+        if(!exists){
+            history.value.datasets.push({
+                label:spice.name,
+                data:[]
+            })
+        }
+
+        const dataset = history.value.datasets.find(d=>d.label === spice.name)
+        dataset.data.push(spice.price)
+    })
+
 }
 
 export const nextDay = ()=>{
