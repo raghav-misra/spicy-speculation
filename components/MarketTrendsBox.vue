@@ -27,6 +27,15 @@ onMounted(async () => {
             datasets: [],
             labels: [],
         },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        }
     });
 
     //@ts-ignore
@@ -61,9 +70,6 @@ onMounted(async () => {
             labels: newData.labels
         };
 
-        console.log("h1");
-
-
         chart.update("none");
     }, 500);
 });
@@ -73,7 +79,7 @@ onMounted(async () => {
     <div class="overlay trends-container" v-show="isShowing" @click="closeByOverlayClick">
         <div class="chart overlay-element">
             <h1 class="allcaps white">Market Trends:</h1>
-            <canvas ref="canvas"></canvas>
+            <canvas ref="canvas" :height="187 * 2.5" :width="375 * 2.5"></canvas>
         </div>
     </div>
 </template>
@@ -88,10 +94,14 @@ onMounted(async () => {
 }
 
 .chart {
-    width: 70%;
+    width: 70vw;
+    overflow-x: scroll;
 }
 
 canvas {
+    aspect-ratio: 2;
+    width: 100% !important;
+    height: calc(35vw - 2rem) !important;
     pointer-events: none;
     filter: invert(1);
 }

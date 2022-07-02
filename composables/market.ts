@@ -216,13 +216,9 @@ function discoverNewSpice(){
 
     //Populate the history to start on correct day
     const history = useMarketHistory()
-    const dataset = {
-        label:spice.name,
-        data: Array.from({length:history.value.tick},(v,i)=>null)  
-    }
 
     history.value.datasets.push({
         label:spice.name,
-        dataset
+        data: Array.from({length:history.value.tick},(v,i)=>null)  
     })
 }
