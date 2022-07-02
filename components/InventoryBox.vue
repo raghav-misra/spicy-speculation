@@ -9,6 +9,9 @@
             <template v-for="(amount, spice) in player.inventory">
                 <h3 v-if="amount > 0">{{ spice }}: {{ amount }}</h3>
             </template>
+            <h3 v-if="Object.keys(player.inventory).length === 0">
+                You have no spices now, buy or import some.
+            </h3>
         </div>
     </div>
 </template>

@@ -120,7 +120,7 @@ export const triggerInteraction = async (npc: NPC) => {
             items: npc.shopItems || []
         }, (item, amount) => {
             const totalPrice = (item.price * amount);
-            if (totalPrice < player.value.money) {
+            if (totalPrice <= player.value.money) {
                 player.value.money -= totalPrice;
                 if(!player.value.inventory[item.name]) player.value.inventory[item.name] = 0
                 player.value.inventory[item.name] += amount;

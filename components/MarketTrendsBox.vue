@@ -17,62 +17,62 @@ function close() {
 
 let chart: Chart | null = null;
 const canvas = ref<HTMLCanvasElement>(null);
-onMounted(() => {
+onMounted(async () => {
+    await nextTick();
+    await nextTick();
+
     chart = new Chart(canvas.value.getContext("2d"), {
         type: 'line',
         data: {
             datasets: [],
             labels: [],
         },
-        options: {
-            color: "white",
-            backgroundColor: "white",
-            borderColor: "white",
-            font: {
-                family: "VT323",
-            }
-        }
     });
 
-//@ts-ignore
-window.chart = chart;
+    //@ts-ignore
+    window.chart = chart;
+    
+    await nextTick();
 
-setInterval(() => {
-    const colors = ["red", "green", "blue", "yellow", "orange"];
-    const newData = JSON.parse(JSON.stringify(history.value));
+    setInterval(() => {
+        const colors = ["red", "green", "blue", "yellow", "orange"]; 
+        const newData = JSON.parse(JSON.stringify(history.value));
 
-    // newData.datasets.forEach((d1, i) => {
-    //     const dataset = chart.data.datasets.find(d2 => d2.label === d1.label);
-    //     if (dataset) {
-    //         dataset.data.push(d1.data[d1.length - 1]);
-    //     } else {
-    //         chart.data.datasets.push({
-    //             ...d1,
-    //             borderColor: colors[i],
-    //         })
-    //     }
-    // });
+        // newData.datasets.forEach((d1, i) => {
+        //     const dataset = chart.data.datasets.find(d2 => d2.label === d1.label);
+        //     if (dataset) {
+        //         dataset.data.push(d1.data[d1.length - 1]);
+        //     } else {
+        //         chart.data.datasets.push({
+        //             ...d1,
+        //             borderColor: colors[i],
+        //         })
+        //     }
+        // });
 
-    // console.log(history.value);
-    // chart.data.labels = JSON.parse(JSON.stringify([...history.value.labels]));
+        // console.log(history.value);
+        // chart.data.labels = JSON.parse(JSON.stringify([...history.value.labels]));
 
-    chart.data = {
-        datasets: newData.datasets.map((dataset, i) => ({
-            ...dataset,
-            borderColor: colors[i],
-        })),
-        labels: newData.labels
-    };
+        chart.data = {
+            datasets: newData.datasets.map((dataset, i) => ({
+                ...dataset,
+                borderColor: colors[i],
+            })),   
+            labels: newData.labels
+        };
+
+        console.log("h1");
 
 
-    chart?.update("none");
-}, 500);
+        chart.update("none");
+    }, 500);
 });
 </script>
 
 <template>
     <div class="overlay trends-container" v-show="isShowing" @click="closeByOverlayClick">
         <div class="chart overlay-element">
+            <h1 class="allcaps white">Market Trends:</h1>
             <canvas ref="canvas"></canvas>
         </div>
     </div>
@@ -87,8 +87,12 @@ setInterval(() => {
     align-items: center;
 }
 
-canvas {
+.chart {
     width: 70%;
+}
+
+canvas {
     pointer-events: none;
+    filter: invert(1);
 }
 </style>

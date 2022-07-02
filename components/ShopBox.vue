@@ -114,14 +114,14 @@ watchEffect(() => {
 
 .store-container {
     position: fixed;
-    top: 1.5rem;
+    top: 2rem;
     bottom: 1rem;
-    left: 1.5rem;
+    left: 2rem;
     overflow: hidden;
 }
 
 .store-box {
-    width: min(max(40vw, 500px), calc(100vw - 3rem));
+    width: 600px;
 }
 
 .store-box, .store-items {

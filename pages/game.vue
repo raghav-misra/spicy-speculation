@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const shopState = useShopState();
+
 try {
     const game = usePhaser();
     initMarket();
@@ -21,13 +23,13 @@ try {
         <ExportBox style="--z: 4;" />
         <MarketTrendsBox style="--z: 4;" />
 
-        <div class="overlay-edge left-edge">
+        <div class="overlay-edge left-edge" :class="{ 'is-shop-open': shopState.isShowing }">
             <MoneyBox style="--z: 3;" />
             <InventoryBox style="--z: 3;" />
         </div>
 
         <div class="overlay-edge right-edge">
-            <NewsOpenBox style="--z: 3;" />
+            <NewsOpenBox style="--z: 4;" />
             <MarketPriceBox style="--z: 2;" />
         </div>
     </main>
@@ -52,10 +54,14 @@ try {
     left: 0;
 }
 
+.left-edge.is-shop-open {
+    left: calc(600px + 2rem);
+}
+
 .overlay-edge > .overlay-element {
     margin: 2rem;
     margin-bottom: 0;
-    width: 15rem;
+    width: 17rem;
     text-align: center;
 }
 </style>

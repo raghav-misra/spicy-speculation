@@ -14,6 +14,37 @@ const importingPortsCount = computed(
 const exportingPortsCount = computed(
     () => playerState.value.ports.filter(p => p.direction === "export").length
 );
+
+const nextPortCost = computed(() => 
+    10000 * Math.pow(5, playerState.value.ports.length - 2)
+);
+
+async function buyPort(type: "import" | "export") {
+    const portCount = type === "export" ? exportingPortsCount : importingPortsCount;
+
+    if (portCount.value === 3) {
+        portSettings.value.message = `You've reached the limit on ${type === "export" ? "outbound" :  "inbound"} ports!`;
+    } else if (playerState.value.money >= nextPortCost.value) {
+        playerState.value.money -= nextPortCost.value;
+
+        playerState.value.ports.push({
+            direction: type,
+            ship: {
+                direction: type,
+                type: "small",
+                shopItems: [],
+                name: "Battle Bus"
+            }
+        });
+
+        portSettings.value.message = `You'll have a new port tomorrow!`;
+    } else {
+        portSettings.value.message = `Ah shucks, you're broke bozo!`;
+    }
+
+    await wait(3000);
+        portSettings.value.message = null;
+}
 </script>
 
 <template>
@@ -39,6 +70,11 @@ const exportingPortsCount = computed(
                     </div>
                 </h1>
 
+                <h2 class="center">
+                    A new port will cost you
+                    <span style="color: var(--green);">${{ nextPortCost }}</span>!
+                </h2>
+
                 <hr style="--accent: white;">
 
                 <div class="description-container">
@@ -47,12 +83,18 @@ const exportingPortsCount = computed(
                             <span class="underline">Exporting</span>
                         </p>
                         <br>
+                        <h3>Ship your spices daily at market price for a profit (hopefully)!</h3>
+                        <br>
                         <p class="text small">
-                            You have {{ exportingPortsCount }} outbound ports!
+                            You have {{ exportingPortsCount }}/3 outbound ports!
                         </p>
                         <br>
 
-                        <button class="text small" style="--accent: var(--green);">
+                        <button 
+                            class="text small" 
+                            style="--accent: var(--green);"
+                            @click="buyPort('export')"    
+                        >
                             Buy a outbound port!
                         </button>
                     </div>
@@ -60,16 +102,25 @@ const exportingPortsCount = computed(
                     <div class="port-type">
                         <p>
                             <span class="underline text">Importing</span>
-                            
                         </p>
                         <br>
+                        <h3>
+                            A foreign trade ship visits your island daily to sell goods.
+                            <br>
+                            Two traders roam your island hub.
+                        </h3>
+                        <br>
                         <p class="text small">
-                            You have {{ importingPortsCount }} inbound ports!
+                            You have {{ importingPortsCount }}/3 inbound ports!
                         </p>
                         <br>
 
-                        <button class="text small" style="--accent: var(--blue);">
-                            Buy an inbound port!
+                        <button 
+                            class="text small" 
+                            style="--accent: var(--blue);"
+                            @click="buyPort('import')"    
+                        >
+                            Buy a inbound port!
                         </button>
                     </div>
                 </div>
@@ -114,6 +165,15 @@ button.overlay-element h1 {
 
 .description-container .port-type {
     flex: 1;
+}
+
+.port-type:first-of-type h3 {
+    margin-right: 2rem;
+    height: 60px;
+}
+.port-type:last-of-type h3 {
+    margin-left: 2rem;
+    height: 60px;
 }
 
 .description-container .port-type:last-of-type {
