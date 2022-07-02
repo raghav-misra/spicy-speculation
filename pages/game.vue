@@ -3,6 +3,8 @@ try {
     const game = usePhaser();
     initMarket();
     game.value.scene.start("Hub");
+    audio.bg.play()
+    audio.bg.fade(0,0.1,2000)
 } catch (error) {
     location.href = "/";
 }

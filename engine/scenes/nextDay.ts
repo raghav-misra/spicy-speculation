@@ -2,7 +2,7 @@ export default class NextDayScene extends Phaser.Scene{
     create(){
         const player = usePlayer()
         player.value.days += 1
-        
+        audio.bg.fade(0.1,0,4000)
         resetNpcs()
         
         //Stops other scenes
@@ -34,6 +34,8 @@ export default class NextDayScene extends Phaser.Scene{
         })
 
         this.time.delayedCall(5000,()=>{
+            audio.bg.seek(0)
+            audio.bg.fade(0,0.1,2000)
             nextDay()
             this.scene.start("Hub")
         })

@@ -9,6 +9,7 @@ const stocks = ref<Record<string, number>>({});
 const amount = ref(5);
 
 async function purchaseItem(item: IShopItem) {
+    audio.purchase.play();
     stocks.value[item.name]--;
     currentMessage.value = shopState.value.callback(item, amount.value);
     await wait(1500);
@@ -27,9 +28,11 @@ watchEffect(() => {
     if(shopState.value.isShowing){
         market.value.isEnabled  = false;
         playerLocked.value = true;
+        audio.openShop.play()
     }else{
         market.value.isEnabled  = true;
         playerLocked.value = false;
+        audio.close.play()
     }
 })
 </script>
