@@ -3,6 +3,8 @@ const market = useMarket()
 const shopState = useShopState();
 const currentMessage = ref<string | null>(null);
 const player = usePlayer()
+const playerLocked = useMovementLocked();
+
 async function purchaseItem(item: IShopItem) {
     currentMessage.value = shopState.value.callback(item);
     await wait(1500);
@@ -12,8 +14,10 @@ async function purchaseItem(item: IShopItem) {
 watchEffect(()=>{
     if(shopState.value.isShowing){
         market.value.isEnabled  = false;
+        playerLocked.value = true;
     }else{
         market.value.isEnabled  = true;
+        playerLocked.value = false;
     }
 })
 </script>
