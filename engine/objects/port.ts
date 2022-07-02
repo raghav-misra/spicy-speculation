@@ -33,7 +33,7 @@ export default class Port extends Phaser.GameObjects.Sprite{
         const body = this.body as MatterJS.BodyType
 
         body.onCollideCallback = (event:any) => {
-            if(event.bodyA.label != `Player` && event.bodyA.label != `port`){
+            if(event.bodyA.label != `Player` && event.bodyA.label != `port` && event.bodyA.label != `npc`){
                 //Destroy body
                 this.scene.matter.world.remove(event.bodyA)
             }else if(event.bodyA.label === `Player`){
