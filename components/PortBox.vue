@@ -31,10 +31,9 @@ const exportingPortsCount = computed(
             </header>
             <hr style="--accent: white;">
             <div class="content">
-                <h1>
+                <h1 class="center">
                     Your docks can have two types of ports:<br>
                     <div class="text">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
                         ports for <i>importing</i> and for
                         <i>exporting</i> spices.
                     </div>
@@ -43,6 +42,21 @@ const exportingPortsCount = computed(
                 <hr style="--accent: white;">
 
                 <div class="description-container">
+                    <div class="port-type">
+                        <p class="text">
+                            <span class="underline">Exporting</span>
+                        </p>
+                        <br>
+                        <p class="text small">
+                            You have {{ exportingPortsCount }} outbound ports!
+                        </p>
+                        <br>
+
+                        <button class="text small" style="--accent: var(--green);">
+                            Buy a outbound port!
+                        </button>
+                    </div>
+
                     <div class="port-type">
                         <p>
                             <span class="underline text">Importing</span>
@@ -56,21 +70,6 @@ const exportingPortsCount = computed(
 
                         <button class="text small" style="--accent: var(--blue);">
                             Buy an inbound port!
-                        </button>
-                    </div>
-
-                    <div class="port-type">
-                        <p class="text">
-                            <span class="underline">Exporting</span>
-                        </p>
-                        <br>
-                        <p class="text small">
-                            You have {{ exportingPortsCount }} outbound ports!
-                        </p>
-                        <br>
-
-                        <button class="text small" style="--accent: var(--green);">
-                            Buy a outbound port!
                         </button>
                     </div>
                 </div>
