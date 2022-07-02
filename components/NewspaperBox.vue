@@ -4,13 +4,24 @@ const newsArticles = useNewsArticles();
 
 function closeByOverlayClick(e: MouseEvent) {
     if ((e.target as HTMLElement).classList.contains("newspaper-container")) {
-        isShowing.value = false;
+        close()
     }
+}
+
+function open(){
+    isShowing.value = true;
+    audio.openNews.play()
+}
+
+
+function close(){
+    isShowing.value = false;
+    audio.close.play()
 }
 </script>
 
 <template>
-    <button class="overlay-element allcaps small white" @click="isShowing = true;">
+    <button class="overlay-element allcaps small white" @click="open">
         <h1>Island News 📖</h1>
     </button>
 
@@ -21,7 +32,7 @@ function closeByOverlayClick(e: MouseEvent) {
                 <button 
                     style="--accent: var(--red);"
                     class="text small"
-                    @click="isShowing = false;"
+                    @click="close"
                 >
                     close
                 </button>

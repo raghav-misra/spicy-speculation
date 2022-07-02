@@ -22,6 +22,8 @@ export default class Door extends Phaser.GameObjects.Rectangle{
         //Detect if player is near
         body.onCollideCallback = (event:any) => {
             if(event.bodyA.label === `Player`){
+                //@ts-ignore
+                scene.pause && scene.pause()
                 this.scene.scene.switch(to)
             }
         }

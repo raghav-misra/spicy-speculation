@@ -8,7 +8,13 @@ export default class Docks extends Phaser.Scene{
     player:Player;
     npcs:Npc[] = []
 
+    pause(){
+        audio.waves.stop()
+    }
+
     create(){
+        audio.waves.play()
+        audio.waves.fade(0,0.2,1000)
         this.buildLayers()
         this.cameras.main.roundPixels = true
 

@@ -4,6 +4,7 @@ const buttons = ref<HTMLButtonElement[]>([]);
 const playerLocked = useMovementLocked();
 
 function endDialog(responseType: string) {
+    audio.next.play()
     dialogState.value.isShowing = false;
     dialogState.value.callback(responseType);
     dialogState.value.callback = null;
@@ -18,6 +19,7 @@ onMounted(() => {
 watchEffect(()=>{
     if(dialogState.value.isShowing){
        playerLocked.value = true;
+       audio.next.play()
     }else{
        playerLocked.value = false;
     }

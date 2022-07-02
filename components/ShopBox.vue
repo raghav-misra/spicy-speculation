@@ -7,6 +7,7 @@ const playerLocked = useMovementLocked();
 
 async function purchaseItem(item: IShopItem) {
     currentMessage.value = shopState.value.callback(item);
+    audio.purchase.play();
     await wait(1500);
     currentMessage.value = null;
 }
@@ -15,9 +16,11 @@ watchEffect(()=>{
     if(shopState.value.isShowing){
         market.value.isEnabled  = false;
         playerLocked.value = true;
+        audio.openShop.play()
     }else{
         market.value.isEnabled  = true;
         playerLocked.value = false;
+        audio.close.play()
     }
 })
 </script>
