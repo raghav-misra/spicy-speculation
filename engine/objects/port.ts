@@ -76,6 +76,8 @@ export default class Port extends Phaser.GameObjects.Sprite{
                         return "Aw shucks, you're broke bozo!"
                     }
                 })
+            } else {
+                showExportDisplay(this, ship);
             }
         })
 
