@@ -1,9 +1,11 @@
 <template>
-    <div class="inventory-box content overlay-element">
-        <h2 class="allcaps">Spice Market</h2>
+    <div class="inventory-box content overlay-element small">
+        <h2 class="allcaps">Inventory</h2>
         <hr style="--accent: white;">
         <div>
-            <h3 v-for="(amount, spice) in player.inventory">{{ spice }}: {{ amount }}</h3>
+            <template v-for="(amount, spice) in player.inventory">
+                <h3 v-if="amount > 0">{{ spice }}: {{ amount }}</h3>
+            </template>
         </div>
     </div>
 </template>
