@@ -3,6 +3,16 @@ export const info = {
     island: "Isla Chipotle",
     ocean: "Ginger Sea",
     rivalNations: ["Salta Empire", "Aguarian Kingdom", "Royal Union of Renegades", "Dynasty of the Snow", "The Coastal Coalition", "Yarr! Mercenaries"],
+    shipNames:[
+         "The Trader's Union",
+         "Peptopia Charters",
+         "Seagull Shipping",
+         "Perfectly Legal Enterprises",
+         "The Royal Merchant Company",
+         "Oceanway Trading Company",
+         "Quality Shipping Solutions",
+         "Salta Trade Company"
+    ],
     fadSpices: [
         "Ginger",
         "Wolf's Spice",

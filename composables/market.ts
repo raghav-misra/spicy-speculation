@@ -106,7 +106,7 @@ export const nextDay = ()=>{
         const size = pickRandom(["med","small"]) as "med" | "small"
 
         port.ship.shopItems = []
-
+        port.ship.name = pickRandom(info.shipNames)
         const spiceName = pickRandom(market.value.prices.map(spice=>spice.name))
         port.ship.type = size
         const stock = (size === "med") ? 10000 : 1000
@@ -118,6 +118,14 @@ export const nextDay = ()=>{
             stock,
             description:info.spiceDescriptions[spiceName]
         })
+    })
+
+    //Randomally assign size and name to export ships
+    const exportPorts = usePlayer().value.ports.filter(port=>port.direction === "export")
+    exportPorts.forEach(port=>{
+        const size = pickRandom(["med","small"]) as "med" | "small"
+        port.ship.type = size
+        port.ship.name = pickRandom(info.shipNames)
     })
 }
 
