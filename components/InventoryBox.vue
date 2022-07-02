@@ -6,9 +6,16 @@
         </h2>
         <hr style="--accent: white;">
         <div>
-            <template v-for="(amount, spice) in player.inventory">
-                <h3 v-if="amount > 0">{{ spice }}: {{ amount }}</h3>
-            </template>
+            <div class="prices-container">
+                <template v-for="(amount, spice) in player.inventory">
+                    <h3 v-if="amount > 0" class="price">
+                        <span class="spice-name">{{ spice }}:</span> 
+                        <span class="price-amount">
+                            ${{ amount }}
+                        </span>
+                    </h3>
+                </template>
+            </div>
             <h3 v-if="Object.keys(player.inventory).length === 0">
                 You have no spices now, buy or import some.
             </h3>
@@ -28,5 +35,21 @@ const player = usePlayer()
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.prices-container {
+    text-align: left;
+}
+
+h3.price {
+    display: flex;
+}
+
+.spice-name {
+    margin-right: 1.5rem;
+}
+
+.price-amount {
+    margin-left: auto;
 }
 </style>

@@ -5,10 +5,17 @@
             <span class="text small">📈</span>
         </h2>
         <hr style="--accent: white;">
-        <div>
-            <h3 v-for="spice in market.prices">{{spice.name}}: ${{spice.price}}</h3>
-            <h3><a href="#" style="color: var(--green)" @click="isTrendsShowing = true;">View Trends</a></h3>
+        <div class="prices-container">
+            <h3 v-for="spice in market.prices" class="price">
+                <span class="spice-name">{{spice.name}}:</span> 
+                <span class="price-amount">
+                    ${{spice.price}}
+                </span>
+            </h3>
         </div>
+        <h3>
+            <a href="#" style="color: var(--green)" @click="isTrendsShowing = true;">View Trends</a>
+        </h3>
     </div>
 </template>
 
@@ -25,5 +32,21 @@ const isTrendsShowing = useIsMarketTrendDisplaying();
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.prices-container {
+    text-align: left;
+}
+
+h3.price {
+    display: flex;
+}
+
+.spice-name {
+    margin-right: 1.5rem;
+}
+
+.price-amount {
+    margin-left: auto;
 }
 </style>
