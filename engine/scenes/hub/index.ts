@@ -48,6 +48,7 @@ export default class Hub extends Phaser.Scene{
             `Welcome to your island's hub! 
             This is where you can trade with 
             merchants and rest after a spicy day's work.`,
+            `This is also where we have built your home. When you have finished everything for the day, you can take a rest at home until tomorrow.`,
             `Before I send you off to explore, let's go over the
             ever-competitive global spice economy that ${info.country}
             needs ${info.country}'s help to dominate.
