@@ -3,7 +3,6 @@ const shopState = useShopState();
 
 try {
     const game = usePhaser();
-    initMarket();
     game.value.scene.start("Start");
     audio.bg.play()
     audio.bg.fade(0,0.1,2000)

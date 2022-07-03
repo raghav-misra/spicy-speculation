@@ -41,7 +41,8 @@ async function buyPort(type: "import" | "export") {
                 direction: type,
                 type: "small",
                 shopItems: [],
-                name: "Battle Bus"
+                name: "Battle Bus",
+                ready:false
             }
         });
 
@@ -81,7 +82,7 @@ async function buyPort(type: "import" | "export") {
 
                 <h2 class="center">
                     A new port will cost you
-                    <span style="color: var(--green);">${{ nextPortCost }}</span>!
+                    <span style="color: var(--green);">${{ nextPortCost.toLocaleString() }}</span>!
                 </h2>
 
                 <hr style="--accent: white;">
@@ -89,10 +90,10 @@ async function buyPort(type: "import" | "export") {
                 <div class="description-container">
                     <div class="port-type">
                         <p class="text">
-                            <span class="underline">Exporting</span>
+                            <span class="underline">Outbound Port</span>
                         </p>
                         <br>
-                        <h3>Ship your spices daily at market price for a profit (hopefully)!</h3>
+                        <h3>Each port allows you to ship your spices daily at market price for a profit (hopefully)!</h3>
                         <br>
                         <p class="text small">
                             You have {{ exportingPortsCount }}/3 outbound ports!
@@ -104,19 +105,19 @@ async function buyPort(type: "import" | "export") {
                             style="--accent: var(--green);"
                             @click="buyPort('export')"    
                         >
-                            Buy a outbound port!
+                            Buy an outbound port!
                         </button>
                     </div>
 
                     <div class="port-type">
                         <p>
-                            <span class="underline text">Importing</span>
+                            <span class="underline text">Inbound Port</span>
                         </p>
                         <br>
                         <h3>
-                            A foreign trade ship visits your island daily to sell goods.
+                            Foreign ships will dock at each inbound port to sell BULK spices.
                             <br>
-                            Two traders roam your island hub.
+                            Each inbound port will also attract two traders roam your island hub.
                         </h3>
                         <br>
                         <p class="text small">
@@ -129,7 +130,7 @@ async function buyPort(type: "import" | "export") {
                             style="--accent: var(--blue);"
                             @click="buyPort('import')"    
                         >
-                            Buy a inbound port!
+                            Buy an inbound port!
                         </button>
                     </div>
                 </div>

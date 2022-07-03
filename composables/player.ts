@@ -20,7 +20,8 @@ export const usePlayer = () => useState("playerState", () => ({
             name:"Peptopia Charters",
             type:"med",
             direction:"export",
-            shopItems:[]
+            shopItems:[],
+            ready:true
         }
     },{
         direction: "import",
@@ -28,6 +29,7 @@ export const usePlayer = () => useState("playerState", () => ({
             name:"Trader's Union",
             type:"small",
             direction:"import",
+            ready:true,
             shopItems:[{
                 price:200,
                 name:"Pepper",

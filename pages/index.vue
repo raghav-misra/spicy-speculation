@@ -3,15 +3,26 @@ const router = useRouter();
 
 
 const stage = ref(0);
+const hasSave = localStorage.getItem("market") !== null;
 
 const isLeavingOnboarding = ref(false);
+
+function load(){
+    loadGame()
+    navigateTo("/game")
+}
+
+function newGame(){
+    initMarket()
+    navigateTo("/game")
+}
 
 watchEffect(async () => {
     if (stage.value === 2) {
         await wait(10000);
         isLeavingOnboarding.value = true;
         await wait(3000);
-        router.push("/game");
+        newGame()
     }
 });
 </script>
@@ -29,11 +40,12 @@ watchEffect(async () => {
                 <button class="text" style="--accent: white;" @click="stage++">
                     Play!
                 </button>
-                <nuxt-link to="/game">
-                    <button class="text" style="--accent: white;">
+                <button class="text" style="--accent: white;" @click="load">
+                        Resume Game
+                </button>
+                 <button class="text" style="--accent: white;" @click="newGame">
                         Debug
-                    </button>
-                </nuxt-link>
+                 </button>
             </div>
             <div v-else-if="stage === 1" class="charter content">
                 <h1 class="title center">Charter of {{ info.island }}</h1>

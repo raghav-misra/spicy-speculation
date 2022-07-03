@@ -67,6 +67,7 @@ export function loadGame(){
 
     if(market){
         useMarket().value = JSON.parse(market)
+        useMarket().value.stepsUntilEvent = 8
     }
     if(player){
         usePlayer().value = JSON.parse(player)

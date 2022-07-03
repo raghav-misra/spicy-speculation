@@ -166,5 +166,9 @@ export default class Port extends Phaser.GameObjects.Sprite{
             ...ship
         })
         this.shipObject.setDepth(5-index)
+
+        if(!ship.ready){
+            this.shipObject.sail(direction)
+        }
     }   
 }
