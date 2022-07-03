@@ -2,6 +2,13 @@
 const market = useMarket();
 const isTrendsShowing = useIsMarketTrendDisplaying();
 const overlayState = useOverlayState();
+
+watchEffect(async () => {
+    if (overlayState.value.marketPriceBox.isPulsing) {
+        await wait(info.pulseWait);
+        overlayState.value.marketPriceBox.isPulsing = false;
+    }
+});
 </script>
 
 <template>

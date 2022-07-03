@@ -1,6 +1,13 @@
 <script setup lang="ts">
 const player = usePlayer()
 const overlayState = useOverlayState();
+
+watchEffect(async () => {
+    if (overlayState.value.moneyBox.isPulsing) {
+        await wait(info.pulseWait);
+        overlayState.value.moneyBox.isPulsing = false;
+    }
+});
 </script>
 
 <template>

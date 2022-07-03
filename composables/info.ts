@@ -37,5 +37,6 @@ export const info = {
         "Queen's Herb": "A very rare herb that is said to be a source of great power.",
         "Kibuseed": "A mysterious spice that packs a wild flavor.",
         "Vanilla": "A luxurious spice enjoyed by the rich and powerful."
-    }
+    },
+    pulseWait: 4000,
 };

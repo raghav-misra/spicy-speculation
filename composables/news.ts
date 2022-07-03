@@ -8,9 +8,11 @@ export const useNewsArticles = () => useState<INewsArticle[]>("newsArticles", ()
 export const useIsNewspaperOpen = () => useState("isNewspaperOpen", () => false);
 export const addNewsArticle = (article: Omit<INewsArticle, "day">) => {
     const newsArticles = useNewsArticles();
-    const day = usePlayer().value.days
+    const day = usePlayer().value.days;
     newsArticles.value.unshift({
         ...article,
-        day:day
-    })
+        day,
+    });
+    const overlay = useOverlayState();
+    overlay.value.newsOpenBox.isPulsing = true;
 };
