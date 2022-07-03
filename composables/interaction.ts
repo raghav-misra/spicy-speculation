@@ -119,6 +119,7 @@ export const triggerInteraction = async (npc: NPC) => {
         }
     }
 
+        npc.updateShopPrices()
         showShop({
             title: `${name}'s Shop`,
             //@ts-ignore
