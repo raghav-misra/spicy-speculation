@@ -64,7 +64,7 @@ watchEffect(() => {
                             <span>{{ item.name }}</span>
 
                             <span class="text small">
-                                ({{ item.stock - stocks[item.name] }}/{{ item.stock }})
+                                ({{item.stock}} left)
                             </span>
 
                             <span class="text">|</span>
