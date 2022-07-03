@@ -80,7 +80,10 @@ async function buyPort(type: "import" | "export") {
                     </div>
                 </h1>
 
-                <h2 class="center">
+                <h2 class="center" v-if="exportingPortsCount === 3 && importingPortsCount === 3">
+                    You've reached the limit on both ports!
+                </h2>
+                <h2 class="center" v-else>
                     A new port will cost you
                     <span style="color: var(--green);">${{ nextPortCost.toLocaleString() }}</span>!
                 </h2>
