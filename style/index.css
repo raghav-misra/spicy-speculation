@@ -13,6 +13,7 @@
     --black: #342e37;
     --brown: #cd977a;
     --blue: #4192f6;
+    --blue-light: #9dc9ff;
     --red: #eb5959;
     --green: rgb(132, 198, 74);
 }
@@ -85,7 +86,7 @@ html {
     background: white;
 }
 
-main, body {
+body {
     animation: fade-in 0.75s;
 }
 
@@ -137,4 +138,17 @@ main, body {
         transform: scale(0.9);
         opacity: 0;
     }
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.is-pulsing {
+    box-shadow: 0 -10px 50px var(--blue);
+    animation: pulse 0.75s ease-in 0s infinite, shadow-anim 10s;
+    transition: 0.75s box-shadow, 0.75s border-color;
+    border-color: var(--blue-light);
 }

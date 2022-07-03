@@ -8,7 +8,7 @@ const hint = useState<string>("hint")
             <span 
                 class="text" 
             >
-                {{ hint }}
+                {{ hint }}!
             </span>
         </div>
     </div>

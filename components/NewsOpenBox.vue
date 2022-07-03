@@ -7,6 +7,12 @@ function open(){
     audio.openNews.play()
 }
 
+watchEffect(async () => {
+    if (overlayState.value.newsOpenBox.isPulsing) {
+        await wait(info.pulseWait);
+        overlayState.value.newsOpenBox.isPulsing = false;
+    }
+});
 </script>
 
 <template>
