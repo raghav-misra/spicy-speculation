@@ -207,7 +207,7 @@ function discoverNewSpice(){
     if(potentialNext.length === 0) return
 
     const spice = pickRandom(potentialNext)
-
+    addNewsArticle(`New Spice Discovered: ${spice.name}! ${info.spiceDescriptions[spice.name]}`)
     if(spice.type === "stable"){
         const price = randomInteger(100,200)
         market.value.prices.push({
