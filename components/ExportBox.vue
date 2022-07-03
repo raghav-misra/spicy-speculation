@@ -154,7 +154,7 @@ async function startExport() {
                         <p 
                             class="text" 
                             style="color: var(--green)">
-                            +${{ spiceAmount[1] * market.prices.find(p => p.name === spiceAmount[0]).price }}
+                            +${{ (spiceAmount[1] * market.prices.find(p => p.name === spiceAmount[0]).price).toLocaleString() }}
                         </p>
                     </div>
 
