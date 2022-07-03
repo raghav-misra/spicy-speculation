@@ -10,8 +10,15 @@ const amount = ref(1);
 
 async function purchaseItem(item: IShopItem) {
     audio.purchase.play();
-    stocks.value[item.name] -= amount.value;
-    currentMessage.value = shopState.value.callback(item, amount.value);
+    if (amount.value > stocks[item.name]) {
+        currentMessage.value = `Whoops! You can't buy that much ${item.name}`;
+    } else {
+        currentMessage.value = shopState.value.callback(item, amount.value);
+        if (!currentMessage.value.includes("bozo")) {
+            stocks.value[item.name] -= amount.value;
+        }
+    }
+    
     await wait(1500);
     currentMessage.value = null;
 }
@@ -64,14 +71,19 @@ watchEffect(() => {
                                 Amount:
                             </span>
 
-                            <input 
+                            <select 
                                 v-model.number="amount"
                                 class="text small"
                                 type="number" 
                                 min="1"
                                 :max="stocks[item.name]"
                                 style="--accent: white; width: 5rem;"
-                            />
+                            >
+                                <option value="1">1</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="100">100</option>
+                            </select>
 
                             
                         </h2>
