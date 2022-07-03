@@ -51,7 +51,7 @@ export default class Hub extends Phaser.Scene{
             `This is also where we have built your home. When you have finished everything for the day, you can take a rest at home until tomorrow.`,
             `Before I send you off to explore, let's go over the
             ever-competitive global spice economy that ${info.country}
-            needs ${info.country}'s help to dominate.
+            needs ${info.island}'s help to dominate.
             `
         ]);
 

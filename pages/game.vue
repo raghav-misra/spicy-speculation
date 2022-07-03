@@ -14,7 +14,7 @@ try {
 <template>
     <main class="overlay" style="pointer-events: none;">
         <DialogBox style="--z: 0;" />
-        <HintBox style="--z: 1;" />
+        <HintBox style="--z: -1;" />
         <ShopBox style="--z: 2;" />
         
         <NewspaperBox style="--z: 4;" /> 
@@ -25,6 +25,7 @@ try {
         <div class="overlay-edge left-edge" :class="{ 'is-shop-open': shopState.isShowing }">
             <MoneyBox style="--z: 3;" />
             <InventoryBox style="--z: 3;" />
+            <NotepadBox style="--z: 3;" />
         </div>
 
         <div class="overlay-edge right-edge">
