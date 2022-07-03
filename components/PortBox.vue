@@ -41,7 +41,8 @@ async function buyPort(type: "import" | "export") {
                 direction: type,
                 type: "small",
                 shopItems: [],
-                name: "Battle Bus"
+                name: "Battle Bus",
+                ready:false
             }
         });
 

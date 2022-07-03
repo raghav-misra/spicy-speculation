@@ -79,6 +79,7 @@ async function startExport() {
     // Turn off display UI:
     exportSettings.value.isShowing = false;
     exportSettings.value.port.shipObject.sail("export");
+    exportSettings.value.ship.ready = false;
     market.value.isEnabled = true;
     lockPlayer.value = false;
 

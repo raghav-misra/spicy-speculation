@@ -9,7 +9,8 @@ export interface ShipState{
     direction: 'import'|'export',
     type: 'med'|'small',
     name: string,
-    shopItems:IShopItem[]
+    shopItems:IShopItem[],
+    ready:boolean
 }
 
 export default class Ship extends Phaser.GameObjects.Sprite{
