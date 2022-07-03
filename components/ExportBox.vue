@@ -125,12 +125,14 @@ async function startExport() {
                         v-for="(spiceAmount, i) of exportAmounts"
                     >
                         <select class="text" v-model="spiceAmount[0]">
-                            <option
-                                v-for="name in Object.keys(playerState.inventory)"
-                                :value="name"
-                            >
-                                {{ name }}:
-                            </option>
+                            <template v-for="name in Object.keys(playerState.inventory)">
+                                <option
+                                    v-if="playerState.inventory[name] > 0"
+                                    :value="name"
+                                >
+                                    {{ name }}:
+                                </option>
+                            </template>
                         </select>
 
                         <input 
@@ -138,6 +140,7 @@ async function startExport() {
                             class="text"
                             v-model.number="spiceAmount[1]" 
                             min="1"
+                            :max="playerState.inventory[spiceAmount[0]]"
                         />
 
                         <button 

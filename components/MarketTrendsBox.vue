@@ -22,6 +22,8 @@ watchEffect(()=>{
     }
 })
 
+const colors = ['#3772ff', '#b5446e', '#2a9d8f', '#ffc857', '#f0e7d8', '#ed6a5e', '#861388', '#64a6bd', '#8cb369', '#4f345a', '#8783d1']; 
+
 let chart: Chart | null = null;
 const canvas = ref<HTMLCanvasElement>(null);
 onMounted(async () => {
@@ -51,7 +53,7 @@ onMounted(async () => {
     await nextTick();
 
     setInterval(() => {
-        const colors = ["red", "green", "blue", "yellow", "orange"]; 
+        
         const newData = JSON.parse(JSON.stringify(history.value));
 
         // newData.datasets.forEach((d1, i) => {
