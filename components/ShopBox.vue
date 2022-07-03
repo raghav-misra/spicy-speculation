@@ -10,8 +10,9 @@ const amount = ref(1);
 
 async function purchaseItem(item: IShopItem) {
     audio.purchase.play();
-    if (amount.value > stocks[item.name]) {
-        currentMessage.value = `Whoops! You can't buy that much ${item.name}`;
+    console.log(item);
+    if (amount.value > stocks.value[item.name]) {
+        currentMessage.value = `Whoops! You can't buy that much ${item.name}!`;
     } else {
         currentMessage.value = shopState.value.callback(item, amount.value);
         if (!currentMessage.value.includes("bozo")) {
@@ -76,7 +77,6 @@ watchEffect(() => {
                                 class="text small"
                                 type="number" 
                                 min="1"
-                                :max="stocks[item.name]"
                                 style="--accent: white; width: 5rem;"
                             >
                                 <option value="1">1</option>

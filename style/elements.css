@@ -50,5 +50,5 @@ button:disabled {
 }
 
 option {
-    color: var(--black);
+    color: var(--black) !important;
 }
