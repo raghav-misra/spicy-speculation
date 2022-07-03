@@ -19,7 +19,7 @@ export default class NextDayScene extends Phaser.Scene{
         })
         this.tweens.add({
             targets:text,
-            duration:5000,
+            duration:200,
             alpha:0
         })
 

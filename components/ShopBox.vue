@@ -10,7 +10,6 @@ const amount = ref(1);
 
 async function purchaseItem(item: IShopItem) {
     audio.purchase.play();
-    console.log(item);
     if (amount.value > stocks.value[item.name]) {
         currentMessage.value = `Whoops! You can't buy that much ${item.name}!`;
     } else {

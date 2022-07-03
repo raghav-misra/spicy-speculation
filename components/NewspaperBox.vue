@@ -73,6 +73,11 @@ button.overlay-element h1 {
     align-items: center;
 }
 
+.article-container {
+    height: 500px;
+    overflow-y: scroll;
+}
+
 .newspaper {
     width: min(max(80vw, 500px), calc(100%));
 }
