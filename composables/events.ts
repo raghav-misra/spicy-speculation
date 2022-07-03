@@ -43,10 +43,7 @@ export function stepEvent(){
     event.value.currentPhase = nextStep
     if(nextStep){
         //Add to news
-        addNewsArticle({
-            title:event.value.currentPhase.headline,
-            text:"bruh",
-        })
+        addNewsArticle(event.value.currentPhase.headline)
         //Add trend to spices
         market.value.prices.forEach(p=>{
             p.trend = nextStep.genTrend(p)

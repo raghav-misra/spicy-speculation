@@ -1,9 +1,19 @@
 <script setup lang="ts">
 const router = useRouter();
 
-
 const stage = ref(0);
 const hasSave = localStorage.getItem("market") !== null;
+
+const spiceImages = Object.values({
+    "Pepper": "pepper.png",
+    "Saffron": "saffron.png",
+    "Cardamom": "cardamom.png",
+    "Fortnite": "wolf.png",
+    "Cinnamon": "cinnamon.png",
+    "Dragon Petals": "dragon_petals.png",
+    "Queen's Herb": "queen.png",
+    "Kibuseed": "kibuseed.png",
+});
 
 const isLeavingOnboarding = ref(false);
 
@@ -18,7 +28,12 @@ function newGame(){
 }
 
 watchEffect(async () => {
+    if (stage.value === 1) {
+        await wait(325);
+        audio.openNews.play();
+    }
     if (stage.value === 2) {
+        audio.waves.play();
         await wait(10000);
         isLeavingOnboarding.value = true;
         await wait(3000);
@@ -28,24 +43,41 @@ watchEffect(async () => {
 </script>
 
 <template>
+
     <div class="overlay onboarding">
+        <div class="overlay spice-overlay" style="z-index: -1;">
+            <div class="image-background">
+                <div v-for="spiceImage in spiceImages.slice(0, 4)">
+                    <img :src="`/spices/${spiceImage}`">
+                </div>
+            </div>
+
+            <div class="image-background">
+                <div v-for="spiceImage in spiceImages.slice(4, 8)">
+                    <img :src="`/spices/${spiceImage}`">
+                </div>
+            </div>
+        </div>
+
         <Transition name="list" mode="out-in">
             <div v-if="stage === 0" class="center splash">
-                <img class="logo" src="~~/assets/ship.png">
-                <h1 class="title white big">
-                    Spice Race
-                </h1>
-                <br>
+                <div class="contain">
+                    <img class="logo" src="/sprites/ship_med.png">
+                    <br><br>
+                    <h1 class="title white big">
+                        Spice Race
+                    </h1>
+                    <br><br>
 
-                <button class="text" style="--accent: white;" @click="stage++">
-                    Play!
-                </button>
-                <button class="text" style="--accent: white;" @click="load">
-                        Resume Game
-                </button>
-                 <button class="text" style="--accent: white;" @click="newGame">
-                        Debug
-                 </button>
+                    <div class="play-buttons">
+                        <button class="text" style="--accent: var(--green);" @click="stage++">
+                            New Game
+                        </button>
+                        <button class="text" style="--accent: var(--brown); margin-left: 1rem;" @click="load" v-if="hasSave">
+                            Continue
+                        </button>
+                    </div>
+                </div>
             </div>
             <div v-else-if="stage === 1" class="charter content">
                 <h1 class="title center">Charter of {{ info.island }}</h1>
@@ -91,16 +123,54 @@ watchEffect(async () => {
                     </h1>
                 </div>
 
-                <img src="~~/assets/ship.png" class="ship">
+                <img src="/sprites/ship_med.png" class="ship">
             </div>
         </Transition>
     </div>
 </template>
 
 <style>
+.spice-overlay {
+    opacity: 0.75;
+    display: flex;
+    align-items: stretch;
+}
+
+.contain {
+    border: 2px white solid;
+    padding: 4rem;
+    background-color: var(--black);
+    border-radius: 20px;
+    /* box-shadow: 0 0 25px black; */
+}
+
+.image-background {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    flex: 1;
+    animation: rotate-spice 7.5s infinite linear;
+}
+
+@keyframes rotate-spice {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.image-background > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-background img {
+    height: 20vh;
+    animation: rotate-spice 7.5s infinite linear reverse;
+}
+
 .logo {
     max-height: 50vh;
-    filter: invert(1) brightness(1) drop-shadow(0 0 50px var(--blue));
+    /* filter: invert(1) brightness(1) drop-shadow(0 0 50px var(--blue)); */
 }
 
 .splash {
@@ -146,9 +216,9 @@ watchEffect(async () => {
 }
 
 .ship {
-    width: 200px;
-    filter: invert(1) brightness(1) drop-shadow(0 0 50px var(--blue));
+    width: 300px;
     top: calc(50% - 25px);
+    transform: scaleX(-1);
 
     position: fixed;
     z-index: 70;
@@ -177,7 +247,7 @@ watchEffect(async () => {
 
 .list-enter-active,
 .list-leave-active {
-    transition: all 0.25s ease;
+    transition: all 0.5s ease;
 }
 .list-enter-from,
 .list-leave-to {
@@ -203,7 +273,7 @@ watchEffect(async () => {
 
 @keyframes rise-fall {
     50% {
-        transform: translateY(100px) scale(0.95);
+        transform: translateY(-100px) scaleX(-0.95) scale(0.95);
     }
 }
 </style>
