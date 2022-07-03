@@ -1,16 +1,15 @@
 interface INewsArticle {
     title: string;
     day: number;
-    text: string;
 }
 
 export const useNewsArticles = () => useState<INewsArticle[]>("newsArticles", () => []);
 export const useIsNewspaperOpen = () => useState("isNewspaperOpen", () => false);
-export const addNewsArticle = (article: Omit<INewsArticle, "day">) => {
+export const addNewsArticle = (title: string) => {
     const newsArticles = useNewsArticles();
     const day = usePlayer().value.days;
     newsArticles.value.unshift({
-        ...article,
+        title,
         day,
     });
     const overlay = useOverlayState();

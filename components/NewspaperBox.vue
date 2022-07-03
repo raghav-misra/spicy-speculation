@@ -34,12 +34,9 @@ function close(){
                         {{ article.title }}
                         — <i class="allcaps">day {{ article.day }}</i>
                     </h1>
-                    <p class="text small">
-                        {{ article.text }}
-                    </p>
                 </article>
                 <article v-if="newsArticles.length === 0">
-                    <h1>
+                    <h1 class="text">
                         Nothing here yet, keep exploring!
                     </h1>
 
