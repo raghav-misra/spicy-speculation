@@ -8,6 +8,8 @@ const playerLocked = useMovementLocked();
 const stocks = ref<Record<string, number>>({});
 const amount = ref(1);
 
+const choiceItems = [1, 5, 10, 100]
+
 async function purchaseItem(item: IShopItem) {
     audio.purchase.play();
     if (amount.value > stocks.value[item.name]) {
@@ -78,10 +80,14 @@ watchEffect(() => {
                                 min="1"
                                 style="--accent: white; width: 5rem;"
                             >
-                                <option value="1">1</option>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="100">100</option>
+                                <template v-for="count of choiceItems">
+                                    <option v-if="count <= stocks[item.name]">
+                                        {{ count }}
+                                    </option>
+                                </template>
+                                <option :value="stocks[item.name]">
+                                    {{ stocks[item.name] }}
+                                </option>
                             </select>
 
                             
