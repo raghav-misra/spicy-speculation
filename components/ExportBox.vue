@@ -47,7 +47,7 @@ async function startExport() {
             Your ship isn't built for that much spice!
             (You tried to load ${sum} spices,
             but ${exportSettings.value.ship.name} can only carry ${max}).`;
-        await wait(3000);
+        await wait(5000);
         exportSettings.value.message = null;
         return;
     }
@@ -56,12 +56,12 @@ async function startExport() {
     for (const spice in finalExports) {
         const amount = finalExports[spice];
 
-        if (amount > playerState.value.inventory[spice]) {
+        if (amount > playerState.value.inventory[spice] || amount <= 0) {
             exportSettings.value.message = `
                 You don't have that much ${spice} to export! 
                 (You have ${playerState.value.inventory[spice]} ${spice} in total,
                 but tried to export ${amount}).`;
-            await wait(3000);
+            await wait(5000);
             exportSettings.value.message = null;
             return;
         }
