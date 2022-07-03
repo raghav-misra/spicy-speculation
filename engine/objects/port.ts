@@ -85,6 +85,8 @@ export default class Port extends Phaser.GameObjects.Sprite{
                         player.value.money -= totalPrice;
                         if(!player.value.inventory[item.name]) player.value.inventory[item.name] = 0
                         player.value.inventory[item.name] += amount;
+                        const indexToUpdate = ship.shopItems.findIndex(f => f.name === item.name);
+                        ship.shopItems[indexToUpdate].stock -= amount;
                         return "Thanks for that.";
                     } else {
                         return "Aw shucks, you're broke bozo!"

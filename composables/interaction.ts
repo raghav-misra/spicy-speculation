@@ -129,6 +129,8 @@ export const triggerInteraction = async (npc: NPC) => {
                 player.value.money -= totalPrice;
                 if(!player.value.inventory[item.name]) player.value.inventory[item.name] = 0
                 player.value.inventory[item.name] += amount;
+                const indexToUpdate = npc.shopItems.findIndex(f => f.name === item.name);
+                npc.shopItems[indexToUpdate].stock -= amount;
                 return "Thanks for that.";
             } else {
                 return "Aw shucks, you're broke bozo!"
