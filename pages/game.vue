@@ -13,7 +13,7 @@ try {
 
 <template>
     <main class="overlay" style="pointer-events: none;">
-        <DialogBox style="--z: 1;" />
+        <DialogBox style="--z: 0;" />
         <HintBox style="--z: 1;" />
         <ShopBox style="--z: 2;" />
         
