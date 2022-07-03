@@ -25,7 +25,10 @@ export function stepEvent(){
     const market = useMarket()
 
     //@TODO: Add in a random chance for diff events to occur
-    if(!event.value) event.value = genWarEvent(pickRandom(info.rivalNations))
+    if(!event.value) event.value = pickRandom([
+        genBlizzardEvent(),
+        genWarEvent(pickRandom(info.rivalNations))
+  ])
 
     event.value.currentStep++
 
@@ -251,3 +254,140 @@ function genWarEvent(enemyName:string){
 }
 
 //Blizzard event
+function genBlizzardEvent(){
+    const blizzardEvent:Event = {
+        name: "Blizzard",
+        currentStep: 0,
+        phases: [{
+            step: 0,
+            chance:1,
+            headline: `Winter projected to last EXTRA long this year.`,
+            dialogBank: [
+                `It's been quite chilly around here lately.`,
+                `The water around ${info.island} has been pretty cold recently.`,
+                `I can't wait to see the frozen lakes back in ${info.country}`,
+                `With this cold weather, spices are a great way to keep the people warm.`,
+                `Does it ever snow in ${info.island}?`,
+                `It's getting colder. While some people don't like it, I do because it makes my spices more lucrative`
+            ],
+            //Up the price of all spices, surge Cardamom
+            genTrend(spice){
+                const price = spice.price
+                const winterSurge = ["Cardamon","Wolf's Spice"]
+                const isWarSpice = winterSurge.includes(spice.name)
+                const min = (isWarSpice) ? 100 : 10
+                const max = (isWarSpice) ? 200 : 25
+
+                const price1 = price + randomInteger(min,max)
+                const price2 = price1 + randomInteger(min,max)
+                const price3 = price2 + randomInteger(min,max)
+                const price4 = price3 + randomInteger(min,max)
+
+                return normalizeTrend([price1, price2,price3,price4])
+            }
+        },{
+            step: 1,
+            headline: `${info.country} receives HEAVY snowfall.`,
+            chance: 0.7,
+            dialogBank: [
+                `Do you know how to make cardamom tea? It's very popular during cold winters.`,
+                `I'm sure ${info.country} could use a lot of spice to stay warm.`,
+                `${info.island} is a great place to escape the snow! It's sunny year round.`,
+                `I just came from ${info.country}... there's so much snow!`
+            ],
+            //Up the price of all spices, surge Cardamom
+            genTrend(spice){
+            const price = spice.price
+            const winterSurge = ["Cardamon","Wolf's Spice"]
+            const isWarSpice = winterSurge.includes(spice.name)
+            const min = (isWarSpice) ? 100 : 10
+            const max = (isWarSpice) ? 200 : 25
+
+            const price1 = price + randomInteger(min,max)
+            const price2 = price1 + randomInteger(min,max)
+            const price3 = price2 + randomInteger(min,max)
+            const price4 = price3 + randomInteger(min,max)
+
+            return normalizeTrend([price1, price2,price3,price4])
+            }
+        },{
+            step: 1,
+            chance:0.3,
+            endsEvent: true,
+            headline: `Weather predictions WRONG ${info.country} expected to receive EARLY Spring Season`,
+            dialogBank: [
+                `I stocked up on a ton of Cardamom... what am I doing?`,
+                `It turns out the winter season was cut short in ${info.country}.`,
+                `Did you see that the weather forecast was wrong? This is why I never read the FAKE news.`,
+                `I'm thinking of selling all of my excess firewood. I won't need it anymore...`,
+                `I guess the weather was too spicy for the winter haha.`
+            ],
+            //Down the price of all spices, crash Cardamom
+            genTrend(spice){
+                const price = spice.price
+                const winterCrash = ["Cardamon","Wolf's Spice"]
+                const isWinterSpice = winterCrash.includes(spice.name)
+                const min = (isWinterSpice) ? -100 : -10
+                const max = (isWinterSpice) ? -200 : -25
+
+                const price1 = price + randomInteger(min,max)
+                const price2 = price1 + randomInteger(min,max)
+                const price3 = price2 + randomInteger(min,max)
+                const price4 = price3 + randomInteger(min,max)
+
+                return normalizeTrend([price1, price2,price3,price4])
+            }
+        },{
+            step: 2,
+            headline: `HUGE BLIZZARD burries ${info.country}!`,
+            chance: 1,
+            dialogBank: [
+                `I'm so sorry for ${info.country}... I can't imagine what it would be like living under a Blizzard.`,
+                `This blizzard is our chance as spice traders to make HUGE profits off of the suffering of others!!!!`,
+                `Thank goodness we have ${info.island} to escape the blizzard.`,
+                `I'm selling all of my Wolf's Spice. It's going to save people's lives when it reaches the Blizzard in ${info.country}.`
+            ],
+            //Surge all spices
+            genTrend(spice){
+                const price = spice.price
+                const min = 50
+                const max = 100
+
+                const price1 = price + randomInteger(min,max)
+                const price2 = price1 + randomInteger(min,max)
+                const price3 = price2 + randomInteger(min,max)
+                const price4 = price3 + randomInteger(min,max)
+
+                return normalizeTrend([price1, price2,price3,price4])
+            }
+        },{
+            step:3,
+            headline: `Spice overflow MELTS Blizzard in ${info.country}!`,
+            chance: 1,
+            endsEvent: true,
+            dialogBank: [
+                `Us spice traders have a huge impact on the world if we can make Blizzards disappear.`,
+                `It looks like the snow in ${info.country} is going to melt soon. I'll be sailing there shortly!`,
+                `Did you see the power of the blizzard? The damages it caused are huge!`,
+                `The chill of the blizzard was no match for the spice of global trade.`
+            ],
+        //Down the price of all spices, crash Cardamom and Wolf's Spice
+        genTrend(spice){
+            const price = spice.price
+            const winterCrash = ["Cardamon","Wolf's Spice"]
+            const isWinterSpice = winterCrash.includes(spice.name)
+            const min = (isWinterSpice) ? -100 : -10
+            const max = (isWinterSpice) ? -200 : -25
+
+            const price1 = price + randomInteger(min,max)
+            const price2 = price1 + randomInteger(min,max)
+            const price3 = price2 + randomInteger(min,max)
+            const price4 = price3 + randomInteger(min,max)
+
+            return normalizeTrend([price1, price2,price3,price4])
+        }
+    }]
+  }
+
+  return blizzardEvent
+}
