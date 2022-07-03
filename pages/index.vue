@@ -65,10 +65,13 @@ watchEffect(async () => {
                     <img class="logo" src="/sprites/ship_med.png">
                     <br><br>
                     <h1 class="title white big">
-                        Spice Race
+                        Spicy Speculation
                     </h1>
+                    <br>
+                    <h2 class="text white">
+                        Manage a bustling outpost in the heart of the global spice trade.
+                    </h2>
                     <br><br>
-
                     <div class="play-buttons">
                         <button class="text" style="--accent: var(--green);" @click="stage++">
                             New Game
