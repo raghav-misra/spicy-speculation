@@ -146,9 +146,11 @@ export default class Docks extends Phaser.Scene{
 
         lockPlayer.value = true
         await showConversation(info.tutorialName,[
-            "These are the ports you can import and export spices from.",
-            "Ports on the LEFT are for exporting. You can sell spices here!",
-            "Ports on the RIGHT are for importing. You can buy spices here!",
+            "How does one turn an island into a trading hub?",
+            "It's simple! Buy and sell spices to make money!",
+            "For example, to buy spices you can talk with traders roaming around the island.",
+            "You can also check out ports on the RIGHT which will sell spices in BULK quantities.",
+            "When the time is right, you can use ports on the LEFT to sell spices!",
             "We have provided two ports for you to use, but you are free to upgrade your docks to add more ports!"
         ])
         lockPlayer.value = false

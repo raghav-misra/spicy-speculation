@@ -40,7 +40,7 @@ export default class Builder extends Phaser.GameObjects.Sprite{
             const hint = useState("hint")
             if(event.bodyA.label === "Player" || event.bodyB.label === "Player"){
                 this.isNearPlayer = true
-                hint.value = "Press T to modify your port"
+                hint.value = "Press T to upgrade your ports"
             }
         }
         this.interactBody.onCollideEndCallback = (event:any) => {
