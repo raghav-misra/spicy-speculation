@@ -77,14 +77,14 @@ export default class NPC extends Phaser.GameObjects.Sprite{
          //Detect if player is near
         this.interactBody.onCollideCallback = (event:any) => {
             const hint = useState("hint")
-            if(event.bodyA.label === "Player"){
+            if(event.bodyA.label === "Player" || event.bodyB.label === "Player"){
                 this.isNearPlayer = true
                 hint.value = "Press T to talk"
             }
         }
         this.interactBody.onCollideEndCallback = (event:any) => {
             const hint = useState("hint")
-            if(event.bodyA.label === "Player"){
+            if(event.bodyA.label === "Player" || event.bodyB.label === "Player"){
                 this.isNearPlayer = false
                 hint.value = null
                 

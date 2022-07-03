@@ -14,7 +14,6 @@ export default class Hub extends Phaser.Scene{
         this.cameras.main.setBounds(0,0,2464,864)
         this.matter.world.setBounds(0,0,2464,864)
         
-        this.player = new Player(this,1071,82)
         new PlayerHouse(this)
 
         this.spawnNpcs()
@@ -23,7 +22,10 @@ export default class Hub extends Phaser.Scene{
         
         if (playerState.value.isTutorial) {
             this.startTutorial();
-        } 
+            this.player = new Player(this,1071,82)
+        } else{
+            this.player = new Player(this,803,439)
+        }
 
         //To Docks
         new Door({

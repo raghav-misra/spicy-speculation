@@ -15,13 +15,13 @@ export default class PlayerHouse extends Phaser.GameObjects.Rectangle{
 
         //Detect if player is near
         body.onCollideCallback = (event:any) => {
-            if(event.bodyA.label === "Player"){
+            if(event.bodyA.label === "Player" || event.bodyB.label === "Player"){
                 this.isNearPlayer = true
                 hint.value = "Press T to sleep until tomorrow"
             }
         }
         body.onCollideEndCallback = (event:any) => {
-            if(event.bodyA.label === "Player"){
+            if(event.bodyA.label === "Player" || event.bodyB.label === "Player"){
                 this.isNearPlayer = false
                 hint.value = null
                 

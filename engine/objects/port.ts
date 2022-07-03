@@ -48,7 +48,7 @@ export default class Port extends Phaser.GameObjects.Sprite{
         }
 
         body.onCollideEndCallback = (event:any) => {
-            if(event.bodyA.label === "Player"){
+            if(event.bodyA.label === "Player" || event.bodyB.label === "Player"){
                 this.isNearPlayer = false
                 hint.value = null
                 
