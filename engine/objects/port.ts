@@ -67,7 +67,7 @@ export default class Port extends Phaser.GameObjects.Sprite{
             
             if(ship.direction === 'import'){
                 //If doing tutorial do not allow import
-                if(!market.value.isEnabled){
+                if(player.value.isTutorial){
                     showConversation("The Trader's Union",[
                         "Hey! I'm sorry, but this ship is closed right now.",
                         "I mean literally closed... the captain accidently dropped the key somewhere in our pepper pile.",
@@ -92,7 +92,7 @@ export default class Port extends Phaser.GameObjects.Sprite{
                 })
             } else {
                  //If doing tutorial do not allow export
-                 if(!market.value.isEnabled){
+                 if(player.value.isTutorial){
                     showConversation(ship.name,[
                         "We will be ready for you when you want to sell spices!"
                     ])
