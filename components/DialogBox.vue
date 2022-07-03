@@ -2,6 +2,7 @@
 const dialogState = useDialogState();
 const buttons = ref<HTMLButtonElement[]>([]);
 const playerLocked = useMovementLocked();
+const isButtonsDisabled = ref(true);
 
 function endDialog(responseType: string) {
     audio.next.play()
@@ -16,10 +17,13 @@ onMounted(() => {
     }
 });
 
-watchEffect(()=>{
+watchEffect(async ()=>{
     if(dialogState.value.isShowing){
        playerLocked.value = true;
        audio.next.play()
+       isButtonsDisabled.value = true;
+       await wait(1000);
+       isButtonsDisabled.value = false;
     }else{
        playerLocked.value = false;
     }
@@ -42,9 +46,10 @@ watchEffect(()=>{
                 <button 
                     v-for="(btn, i) in dialogState.buttons"
                     :ref="el => buttons.push(el as HTMLButtonElement)"
-                    :style="`--accent: ${btn.accent};`"
+                    :style="`--accent: ${btn.accent}; opacity: ${isButtonsDisabled ? 0.25 : 1} !important;`"
                     class="text"
                     @click="endDialog(btn.id)"
+                    :disabled="isButtonsDisabled"
                 >
                     {{ btn.text }}
                 </button>
